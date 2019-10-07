@@ -3,7 +3,8 @@ $(document).ready(function () {
     //////////////////////////////////////////////////////////////////////////////////////
     //            tabulation
     //////////////////////////////////////////////////////////////////////////////////////
-    $(document).on('click', '.nav-tabs li', function (){
+    $(document).on('click', '.nav-tabs li', function (event){
+        event.preventDefault();
         $('.nav-tabs li').removeClass('active');
         $('.tab-pane').removeClass('active');
         var newId = $(this).find('a').attr('aria-controls')
@@ -14,6 +15,19 @@ $(document).ready(function () {
         var trWidth = $('.tab-content').width() / 2;
         $('.full-description table td').css({'width': trWidth})
     });
+
+    setTimeout(function () {
+        if (location.hash) {
+            window.scrollTo(0, 0);
+        }
+    }, 1);
+
+
+    // click on img
+    $(document).on('click', '.item_img', function (event){
+        event.preventDefault();
+    })
+
 
     //////////////////////////////////////////////////////////////////////////////////////
     //                   display description
@@ -38,7 +52,7 @@ $(document).ready(function () {
         $('.delete-empty').remove();
         $('.product-item--action img').css({'display':'none'});
         $('.product-item--old-price').css({'display':'none'});
-        $('.product-item--price').css({'margin-top':'24px'});
+        $('.product-item--price').css({'margin-top':'10px'});
         $('.product-item--stars').css({'display':'none'});
     }
 
@@ -57,6 +71,7 @@ $(document).ready(function () {
         return `\
             <div class='testtest'>\
                 <span class='opacity-zero'>dd<br>dd<br>dd<br></span>\
+                <span class='opacity-zero'>dd<br>dd<br>dd<br></span>\
                 <div class="full-description">\
                     <div class="full-description__close">\
                         <span class='full-description__close--btn'>&times;</span>\
@@ -74,7 +89,7 @@ $(document).ready(function () {
                                 <ul class="nav nav-tabs" role="tablist">\
                                     <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Продукт</a></li>\
                                     <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Магазин</a></li>\
-                                    <li class='discount-btn'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
+                                    <li class='discount-btn d-none'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
                                 </ul>\
 
                                 <div class="tab-content">\
@@ -95,25 +110,25 @@ $(document).ready(function () {
                                         <table>\
                                             <tr>\
                                                 <td class='table-grey'>Название магазина</td>\
-                                                <td class='table-black'>Пример</td>\
+                                                <td class='table-black'><a href="${data.map_stores_url}" target="_blank">Магазины и пункты выдачи</a> | <a href="/bid/transition/${data.id}/" class="popup-store" rel="nofollow" target="_blank" >${data.store_name}</a></td>\
                                             </tr>\
                                             <tr>\
                                                 <td class='table-grey'>Доставка</td>\
-                                                <td class='table-black'>Нет</td>\
+                                                <td class='table-black'>${data.delivery}</td>\
                                             </tr>\
                                             <tr>\
                                                 <td class='table-grey'>Способ оплаты</td>\
-                                                <td class='table-black'>Нет</td>\
+                                                <td class='table-black'>${data.payment_methods}</td>\
                                             </tr>\
                                             <tr>\
                                                 <td class='table-grey'>Контактный телефон</td>\
-                                                <td class='table-black'>+38 (000) 000-00-00</td>\
+                                                <td class='table-black'>${data.phone}</td>\
                                             </tr>\
                                         </table>\
                                         <span class='product-item--old-price d-block'>1999 грв</span>\
-                                        <h2 class="no-pad-top">1199 грв</h2>\
+                                        <h2 class="no-pad-top">${data.price}</h2>\
                                     </div>\
-                                    <div role="tabpanel" class="tab-pane" id="discount">\
+                                    <div role="tabpanel" class="tab-pane d-none" id="discount">\
                                         <div class='discount'>\
                                             <p class='orange-color'>-50%</p>\
                                             <p>Действителен до 26.09.2020 07:19</p>\
@@ -127,7 +142,7 @@ $(document).ready(function () {
                                             </div>\
                                         </form>\
                                         <span class='product-item--old-price d-block'>1999 грв</span>\
-                                        <h2 class="no-pad-top">1199 грв</h2>\
+                                        <h2 class="no-pad-top">${data.price}</h2>\
                                     </div>\
                                 </div>\
                             </div>\
@@ -136,9 +151,9 @@ $(document).ready(function () {
                     </div>\
 
                     <div class="full-description__footer">\
-                        <img src="img/like.png" alt="" class="svg-icon">\
-                        <img src="img/mdi-scale-balance.png" alt="" class="svg-icon">\
-                        <a class='orange-btn-cs orange-btn-padding-cs'>В магазин</a>\
+                        <img src="../img/like.png" alt="" class="svg-icon" onclick="wishlist( ${data.id} )" id="wish" target="_blank">\
+                        <img src="img/mdi-scale-balance.png" alt="">\
+                        <a class='orange-btn-cs orange-btn-padding-cs' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В магазин</a>\
                     </div>\
                 </div>\
             </div>\
@@ -210,10 +225,6 @@ $(document).ready(function () {
                 position = parseInt(getDivAfterInsert) > parseInt(amountOfItems) ? amountOfItems : getDivAfterInsert
 
                 var currDiv = allItems[position];
-//                    title = jQuery(allItems[positionOfItem-1]).find('.product-item--title').attr('data-id'),
-//                    price = jQuery(allItems[positionOfItem-1]).find('.product-item--price').html(),
-//                    desc = jQuery(allItems[positionOfItem-1]).find('.item_detail').attr('data-id'),
-//                    img = jQuery(allItems[positionOfItem-1]).find('.item_img .product').attr('src');
 
                 if(typeof currDiv === 'undefined') {
                     currDiv = allItems.last()
@@ -226,13 +237,18 @@ $(document).ready(function () {
                         })
                         last = jQuery($('.delete-empty').last())
                         last.after(addDataDiv(JSON.parse(ajaxData)))
+                        $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 150 }, 'slow');
+
                     } else {
                         jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData)))
+                        $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 150 }, 'slow');
+
                     }
 
                 } else {
 
                     jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData)))
+                    $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 150 }, 'slow');
 
                     // когда добаляет блок, то сносится маргин у последнего блока каждо строки
                     // ({'margin-right':'0', 'margin-left':'2rem'})
