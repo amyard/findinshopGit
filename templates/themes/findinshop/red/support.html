@@ -1,0 +1,82 @@
+{% extends "themes/findinshop/red/base_red.html" %}
+
+{% block title %}Обратная связь{% endblock %}
+
+{% block content %}
+    {% if status == 'ok' %}
+       <section class="breadcrumbs">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12">
+                <h1 class="h1 text-center">Сообщение отправлено!</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+    <section class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-pull-2 col-md-push-2 col-md-8">
+            <div class="not-found">
+              <div class="not-found_t">O<span>K</span></div>
+              <div class="not-found_slogan1">Вашесообщение отправлено!</div>
+              <div class="not-found_slogan2">В ближайшее время с вами свяжется наш специалист.</div>
+              <div class="not-found_slogan3">Вернитесь на главную?</div>
+              <div class="not-found_btn">
+                <a href="/" class="btn btn-default __medium">На главную</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% elif status == 'error' %}
+        <section class="breadcrumbs">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12">
+                <h1 class="h1 text-center">Ошибка</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="alert alert-error">
+            <h3>Извините, произошла ошибка!</h3>
+        </div>
+    </div> 
+
+    <!--and.content-->
+    {% elif form %}
+    
+    <section class="breadcrumbs">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12">
+                <h1 class="h1 text-center">Обратная связь</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+    <section class="content">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-pull-3 col-md-push-3 col-md-6">
+                <form method="post" class="form-horizontal" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    {% include 'form.inc.html' with form=form %}
+                  </div>
+              <div class="form-group">
+                <div class="col-xs-12">
+                  <div class="register-submit">
+                    <input type="submit" value="Отправить" class="btn btn-default __medium"/>
+                  </div>
+                </div>
+              </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+{% endblock %}

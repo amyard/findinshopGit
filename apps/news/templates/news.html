@@ -1,0 +1,57 @@
+{% extends "base.lside.html" %}
+
+{% block manage_bar %}
+    {% include 'manage.tabs.html' with news=1 %}
+{% endblock %}
+
+{% block sidebar %}
+    <ul class="nav nav-tabs nav-stacked">
+        <li><a class="thumbnail" href="http://{{ request.user.website }}" target="_blank"><img alt="" src="
+            {% if request.user.website.logo %}
+                {{ request.user.website.logo.url }}
+            {% else %}
+                /static/img/website.jpg
+            {% endif %}
+            " width="257">
+        </a></li>
+        {% if request.user.website.domain %}
+            <li><a href="http://{{ request.user.website.domain }}" target="_blank"><h4 style="margin:0px;">{{ request.user.website.domain }}</h4></a></li>
+        {% else %}
+            <li><a href="http://{{ request.user.website }}" target="_blank"><h4 style="margin:0px;">{{ request.user.website }}</h4></a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block column %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th width="20%">Дата</th>
+                <th width="1%"><a href="{% url "news_add" %}" class="btn-link">Добавить</a></th>
+                <th width="1%">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in page %}
+                <tr>
+                    <td>
+                        {% if request.user.website.domain %}
+                            <a href="http://{{ request.user.website.domain }}/n/{{ item.id }}/" target="_blank">{{ item.title }}</a>
+                        {% else %}
+                            <a href="http://{{ request.user.website }}/n/{{ item.id }}/" target="_blank">{{ item.title }}</a>
+                        {% endif %}
+                    </td>
+                    <td> {{ item.date|date:"d.m.Y H:i" }} </td>
+                    <td>
+                        <div class="btn-group" style="">
+                            <a class="btn btn-mini" href="{% url "news_edit" news_id=item.id %}"><i class="icon-edit"></i></a>
+                            <a class="btn btn-mini" href="{% url "news_delete" news_id=item.id %}"><i class="icon-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include 'paginator.inc.html' with page=page %}
+{% endblock column %}

@@ -1,0 +1,266 @@
+{% spaceless %}
+<!DOCTYPE html>
+<html xmlns="//www.w3.org/1999/xhtml"  lang="ru-UA" class="no-js">
+<head>
+ <meta charset="utf-8">
+ <meta name=viewport content="width=device-width, initial-scale=1">
+ <title>{% block title %}FINDINSHOP - поиск товаров в магазинах страны{% endblock %}</title>
+ <meta name="keywords" content="all">
+ <meta name="description" content="{% block description %} Поиск товаров в Online and Offline магазинах Украины. Актуальная информация о наличии товара и цене в определенном магазине. Купоны и скидки на товары.  {% endblock %}">
+ <meta name="robots" content="index,follow">
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+ <meta name="p:domain_verify" content="12659797816d4ef6f79b0f7d1c367e9b">
+ <meta name="msvalidate.01" content="A43056D542F6378F975B9C362D811D05" />
+ <Meta name="distribution" content="Local">
+ <Meta name="geography" content="Ukraine">
+ <Meta name="language" content="Russian">
+ <meta property="og:site_name" content="findinshop.com.ua">
+ <meta property="og:title" content="FINDINSHOP - поиск товаров в магазинах страны">
+ <meta property="og:description" content="Поиск товаров в Online&Offline магазинах Украины. Актуальная информация о наличии товара и цене в определенном магазине. Купоны и скидки на товары.  ">
+ <meta property="og:image" content="//findinshop.com.ua/static/themes/findinshop/red/img/logo.png">
+ <meta property="og:type" content="website">
+
+ <!-- /// NEW Template CSS ////////  -->
+ <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
+ <link rel="stylesheet" href="{{ STATIC_URL }}themes/findinshop/red/assets/css/main.css">
+{# <link rel="stylesheet" href="{% static 'themes/findinshop/red/assets/css/main.css' %}"> #}
+        <!--/// Favicons ////////-->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="//findinshop.com.ua/static/img/favicon.ico">
+    <link rel="shortcut icon" href="//findinshop.com.ua/static/img/favicon.ico">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+
+<!--[if lte IE 7]><script src="css/elegant-font/HTMLCSS/lte-ie7.js"></script><![endif]-->
+  <script src="{{ STATIC_URL }}js/jquery-1.8.3.min.js"></script>
+  <script src="{{ STATIC_URL }}themes/findinshop/red/assets/js/vendors/jquery-ui.js"></script>
+  <script src="{{ STATIC_URL }}themes/findinshop/red/assets/js/common.js"></script>
+
+    <!-- /// ViewPort ////////  -->
+  <script src="{{ STATIC_URL }}themes/findinshop/red/js/viewport/jquery.viewport.js"></script>
+
+  <!-- /// Custom JS ////////  -->
+  <script src="{{ STATIC_URL }}themes/findinshop/red/js/plugins.js"></script>
+  <script src="{{ STATIC_URL }}themes/findinshop/red/js/scripts.js"></script>
+
+  
+        {% block top_js %}{% endblock %}
+        {% block style %}{% endblock %}
+      </head>
+    <body>
+      <!-- Google Tag Manager -->
+      <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K5PSK9"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-K5PSK9');</script>
+      <!-- End Google Tag Manager -->
+
+      <!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter26693952 = new Ya.Metrika({
+                    id:26693952,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true,
+                    trackHash:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/26693952" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+        {% block more_div %}{% endblock %}
+        <div class="wrapper">
+
+{% block header %}
+<!-- header -->
+    <header class="header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-4">
+            <div class="header_logo">
+              <a href="/">Find<span>in</span>shop</a>
+            </div>
+          </div>
+          {# <div class="col-md-6 col-md-offset-3 col-md-pull-3 col-sm-8"> #}
+          <div class="col-md-6 col-sm-8">
+            <div class="header_search">
+              <form class="header_form" action="{% url 'search' %}" method="get">
+                <div class="input-group">
+                  <input class="form-control-custom" type="search" placeholder="Введите название товара..." autocomplete="on" name="q" required>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Искать</button>
+                  </span>
+                </div><!-- /input-group -->
+              </form>
+            </div>
+          </div>
+          <div class="col-md-3 social-links">
+            {%if user.is_authenticated%}
+              <div>
+              <a href="{% url 'dashboard' %}">
+                <span style="font-size: 2em; float:right; vertical-align: middle;"  class="glyphicon glyphicon-user" aria-hidden="true"></span>
+              </a>
+              </div>
+            {%else%}
+              <div id ='social-links-0'>
+                <a href="#">
+                  <span style="font-size: 2em; float:right; vertical-align: middle;"  class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                </a>
+              </div>
+            <div id ='social-links-1' style = 'display:none;'>
+              {% load staticfiles %}
+              <a href="{% url 'login_user' %}">
+                <img src="{% static "user.png" %}" class="img-favic">
+              </a>
+              <a href="{% url 'social:begin' 'facebook' %}">
+                <img src="{% static "facebook-icon.png" %}" class="img-favic">
+              </a>
+              <a href="{% url 'social:begin' 'twitter' %}">
+                <img src="{% static "twitter-icon.png" %}" class="img-favic">
+              </a>
+              <a href="{% url 'social:begin' 'vk-oauth2' %}">
+                <img src="{% static "vk-icon.png" %}" class="img-favic">
+              </a>
+              <a href="{% url 'social:begin' 'google-oauth2' %}">
+                <img src="{% static "google-icon.png" %}" class="img-favic">
+              </a>
+            </div>    
+            {%endif%}
+            
+          </div>
+
+        </div>
+      </div>
+    </header>
+      {% comment %}  
+      {% endcomment %}
+<script type="text/javascript">
+jQuery(document).ready(function(){
+  $('#social-links-0').click(function() {
+    $('#social-links-1').show();
+    $('#social-links-0').hide();
+
+  });
+});
+</script>
+    
+<!-- /header -->
+{% endblock %}
+            {% block content %}{% endblock %}
+
+            </div><!-- /main wrapper -->
+            <!-- footer -->
+              <footer class="footer">
+                <div class="footer-top">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <div class="footer-box">
+                          <div class="footer-title">Для магазинов</div>
+                          <ul class="footer_links">
+                            <li><a href="/price/">Подключить магазин</a></li>
+                            <li><a href="/login/">Вход для магазинов </a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="footer-box">
+                          <div class="footer-title">Контакты</div>
+                          <ul class="footer_contacts">
+                            <li><a href="{% url 'support' %}"><i class="fa fa-comments-o"></i> Обратная связь</a></li>
+                            <li><a href="#"><i class="fa fa-phone"></i> Размещение рекламы</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="footer-box">
+                          <div class="footer-title">Информация</div>
+                          <ul class="footer_links">
+                            <li><a href="{% url 'add_subscriber' %}">Подписаться</a></li>
+                            <li><a href="/agreement/">Соглашение</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="footer-box">
+                          <div class="footer-title">Подписывайтесь</div>
+                          <ul class="footer_social">
+                            <li><a href="https://www.facebook.com/findinshop"><i class="fa fa-facebook-f"></i> Facebook</a></li>
+                            <li><a href="https://plus.google.com/+Findinshopcomua"><i class="fa fa-google-plus"></i> Google +</a></li>
+                            <li><a href="https://twitter.com/FindinShop"><i class="fa fa-twitter"></i> Twitter</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="footer-bottom">
+                  <div class="container">
+                    <p class="copy">2015 Find in shop, Inc. Все права защищены ООО "Торговый Дом "МЕГА"</p>
+                  </div>
+                </div>
+              </footer>
+              <!-- /footer -->
+
+    <script type="application/ld+json">
+    {
+       "@context": "//schema.org",
+       "@type": "WebSite",
+       "url": "//findinshop.com.ua/",
+       "potentialAction": {
+         "@type": "SearchAction",
+         "target": "//findinshop.com.ua/search?q={search_term_string}",
+         "query-input": "required name=search_term_string"
+       }
+    }
+    </script>
+
+
+        <!-- /// jQuery ////////  -->
+
+  <script type="text/javascript">
+        $(function(){
+          $( ".autocomplete" ).autocomplete({
+            source: "{% url 'search_autocomplete' %}",
+            minLength: 2,
+            width:"740 px",
+            select: function( event, ui ) {
+              if(ui.item){
+                $(".autocomplete").val(ui.item.value);
+                $('.header_form').submit();
+                $('.main-search-form').submit();
+              }
+            }
+          });
+        });
+  </script>
+
+        {% block bottom_js %}
+        {% endblock %}
+</html>
+{% endspaceless %}

@@ -1,0 +1,22 @@
+.img-account{
+    width: 200px;
+    height: 200px;
+    margin: 5px 0 15px;
+    padding: 15px 15px 15px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+    -moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
+    -webkit-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+}
+
+/*.img-favic{*/
+    /*width: 70px;*/
+    /*height: 70px;*/
+    /*margin: 5px 0 15px;*/
+    /*padding: 15px 15px 15px;*/
+    /*box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);*/
+    /*float: right;*/ 
+/*}*/
+.dashboard{
+    height:100%
+}

@@ -1,0 +1,34 @@
+{% extends "ticket.lside.html" %}
+{% block column %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Создана</th>
+                <th>Изменена</th>
+                <th width="50%">Тема</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in page %}
+                <tr class="
+                        {% if item.get_status_key == 'OPEN' %}
+                            error
+                        {% elif item.get_status_key == 'WORKING' %}
+                            warning
+                        {% elif item.get_status_key == 'CLOSED' %}
+                            success
+                        {% endif %}
+                    ">
+                    <td>{{item.id}}</td>
+                    <td>{{item.submitted_date}}</td>
+                    <td>{{item.modified_date}}</td>
+                    <td>
+                        <a href="{% url "ticket_control" ticket_id=item.id action='v' %}">{{item.title}}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include 'paginator.inc.html' with page=page %}
+{% endblock column %}

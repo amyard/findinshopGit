@@ -1,0 +1,114 @@
+{% extends "themes/findinshop/base.find.html" %}
+{% block content %}
+<div class="leftCol twoCol">
+    {% comment %}
+    <div class="breadBox">
+    <div class="header">
+    <h3>Вы выбрали</h3>
+    </div>
+    <div class="selections">
+    <div class="filter-list">
+    <a data-params="{"filter":{"color":"blue"}}" href="/com/catalogue/color-blue/">
+    <span><i class="icon arrow"></i></span>
+    <span class="filterName">Спорт:</span>
+    <span class="filterValue">Велосипеды</span>
+    </a>
+    <a data-params="{"filter":{"categories":"velo"}}" href="/com/catalogue/velo-all/">
+    <span><i class="icon arrow"></i></span>
+    <span class="filterName">Цвет:</span>
+    <span class="filterValue">Синий</span>
+    </a>
+    </div>
+    <a class="clearFilter" data-params="[]" href="/com/catalogue/all/">Очистить все</a>
+    </div>
+    </div>
+    {% endcomment %}
+    {% if stores or vendors %}
+    <div class="productBox">
+    <div class="header">
+    <h3>Сузить выбор</h3>
+    </div>
+    <form action="{% url search %}">
+    <input type="hidden" name="q" value="{{ request.GET.q }}">
+    {% if countries %}
+    <div class="navigation-filters">
+    <ul>
+    <li id="filter-list-group">
+    <h4>
+    <span class="filtrImage"></span>
+    <span><i class="icon arrow"></i></span>
+    <span>Страна</span>
+    </h4>
+    <ul>
+    {% for key, value in country_dict.items %}
+    <li><input type="radio" name="country" value={{key}} {% if key == request.session.my_country %}checked="checked"{% endif %}> {{value}}</li>
+    {% endfor %}
+    </ul>
+    </li>
+    </ul>
+    </div>
+    {% endif %}
+    {% if stores %}
+    <div class="navigation-filters">
+    <ul>
+    <li id="filter-list-group">
+    <h4>
+    <span class="filtrImage"></span>
+    <span><i class="icon arrow"></i></span>
+    <span>Магазин</span>
+    </h4>
+    <ul>
+    {% for store in stores %}
+    <li><input type="checkbox" name="store" value="{{store}}"> {{store}}</li>
+    {% endfor %}
+    </ul>
+    </li>
+    </ul>
+    </div>
+    {% endif %}
+    {% if vendors %}
+    <div class="navigation-filters">
+    <ul>
+    <li id="filter-list-group">
+    <h4>
+    <span class="filtrImage"></span>
+    <span><i class="icon arrow"></i></span>
+    <span>Бренд</span>
+    </h4>
+    <ul>
+    {% for vendor in vendors %}
+    <li><input type="checkbox" name="vendor" value="{{vendor}}"> {{vendor}}</li>
+    {% endfor %}
+    </ul>
+    </li>
+    </ul>
+    </div>
+    {% endif %}
+    <button class="add-on" type="submit" style="margin: 8px 0; padding: 4px;">Выбрать</button>
+    </form>
+    </div>
+    <!-- Установите этот блок в том месте, где должен отображаться банер    -->
+    <div id="admixer_async_298522885"></div>
+    <script type="text/javascript">
+        window.admixZArr = (window.admixZArr || []);
+        window.admixZArr.push({ z: '76591ae7-e961-4823-a7ca-2c437b019fc3', ph: 'admixer_async_298522885'});
+    </script>
+	<!--banner.ua-->
+	<br>
+	<br>
+	<br>
+	<script type="text/javascript"><!--
+    var luxbn_b_f     = 3;
+    var luxbn_b_pid   = 30152;
+    document.write('<sc' + 'rip' + 't type="text/javascript" src="http://banner.ua/ascr/axmodule.js"></sc' + 'ript>');
+    //-->
+    </script>
+    <br />
+	<!--banner.ua-->
+    {% endif %}</div><div class="ContentCol eightCol">
+    <div class="ProductWrapper clearfix">
+    {% if res_search %}
+    {% include page_template %}
+    {% endif %}
+	</div></div>
+{% endblock content %}

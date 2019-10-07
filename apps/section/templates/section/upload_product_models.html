@@ -1,0 +1,10 @@
+{% extends "base.catalog.html" %}
+{% block column %}
+<form enctype="multipart/form-data" action="" method="post" id="upload_form">
+    {% csrf_token %}
+    <input type="file" name="product_model">
+    <button type="submit" class="btn btn-primary">
+        Загрузить
+    </button>
+</form>
+{% endblock column %}

@@ -1,0 +1,24 @@
+<title>sphinx_test</title>
+<body>
+Information<br>
+{% for key in keys %}
+{{key}}
+{% endfor %}<br>
+{% for d in dic %}
+    id--{{ d.id }}
+    price -- {{d.attrs.price}}
+    name -- {{d.attrs.name}}<br>
+    {% for key , val in d.attrs.items %}
+        {{key}}--{{val}}<br>
+    {% endfor %}
+{% endfor %}
+
+
+    {% for key,v in res.items %}
+        {%if key != "matches"%}{{key}}--{{v}}<br>
+        {%endif%}
+    {% endfor %}
+{% comment %}
+    weight--{{ d.weight }}<br>
+{% endcomment %}
+</body>

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+    {% for u in users %}
+        {% include 'userbar.inc.html' with user=u %}
+    {% empty %}
+        <div class="alert">
+            Ни одного учасника не обнаружено...
+        </div>
+    {% endfor %}
+    </div>
+
+    {% if page.has_other_pages %}
+        <ul class="pager">
+            {% if page.has_previous %}
+                <li class="previous"><a href="{% url 'events' %}?page={{ page.previous_page_number }}">Назад</a></li>
+            {% endif %}
+            {% if page.has_next %}
+                <li class="next"><a href="{% url 'events' %}?page={{ page.next_page_number }}">Далее</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endblock %}

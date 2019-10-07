@@ -1,0 +1,47 @@
+{% extends "base.lside.html" %}
+
+{% block manage_bar %}
+    {% include 'manage.tabs.html' with catalog=1 %}
+{% endblock %}
+
+{% block sidebar %}
+    {% with request.user.website as site %}
+        <ul class="nav nav-tabs nav-stacked" style="font-size: 14px;">
+            <li><a class="" href="//{{ site }}" target="_blank"><img alt="" src="
+                {% if site.logo %}
+                    {{ site.logo.url }}
+                {% else %}
+                    /static/img/website.jpg
+                {% endif %}
+                " width="257">
+            </a></li>
+            {% if request.user.website.location_site %}
+                <li><a href="{% url 'catalog' %}"><i class="icon-list"></i> Каталог</a></li>
+                <li><a href="{% url 'import_task_YML' %}"><i class="icon-download"></i> Импорт</a></li>
+                <li><a href="{% url 'flush_catalog' status_code='flush_confirm' %}"><i class="icon-ban-circle"></i> Очистка каталога</a></li>
+                <li><a href="{% url 'information' %}"><i class="icon-filter"></i> Информация</a></li>
+                <li><a href="{% url 'password_change_us_online' %}"><i class="icon-edit"></i> Изменить пароль</a></li>
+
+            {% else %}
+                {% if request.user.website.domain %}
+                    <li><a href="//{{ request.user.website.domain }}" target="_blank"><h4 style="margin:0px;">{{ request.user.website.domain }}</h4></a></li>
+                {% else %}
+                    <li><a href="//{{ site }}" target="_blank"><h4 style="margin:0px;">{{ site }}</h4></a></li>
+                {% endif %}
+                {% if site.catalog %}
+                    <li><a href="{% url 'orders' %}"><i class="icon-inbox"></i> Заказы</a></li>
+                    <li><a href="{% url 'catalog' %}"><i class="icon-list"></i> Каталог</a></li>
+                    <li><a href="{% url 'flush_catalog' status_code='flush_confirm' %}"><i class="icon-ban-circle"></i> Очистка каталога</a></li>
+                    {% if request.user.website.web_property.id == 3 %}
+                        <li><a href="{% url 'import_task_1c' %}"><i class="icon-download"></i> Импорт</a></li>
+                    {% else %}
+                        <li><a href="{% url 'import_task_YML' %}"><i class="icon-download"></i> Импорт</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'export_task' action='lst' %}"><i class="icon-upload"></i> Экспорт</a></li>
+                    <li><a href="{% url 'filter' %}"><i class="icon-filter"></i> Дополнительно</a></li>
+                    {#                <li><a href="{% url payments %}"><i class="icon-filter"></i> Настройка Приват24</a></li>#}
+                {% endif %}
+            {% endif %}
+        </ul>
+    {% endwith %}
+{% endblock %}

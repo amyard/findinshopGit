@@ -1,0 +1,29 @@
+{% extends "base.lside.html" %}
+
+{% block manage_bar %}
+    {% include 'manage.tabs.html' with tickets=1 %}
+{% endblock %}
+
+{% block sidebar %}
+    <ul class="nav nav-tabs nav-stacked">
+        <li><a class="thumbnail" href="http://{{ request.user.website }}" target="_blank"><img alt="" src="
+            {% if request.user.website.logo %}
+                {{ request.user.website.logo.url }}
+            {% else %}
+                /static/img/website.jpg
+            {% endif %}
+            " width="257">
+        </a></li>
+        {% if request.user.website.domain %}
+            <li><a href="http://{{ request.user.website.domain }}" target="_blank"><h4 style="margin:0px;">{{ request.user.website.domain }}</h4></a></li>
+        {% else %}
+            <li><a href="http://{{ request.user.website }}" target="_blank"><h4 style="margin:0px;">{{ request.user.website }}</h4></a></li>
+        {% endif %}
+        {% block menu %}
+            <li><a href="{% url "tickets" %}"><i class="icon-list"></i> Мои заявки</a></li>
+            <li><a href="{% url "ticket_add" %}"><i class="icon-edit"></i> Новая заявка</a></li>
+        {% endblock %}
+    </ul>
+{% endblock %}
+
+{% block column %}{% endblock column %}

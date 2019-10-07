@@ -1,0 +1,93 @@
+<div class="b-popup-overlay"></div>
+<div id="wrapper-info">
+    <ul class="nav nav-tabs">
+        <li class="active">
+        <a data-toggle="tab" href="#tab_1">Продукт</a>
+        </li>
+        <li class="">
+        <a data-toggle="tab" href="#tab_2">О магазине</a>
+        </li>
+        <button class="close"  aria-hidden="true" data-dismiss="modal" type="button">
+        <i class="icon arrow"></i></button>
+    <div style="clear:both;"></div>
+    </ul>
+    <div id="panes">
+        <div id="tab_1" class="tab-pane active" style="display: block;">
+            <div class="leftCol">
+            {# <img src="/static/themes/findinshop/logo_shops/1.jpg"> #}
+            <br>
+            <span id="image_url"></span>
+            </div>
+            <div class="rightCol">
+                <div class="HeroHeader performance clearfix">
+                    <div class="headerLogo"></div>
+                    <h2 id="name"></h2>
+                    <h6 id="price"></h6>
+                </div>
+                <div class="text" id="description"></div>
+            </div>
+       </div>
+
+      <!-- 2 zakladka -->
+    <div id="tab_2" class="tab-pane" style="display: none;">
+        <div class="row clearfix">
+        <div class="left"> Название магазина </div>
+        <div id="store_name" class="right name-css"></div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="left">Город </div>
+        <div id="city" class="right"></div>
+     </div>
+    <div class="row clearfix">
+        <div class="left"> Доставка  </div>
+        <div id="delivery" class="right"></div>
+    </div>
+    {% comment %}
+    <div class="row clearfix">
+        <div class="left">Продажа в кредит </div>
+        <div id="credit_sale" class="right"></div>
+    </div>
+    {% endcomment %}
+    <div class="row clearfix">
+        <div class="left"> Способы оплаты</div>
+        <div id="payment_methods" class="right"></div>
+    </div>
+	<!--
+    <div class="row clearfix">
+        <div class="left">НДС </div>
+        <div id="nds" class="right"></div>
+    </div>
+	-->
+    <div class="row clearfix">
+        <div class="left">Оптовая продажа </div>
+        <div id="wholesale_trade" class="right"></div>
+    </div>
+	<div style="clear:both;"></div>
+    </div>
+   </div>
+
+   <div style="clear:both;"></div>
+   <div class="rightCol">
+        <div class="store">
+            <span id="url"></span>
+            <span id="installment"></span>
+            {% comment %}
+            <a class="btn green" href="">
+             Взять в рассрочку
+            </a>
+            {% endcomment %}
+            <a class="" href="javascript:void(0);">
+            Оплатить он-лайн
+            </a>
+        </div>
+		<div class="mail">
+            <a class="btn" href="javascript:void(0);">
+            Задать вопрос
+            </a>
+            <div style="clear: both;"></div>
+            <div id="fb"></div>
+        </div>
+	</div>
+
+</div>

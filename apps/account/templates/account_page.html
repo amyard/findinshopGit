@@ -1,0 +1,9 @@
+{% extends 'account.lside.html'%}
+
+{% block title %}{% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{user.username }}{% endif %}{% endblock %}
+
+{% block column %}
+    <h1>{{ user.get_full_name }}
+        <small>{{ user.username }}</small>
+    </h1>
+{% endblock %}

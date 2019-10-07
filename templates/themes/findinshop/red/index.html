@@ -1,0 +1,75 @@
+{% extends 'themes/findinshop/red/base_red.html' %}
+{% block header %}
+  <!-- header -->
+    <header class="header">
+      <div class="container">
+
+        <div class="header_logo col-md-9">
+          <a href="/">Find<span>in</span>shop</a>
+        </div>
+          <div class="col-md-3 social-links">
+            {%if user.is_authenticated%}
+              <div>
+              <a href="{% url 'dashboard' %}">
+                <span style="font-size: 2em; float:right; vertical-align: middle;"  class="glyphicon glyphicon-user" aria-hidden="true"></span>
+              </a>
+              </div>
+            {%else%}
+              <div id ='social-links-0'>
+                <a href="#">
+                  <span style="font-size: 2em; float:right; vertical-align: middle;"  class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                </a>
+              </div>
+            <div id ='social-links-1' style = 'display:none;'>
+              {% load staticfiles %}
+              <a href="{% url 'login_user' %}">
+                <img src="{% static "user.png" %}" class="img-favic">
+              </a>
+              <a href="{% url 'social:begin' 'facebook' %}">
+                <img src="{% static "facebook-icon.png" %}" class="img-favic">
+              </a>
+              <a href="{% url 'social:begin' 'twitter' %}">
+                <img src="{% static "twitter-icon.png" %}" class="img-favic">
+              </a>
+              <a href="{% url 'social:begin' 'vk-oauth2' %}">
+                <img src="{% static "vk-icon.png" %}" class="img-favic">
+              </a>
+              <a href="{% url 'social:begin' 'google-oauth2' %}">
+                <img src="{% static "google-icon.png" %}" class="img-favic">
+              </a>
+            </div>    
+            {%endif%}
+            
+          </div>
+      </div>
+    </header>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+  $('#social-links-0').click(function() {
+    $('#social-links-1').show();
+    $('#social-links-0').hide();
+
+  });
+});
+</script>
+  <!-- /header -->
+{% endblock %}
+{% block content %}
+    <div class="main-search">
+      <div class="container">
+
+        <h1 class="search-h1">Поиск товаров в магазинах страны</h1>
+        <form class="main-search-form" action="{% url 'search' %}" method="get">
+          <div class="input-group">
+            <input class="form-control-custom autocomplete" type="search" placeholder="Введите название товара..." autocomplete="on" name="q" required>
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit">Искать</button>
+            </span>
+          </div><!-- /input-group -->
+        </form>
+      </div>
+    </div>
+		{% block bottom_js %}
+		{% endblock %}
+
+{% endblock %}

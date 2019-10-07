@@ -1,0 +1,46 @@
+/**
+* Header styles
+**/
+
+.header {
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 99;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: @color-white;
+  
+  .header_logo {
+    float: left;
+    
+    a {
+      font-size: 2.143em;
+      font-weight: 600;
+      color: @color-black;
+      text-transform: uppercase;
+
+      span {
+        color: @color-orange;
+      }
+    }
+  }
+
+  .header_form {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .header_logo {
+      float: none;
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,263 @@
+{% extends "base.catalog.html" %}
+
+{% block title %}Импорт{% endblock %}
+
+{% block column  %}
+    {% if request.user.website.web_property.id == 3 %}
+        {% include "import.tabs.html" with type='task_1C' %}
+    {% else %}
+        {% include "import.tabs.html" with type='task_YML' %}
+    {% endif %}
+
+    {% if type = 'task' %}
+        <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset>
+                <div style="margin-bottom: 30px;">
+                    {% comment %}
+                    <div class="alert alert-warning">
+                        <h4>Важно!</h4> При необходимости загрузить данные из файла <b>MS Excel</b> внимательно ознакомьтесь с инструкцией ниже.
+                    </div>
+                    Обратите внимание на совместимость импортирумой структуры со следующим видом:
+                    <table class="table table-striped" style="margin-top: 15px; font-size: 10px;">
+                        <tr>
+                            <th>Категория 1</th>
+                            <th>Категория 2</th>
+                            <th>Бренд</th>
+                            <th>Название</th>
+                            <th>Артикул</th>
+                            <th>Код</th>
+                            <th>Описание</th>
+                            <th>Цена USD</th>
+                            <th>Цена UAH</th>
+                            <th>Наличие</th>
+                        </tr>
+                        <tr>
+                            <td>Мебель</td>
+                            <td>Gloster (Англия)</td>
+                            <td>Gloster (Англия)</td>
+                            <td>ASTA</td>
+                            <td>A12gh5</td>
+                            <td>4578</td>
+                            <td>Стул обеденный с подлокотниками</td>
+                            <td>&nbsp;</td>
+                            <td>8903,00</td>
+                            <td>1</td>
+                        </tr>
+                    </table>
+                    <b>
+                        Наличие:
+                    </b>
+                        <li>0 - Нет в наличии</li>
+                        <li>1 - Есть в наличии</li>
+                        <li>2 - Под заказ</li>
+                        <br>
+                    {% endcomment %}
+                    <div class="alert alert-warning">
+                        <h4>Важно!</h4> Обязательно укажите первичный идентификатор вашего товара!
+                    </div>
+                </div>
+                {% include 'form.inc.html' with form=form %}
+                <input type="hidden" id="id_format" name="format" value="0" readonly />
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Сохранить</button>
+                </div>
+            </fieldset>
+        </form>
+    {% elif type = 'task_YML' %}
+        <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset>
+                <div style="margin-bottom: 30px;">
+                    {% comment %}
+                    <div class="alert alert-warning">
+                        <h4>Важно!</h4> При необходимости загрузить данные из файла <b>MS Excel</b> внимательно ознакомьтесь с инструкцией ниже.
+                    </div>
+                    Обратите внимание на совместимость импортирумой структуры со следующим видом:
+                    <table class="table table-striped" style="margin-top: 15px; font-size: 10px;">
+                        <tr>
+                            <th>Категория 1</th>
+                            <th>Категория 2</th>
+                            <th>Бренд</th>
+                            <th>Название</th>
+                            <th>Артикул</th>
+                            <th>Код</th>
+                            <th>Описание</th>
+                            <th>Цена USD</th>
+                            <th>Цена UAH</th>
+                            <th>Наличие</th>
+                        </tr>
+                        <tr>
+                            <td>Мебель</td>
+                            <td>Gloster (Англия)</td>
+                            <td>Gloster (Англия)</td>
+                            <td>ASTA</td>
+                            <td>A12gh5</td>
+                            <td>4578</td>
+                            <td>Стул обеденный с подлокотниками</td>
+                            <td>&nbsp;</td>
+                            <td>8903,00</td>
+                            <td>1</td>
+                        </tr>
+                    </table>
+                    <b>
+                        Наличие:
+                    </b>
+                    <li>0 - Нет в наличии</li>
+                    <li>1 - Есть в наличии</li>
+                    <li>2 - Под заказ</li>
+                    <br>
+                    {% endcomment %}
+                    <div class="alert alert-warning">
+                        <h4>Важно!</h4> Обязательно укажите первичный идентификатор вашего товара!
+                    </div>
+                </div>
+                {% include 'form.inc.html' with form=form %}
+                <input type="hidden" id="id_format" name="format" value="1" readonly />
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Сохранить</button>
+                </div>
+            </fieldset>
+        </form>
+
+    {% elif type = 'task_Excel' %}
+        <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset>
+                <div style="margin-bottom: 30px;">
+                    <div class="alert alert-warning">
+                        <h4>Важно!</h4> При необходимости загрузить данные из файла <b>MS Excel</b> внимательно ознакомьтесь с инструкцией ниже.
+                    </div>
+                    Обратите внимание на совместимость импортирумой структуры со следующим видом:
+                    <table class="table table-striped" style="margin-top: 15px; font-size: 10px;">
+                        <tr>
+                            <th>Категория 1</th>
+                            <th>Категория 2</th>
+                            <th>Бренд</th>
+                            <th>Название</th>
+                            <th>Артикул</th>
+                            <th>Код</th>
+                            <th>Описание</th>
+                            <th>Цена USD</th>
+                            <th>Цена UAH</th>
+                            <th>Наличие</th>
+                        </tr>
+                        <tr>
+                            <td>Мебель</td>
+                            <td>Gloster (Англия)</td>
+                            <td>Gloster (Англия)</td>
+                            <td>ASTA</td>
+                            <td>A12gh5</td>
+                            <td>4578</td>
+                            <td>Стул обеденный с подлокотниками</td>
+                            <td>&nbsp;</td>
+                            <td>8903,00</td>
+                            <td>1</td>
+                        </tr>
+                    </table>
+                    <b>
+                        Наличие:
+                    </b>
+                    <li>0 - Нет в наличии</li>
+                    <li>1 - Есть в наличии</li>
+                    <li>2 - Под заказ</li>
+                    <br>
+                    <div class="alert alert-warning">
+                        <h4>Важно!</h4> Обязательно укажите первичный идентификатор вашего товара!
+                    </div>
+                </div>
+                {% include 'form.inc.html' with form=form %}
+                <input type="hidden" id="id_format" name="format" value="2" readonly />
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Сохранить</button>
+                </div>
+            </fieldset>
+        </form>
+    {% elif type = 'task_HotPrise' %}
+        <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset>
+                <div style="margin-bottom: 30px;">
+                    <div class="alert alert-warning">
+                        <h4>Важно!</h4> При необходимости загрузить данные из файла <b>MS Excel</b> внимательно ознакомьтесь с инструкцией ниже.
+                    </div>
+                    Обратите внимание на совместимость импортирумой структуры со следующим видом:
+                    <table class="table table-striped" style="margin-top: 15px; font-size: 10px;">
+                        <tr>
+                            <th>Категория 1</th>
+                            <th>Категория 2</th>
+                            <th>Бренд</th>
+                            <th>Название</th>
+                            <th>Артикул</th>
+                            <th>Код</th>
+                            <th>Описание</th>
+                            <th>Цена USD</th>
+                            <th>Цена UAH</th>
+                            <th>Наличие</th>
+                        </tr>
+                        <tr>
+                            <td>Мебель</td>
+                            <td>Gloster (Англия)</td>
+                            <td>Gloster (Англия)</td>
+                            <td>ASTA</td>
+                            <td>A12gh5</td>
+                            <td>4578</td>
+                            <td>Стул обеденный с подлокотниками</td>
+                            <td>&nbsp;</td>
+                            <td>8903,00</td>
+                            <td>1</td>
+                        </tr>
+                    </table>
+                    <b>
+                        Наличие:
+                    </b>
+                    <li>0 - Нет в наличии</li>
+                    <li>1 - Есть в наличии</li>
+                    <li>2 - Под заказ</li>
+                    <br>
+                    <div class="alert alert-warning">
+                        <h4>Важно!</h4> Обязательно укажите первичный идентификатор вашего товара!
+                    </div>
+                </div>
+                {% include 'form.inc.html' with form=form %}
+                <input type="hidden" id="id_format" name="format" value="0" readonly />
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Сохранить</button>
+                </div>
+            </fieldset>
+        </form>
+
+    {% elif type = 'task_1C' %}
+
+        <div class="alert alert-warning">
+            <p>Ссылка для импорта для 1С - <b>http://{{ base_domain }}{% url "import_1c" request.user.id %}</b></p>
+            <h4>Важно!</h4> Перед началом импорта 1С должен загрузить свой файл!
+        </div>
+
+            <div class="form-actions">
+                <a href="{% url "import_task_1c" %}?one=true" class="btn btn-primary" type="submit">Начать выборку товаров из 1С файла</a>
+            </div>
+
+    {% elif type = 'status' %}
+        <table class="table">
+            <tr>
+                <th>№</th>
+                <th>Задание</th>
+                <th>Формат</th>
+                <th>Начало</th>
+                <th>Конец</th>
+                <th>Статус</th>
+            </tr>
+            {% for task in tasks reversed %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{task|lower|capfirst}}</td>
+                    <td>{{task.get_format_display}}</td>
+                    <td>{{task.start|date:"d.m.Y H:i:s"}}</td>
+                    <td>{{task.complete|date:"d.m.Y H:i:s"}}</td>
+                    <td>{{task.get_status_display}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+/**
+* Starting styles
+**/
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: @font-sans;
+  font-size: 14px;
+  background-color: @color-white;
+}
+
+.wrapper {
+  min-height: 100%;
+  margin-bottom: -299px;
+
+  &:after {
+    content: "";
+    display: block;
+    height: 299px;
+  }
+}
+
+a {
+  -webkit-transition: all .25s linear;
+  -moz-transition: all .25s linear;
+  -ms-transition: all .25s linear;
+  -o-transition: all .25s linear;
+  transition: all .25s linear;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    outline: 0;
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    font-size: 16px;
+  }
+}

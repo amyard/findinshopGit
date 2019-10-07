@@ -1,0 +1,49 @@
+{% extends "base.catalog.html" %}
+
+{% block title %}Очистка каталога{% endblock %}
+
+{% block column  %}
+    <legend>Очистка каталога</legend>
+    {% if status == 'flush_confirm' %}
+        <div id="confirm">
+            <div class="alert alert-error">
+                <h4>Внимание!</h4>
+                Вы собираетесь провести очистку каталога от всего содержимого.
+                Все хранившиеся в Вашем каталоге данные (категории и товары) будут утрачены
+                безвозвратно!
+            </div>
+            <form action="{% url "flush_catalog" status_code='flush_confirm' %}" method="POST">
+                {% csrf_token %}
+                <button class="btn btn-danger pull-right" style="font-size: 14px;"><i class="icon-trash icon-white"></i> Очистить</button>
+            </form>
+        </div>
+      {% elif status == 'flush_start' %}
+        <div id="confirmed">
+            <div class="alert alert-info">
+                Производится очистка...
+            </div>
+            <div class="progress progress-striped active">
+                <div class="bar" style="width: 100%;"></div>
+            </div>
+        <script>
+          setInterval('location.reload();', 10000);
+        </script>
+        </div>
+    {% else %}
+        <div class="alert alert-success">
+            Очистка завершена.
+        </div>
+    {% endif %}
+{% endblock column %}
+
+{% block js %}
+    $(document).ready(
+        function()
+        {
+            $('.btn-danger').click(function() {
+                $('#confirm').hide()
+                $('#confirmed').show()
+            });
+        }
+    );
+{% endblock js %}

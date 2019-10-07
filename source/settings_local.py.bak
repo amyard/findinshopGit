@@ -1,0 +1,26 @@
+DEBUG = True
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysq
+        'NAME': 'findinshop_live', # Or path to database file if using sqlite3.
+    },
+}
+
+# FCGI settings
+HOST = '127.0.0.1'
+PORT = '8008'
+METHOD = 'threaded'
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5621440
+
+BASE_DOMAIN = 'findinshop.com.ua'
+SESSION_COOKIE_DOMAIN = ".findinshop.com.ua"
+GA_TRACKING_ID = 'UA-2920317-11'
+ADMINS = (
+    ('Anton Tolstoy', 'tolstoyant@gmail.com'),
+    ('Konstantin', 'extertioner@yandex.ru'),
+)
+MANAGERS = (
+    ('Anton Tolstoy', 'tolstoyant@gmail.com'),
+)
+
+GEOIP_FILE_PATH = '/var/www/findinshop_live/findinshop/GeoIP.dat'

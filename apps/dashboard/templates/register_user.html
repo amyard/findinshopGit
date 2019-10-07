@@ -1,0 +1,47 @@
+{% extends "themes/findinshop/red/base_red.html" %}
+{% block content %}
+{# <div class="container"> #}
+<section class="breadcrumbs">
+<div class="container">
+<div class="row">
+<div class="col-xs-12">
+<h1 class="h1 text-center">
+Регистрация
+</h1>
+</div>
+</div>
+</div></section>
+
+<section class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-pull-3 col-md-push-3 col-md-6">
+        <form method="post" class="form-horizontal " enctype="multipart/form-data">
+          <div class="form-group">
+            {% csrf_token %}
+            {% include 'form.inc.html' with form=user_form %}
+            <label> Фото: <input type="file" id="photo" name ="photo"> </label>
+          </div>
+          <div class="form-group">
+            <div class="col-xs-12">
+              <div class="register-submit">
+                <input type="submit" value="Зарегистрироваться" class="btn btn-default __medium"/> 
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% comment %}
+    <form id="user_form" method="post" action="" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    <p> <label> Фото: <input type="file" id="photo" name ="photo"> </label> </p>
+    <p><button type="submit" >Зарегистрироваться</button></p>
+    </form>
+{% endcomment %}
+</div>
+{% endblock %}

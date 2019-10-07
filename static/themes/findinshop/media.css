@@ -1,0 +1,368 @@
+@media screen and (max-width: 1920px) {
+
+.grid .box  {width: 25%;}
+
+}
+
+
+@media screen and (max-width: 1280px) {
+.grid .box {
+    width: 25%;
+}
+#wrapper {
+    top: 40%;
+   
+}
+.grid {margin-top: 54px; }
+}
+@media screen and (max-width: 1125px) {
+       html {
+          -webkit-text-size-adjust: none;
+       }
+		.global-nav .primary-nav li {
+			height: 100%;
+		}
+		.global-nav .primary-nav li a{
+			font-size: 0.7em;
+		
+		}		
+		.global-nav.top, .global-nav.bottom {
+		width: 100%;
+	}
+	
+#wrapper-main {
+    width: 100%;
+}
+.form-horizontal, .alert {
+    margin: 8em 3.5em 0;
+    padding: 2em 3em 4em 3em;
+    width: 63%;
+}
+	legend {
+    font-size: 1.2em;
+}
+
+.control-group {
+    margin-right: 1em;
+    min-height: 110px;
+}
+
+.btn-primary {
+	margin-right: 0px;
+}
+
+.controls input {
+    width: 24em;
+}	
+
+.form-actions {
+    margin-left: 505px;
+
+}
+p.help-block {
+
+    width: 23em;
+}
+#wrapper-info {
+	width: 100%;
+	position: fixed;
+    top: 10%;
+}
+.rightCol h2, .rightCol h6 {
+
+    width: 100%;
+}
+.rightCol .store, .rightCol .mail {
+	 margin-right: 10px;
+	 padding: 10px 3px 27px;
+}
+.rightCol .store a, .rightCol .mail a {
+    color: #383838;
+    font: 13px/2.54545 'calibri',Helvetica,Arial,sans-serif;
+    margin: 0 10px;
+}
+
+.rightCol .store a.btn {
+    padding: 5px 15px;
+}
+.rightCol .text {
+	font-size: 12px;
+	width: 100%;
+}
+.row .right {
+width: 300px;
+}
+#panes {
+    height: 283px;
+    min-height: 285px;
+}
+
+.rightCol .store a.green {
+    padding: 5px 16px;
+}
+.rightCol {
+    width: 58%;
+}
+.leftCol {
+    width: 42%;
+}
+.controls textarea {width: 535px;}
+
+}
+
+@media screen and (max-width: 800px) {
+body {height: auto;}
+.grid  {
+    margin-top: 0px;
+}
+.grid .box {
+    height: auto;
+    width: 50%;
+}
+#wrapper {
+    top: 350px;
+   
+}
+#find {
+    margin: 35px auto 35px 7%;
+}
+
+
+.global-nav.top {
+		display:none;
+	}
+.global-nav .primary-nav  li{
+	display:none;
+}
+.global-nav .primary-nav  li.copyright {
+	display:block;
+}
+element.style {
+    cursor: auto;
+}
+body, #wpbody, .form-table .pre, .ui-autocomplete li a {
+    color: #333333;
+}
+.form-actions {
+    margin-left: 415px;
+}
+.controls input {
+    width: 20em;
+}
+.controls textarea {
+	width: 30em;
+}	
+.control-group {
+    margin-right: 1em;
+    min-height: 100px;
+}
+
+}
+
+
+@media screen and (max-width: 500px) {
+       html {
+          -webkit-text-size-adjust: none;
+       }
+.nav-bar-inner {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
+#search {
+    padding: 0 0 0 15px;
+    width: 70%;
+}
+#wrapper-main {width: 100%; height:100%;}
+#find {
+    margin: 35px auto;
+    width: 100%;
+}
+.form-search {
+    margin-left: 5px;
+    width: 100%;
+}
+.form-search .text {
+    font-size: 14px;
+    padding: 9px 10px 9px 15px;
+    width: 70%;
+}
+.add-on .icon {
+    padding: 11px 10px;
+   
+}
+
+        .global-nav .primary-nav li {
+			font-size: 70% !important;
+			height: 54px;
+			
+		}
+
+		.global-nav a {
+          padding: 0 7px;
+        }
+		.global-nav .upb {
+          width: 200px;
+}
+
+
+.form-horizontal, .alert {
+    margin: 6.8em 0 0;
+    padding: 2em 3em 4em 1.5em;
+    width: 32%;
+}
+	legend {
+    font-size: 1.2em;
+}
+.control-group {  
+    margin-right: 2em;
+    min-height: 100px;
+}
+
+.btn-primary {
+	margin-right: 0px;
+}
+.controls input {
+    width: 22em;
+}
+
+.form-actions {
+    margin-bottom: 10px;
+    margin-left: 172px;
+}
+
+.control-label {
+    color: #666666;
+    font-size: 0.9em;
+  
+}
+.tab-pane {
+	margin-left: 0px;
+}
+
+.leftCol {
+    width: 100%;
+	 height: 230px;
+}
+img.info-image {
+   
+    max-width: 80%;
+}
+#image_url img {
+	 max-height: 210px;
+}
+.rightCol {
+    height: 133px;
+    width: 100%;
+}
+.nav-tabs a {
+    font-size: 0.9em;
+}
+.nav {
+	MARGIN-BOTTOM: 0PX;
+}
+.rightCol .store {
+    height: 38px;
+    margin: 0;
+    padding: 1.4em;
+}
+.rightCol .mail {
+	MARGIN:0px;
+}
+.rightCol .text {
+    font-size: .8em;
+    height: auto;
+    line-height: 120%;
+    padding-left: 2em;
+    width: 90%;
+}
+
+.rightCol .store a.btn {
+    margin: 0;
+    padding: 0.5em 1em;
+}
+.rightCol .store a, .rightCol .mail a {
+    display: block;
+    float: left;
+    font-size: 1.2em;
+    line-height: 1em;
+    margin: 0;
+    padding: 0.6em 1.4em;
+    text-align: center;
+    width: 55px;
+}
+.rightCol .store a.btn {
+    background: url("images/btn.png") no-repeat scroll -7px top transparent;
+}
+.rightCol .store a.btn:hover {
+    background: url("images/btn-activ.png") no-repeat scroll -7px top transparent;
+}
+.rightCol .mail a.btn  {
+	margin: 0;
+}
+.HeroHeader {
+	padding-left: 2em;
+}
+.rightCol h2, .rightCol h6 {
+    font-size: 1.8em;
+    width: 100%;
+	margin-bottom: 0px;
+}
+
+div#description {
+	padding-left: 2.6em;
+	 max-height: 50px;
+}
+
+#tab_2 {
+    margin-right: 10px;
+    padding-left: 27px;
+}
+.tab-pane {
+    font-size: 0.8em;
+    line-height: 120%;
+	height: 380px;
+}
+.row .left, .row .right {
+    float: left;
+    font-weight: bold;
+    margin: 7px 9px 7px 0px;
+    width: 200px;
+}
+.row .right {
+	font-weight: normal;
+}
+#panes {
+    height: 383px;
+    min-height: 285px;
+}
+.rightCol .store a.green {
+    background: url("images/btn-green.png") no-repeat scroll -10px -1px transparent;
+    margin: 1px 10px 2px;
+
+}
+.rightCol .store a.green:hover {
+    background: url("images/btn-activ-green.png") no-repeat scroll -10px -1px transparent;
+    margin: 1px 10px 2px;
+
+}
+.grid  {
+    margin-top: 0px;
+}
+.grid .box {
+    width: 100%;
+}
+#wrapper {
+    top: 35%;
+}
+
+element.style {
+    cursor: auto;
+}
+
+#logo {
+    font-size: 18px;
+    margin: -25px 10px 5px;
+    width: auto;
+}
+}

@@ -1,0 +1,165 @@
+@import url('demo.css');
+@import url('font-awesome.css');
+
+/* GLOBALS */
+
+
+
+.wrapper-demo {
+    margin: 60px 0 0 0;
+    *zoom: 1;
+    font-weight: 400;
+}
+
+.wrapper-demo:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+
+/* DEMO 5 */
+
+.wrapper-dropdown-5 {
+    /* Size & position */
+    border-radius: 5px 5px 5px 0;
+	font-size: 18px;
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+    height: 27px;
+    line-height: 27px;
+    margin: 14px 39px;
+    padding: 0 8px;
+    position: relative;
+    text-align: center;
+    transition: all 0.25s ease-out 0s;
+    width: 32px;
+
+
+    /* Styles */
+    background-color: #6B6B6B;
+    color: #2A2A2A;
+	font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+    outline: none;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+#header .wrapper-dropdown-5 {
+	border-radius: 0px;
+	color: #fff;
+	font-family: Calibri,sans-serif;
+	background-color: #383838;
+	font-size: 14px;
+}
+.wrapper-dropdown-5:hover .arrow {
+	COLOR: #fff;
+	transform: rotate(90deg);
+	 text-shadow: none;
+}
+.wrapper-dropdown-5:hover {
+	background-color: #fff;
+
+}
+
+
+.wrapper-dropdown-5 .dropdown {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #2a2a2a;
+    border-color: -moz-use-text-color rgba(0, 0, 0, 0.2);
+    border-image: none;
+    border-style: none solid;
+    border-width: medium 1px;
+    list-style: none outside none;
+    max-height: 0;
+    overflow: hidden;
+    position: absolute;
+    right: -39px;
+    top: 40px;
+    transition: all 0.3s ease-out 0s;
+    width: 125px;
+
+}
+#header .wrapper-dropdown-5 .dropdown  {
+	background: #fff;
+	border: none;
+}
+.wrapper-dropdown-5 .dropdown li {
+    height: 30px;
+    margin-bottom: 10px;
+    margin-left: -2px;
+    padding: 0;
+}
+.wrapper-dropdown-5 .dropdown li:hover  {
+	 background: none;
+}
+
+.wrapper-dropdown-5 .dropdown li a {
+    background: none repeat scroll 0 0 #6B6B6B;
+    border-bottom: medium none;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: none;
+    color: #202020;
+    font-size: 18px;
+    font-weight: bold;
+    height: 29px;
+    line-height: 27px;
+    margin: 14px 0 14px 1px;
+    outline: medium none;
+    padding: 3px 13px;
+}
+#header .wrapper-dropdown-5 .dropdown li a {
+	border-radius: 0px;
+}
+.wrapper-dropdown-5 .dropdown li a:hover {
+	background: none repeat scroll 0 0 #adadad;
+}
+.wrapper-dropdown-5 .dropdown li:last-of-type a {
+    border: none;
+}
+
+.wrapper-dropdown-5 .dropdown li i {
+    margin-right: 5px;
+    color: inherit;
+    vertical-align: middle;
+}
+
+/* Hover state */
+
+.wrapper-dropdown-5 .dropdown li:hover a {
+    color: #2a2a2a;
+}
+
+/* Active state */
+
+.wrapper-dropdown-5.active {
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: none;
+    border-bottom: none;
+    color: #202020;
+}
+
+.wrapper-dropdown-5.active:after {
+    border: none;
+}
+
+.wrapper-dropdown-5.active .dropdown {
+
+    max-height: 400px;
+}
+
+/* No CSS3 support: none */
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; cursor: default; overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }

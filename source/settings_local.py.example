@@ -1,0 +1,68 @@
+DEBUG = True
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysq
+        'NAME': 'findinshop_db_1_8', # Or path to database file if using sqlite3.
+        'USER': 'findinshop',                      # Not used with sqlite3.
+        'PASSWORD': 'fargo',                  # Not used with sqlite3.
+        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'AUTOCOMMIT': True,
+    },
+    'sphinx':{
+        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysq
+        'NAME': '',  # Or path to database file if using sqlite3.
+        'USER': '',  # Not used with sqlite3.
+        'PASSWORD': '',  # Not used with sqlite3.
+        'HOST': '127.0.0.1',  # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '9306',
+    }
+}
+
+# FCGI settings
+HOST = '127.0.0.1'
+PORT = '8000'
+METHOD = 'threaded'
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5621440
+
+BASE_DOMAIN = "findinshop.com.ua"#'find.ar0tel7.com'
+               #'192.168.1.101:8000'#"127.0.0.1:8000"
+
+SESSION_COOKIE_DOMAIN =".%s" % BASE_DOMAIN # ".193.200.173.122"
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_AGE = 86400 # sec
+SESSION_COOKIE_DOMAIN = None
+SESSION_COOKIE_NAME = 'DSESSIONID'
+SESSION_COOKIE_SECURE = False
+# ADMINS = (
+#     ('Anton Tolstoy', 'tolstoyant@gmail.com'),
+#     ('Konstantin', 'extertioner@yandex.ru'),
+# )
+# MANAGERS = (
+#     ('Anton Tolstoy', 'tolstoyant@gmail.com'),
+# )
+PROXY_FILE_PATH = 'proxy.txt'
+
+GEOIP_FILE_PATH = 'GeoIP.dat'
+GEO_LITE_CITY_PATH = 'GeoLiteCity.dat'
+GEOCODING_API_KEY = "AIzaSyB4Hh4jy9je_8cXXPeSnTEdcQYzmNm-a-I" #'AIzaSyBjiZPMrdcABAKgNICM59WG87khdW1nhXI'
+
+
+search_backend = 'sphinx'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'mail.searchservice.com.ua'#'govmail.wishhost.net'
+EMAIL_HOST_USER = 'tls@1c-bitrix.support' #'test@artel7.com'
+EMAIL_HOST_PASSWORD ='IJTmoBO1TDT@' #'5X5b2B9l'
+EMAIL_PORT = 465#587
+SERVER_EMAIL = 'tls@1c-bitrix.support'#'test@artel7.com'
+
+# PUSH_NOTIFICATIONS_SETTINGS = {
+#         "GCM_API_KEY": "<your api key>",
+#         "APNS_CERTIFICATE": "/path/to/your/certificate.pem",
+        # "APNS_HOST"
+        # "APNS_PORT"
+        # "GCM_POST_URL"
+        # "GCM_MAX_RECIPIENTS"
+# }

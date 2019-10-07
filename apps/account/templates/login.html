@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+    <form method="post" action="{% url 'login' %}" class="form-horizontal">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Вход</legend>
+            <div class="control-group">
+                <label class="control-label"></label>
+                <div class="controls">
+                    <a href="{% url 'signup' %}">Еще не зарегистрированы?</a>
+                </div>
+            </div>
+            {% include 'form.inc.html' with form=form %}
+            <div class="control-group">
+                <label class="control-label"></label>
+                <div class="controls">
+                    <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Вход</button>
+                <input type="hidden" name="next" value="{{ next }}" />
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}

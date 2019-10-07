@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Выход{% endblock %}
+
+{% block content %}
+    <legend>Выход</legend>
+    Благодарим вас за время, проведенное на нашем сайте. 
+    <br />
+    <br />
+    Мы ждем вашего возвращения.
+    <br />
+    <br />
+    <a href="{% url 'login' %}">Войти снова</a>
+{% endblock %}

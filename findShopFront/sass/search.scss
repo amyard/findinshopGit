@@ -1,0 +1,229 @@
+// .catalog-block {
+//     height: 100%;
+//     width: 84.7%;
+//     float: left;
+
+//     &__product-item {
+//         width: $product-item-width;
+//         display: inline-block;
+//         margin-right: 27px;
+//         margin-bottom: 32px;
+//         padding: 24px;
+//         background: $color-primary-white;
+//         box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+
+//         &:before {
+//             content: '';
+//         }
+
+//         &--img {
+//             height: 152px;
+//             margin-left: auto;
+//             margin-right: auto;
+//             position: relative;
+//             margin-bottom: 24px;
+//         } 
+//         &--title {
+//             font-family: 'Open Sans';
+//             font-style: normal;
+//             font-weight: normal;
+//             font-size: 16px;
+//             line-height: 24px;
+//             color: $color-primary-black;
+//         }
+//         &--price {
+//             font-family: 'Open Sans';
+//             font-style: normal;
+//             font-weight: bold;
+//             font-size: 20px;
+//             line-height: 24px;
+//             color: $color-primary-black;
+//             margin: 24px 0px;
+//         }
+
+//         &--action {
+//             display: flex;
+//             justify-content: space-between;
+//             align-items: center;
+//         }
+//     }
+
+// }
+
+.catalog-block {
+    width: calc( ((100% - (5 * 32px)) / 6)*5 );
+    display: contents;
+}
+
+
+.section-items {
+    width: calc( ((100% - (5 * 32px)) / 6)*5 + 4*32px);
+    float: left;
+
+    & .product-item {
+        background: $color-primary-white;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 24px;
+        height: 450px;
+
+
+        &--img {
+            height: 152px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            margin-bottom: 24px;
+        } 
+        
+        &--title {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 24px;
+            color: $color-primary-black;
+        }
+        
+        &--price {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 24px;
+            color: $color-primary-black;
+            margin: 24px 0px;
+        }
+
+        &--action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+}
+
+@media screen and (max-width: 1472px) { 
+    .section-items {
+        width: calc( ((100% - (4 * 32px)) / 5)*4 + 3*32px);
+    }
+}
+
+
+
+.full-description {
+    height: 100%;
+    background: $color-primary-white;
+
+    &__close {
+        height: 36px;
+        position: relative;
+
+        &--btn {
+            position: absolute;
+            top: 15px;
+            right: 29px;
+            color: $color-primary-grey-text;
+            font-size: 26px;
+            cursor: pointer;
+        }
+    }
+
+    &__content {
+        margin-top: 7px;
+        display: flex;
+
+        &--img {
+            height: 324px;
+            width:calc( ((100% - (9 * 32px)) / 10) * 4);
+            margin-right: 32px;
+
+            & img {
+                height: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        &--info {
+            width:calc((100% - (((100% - (9 * 32px)) / 10) * 4)) - (4 * 32px));
+        }
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 96px;
+
+        & .orange-btn {
+            margin-right: 96px;
+        }
+
+        & .svg-icon {
+            margin-right: 52px;
+        }
+    }
+}
+
+
+
+// TABS 
+.nav-tabs {
+    border-bottom: 1px solid $color-primary-grey-tabs;
+}
+
+.nav-tabs li {
+    padding: 12px 24px 12px 0px;
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 0px;
+    color: $color-primary-grey-text;
+}
+
+.nav-tabs li a {
+    padding: 15px 0;
+}
+.nav-tabs li.active {
+    color: $color-primary-orange;
+}
+.nav-tabs li.active a {
+    border-bottom: 2px solid $color-primary-orange;
+}
+
+.tab-content h3 {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    color: $color-primary-black;
+    padding: 24px 0;
+}
+
+.tab-content h2 {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 36px;
+    color: $color-primary-black;
+    padding: 24px 0;
+}
+
+.tab-content p {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: $color-primary-black;
+    margin-bottom: 0px;
+}
+
+
+.testtest {
+    margin-bottom: 32px;
+}

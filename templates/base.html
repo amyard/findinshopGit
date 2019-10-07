@@ -1,0 +1,177 @@
+{% spaceless %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>{% block title %}Торговый Центр -{% endblock %} FINDINSHOP.COM</title>
+    <meta name="title" content="Торговый Центр On-s.net" />
+    <meta name="google-site-verification" content="l24asQ56z2wOqGx4Ob83GDhrsSzaqlETz0pTrH7vcmg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/bootstrap.css?v=1.0.0" rel="stylesheet">
+    <link href="/static/css/custom.css" rel="stylesheet">
+    {% block third_party_css %}{% endblock third_party_css %}
+    {% include 'ga.inc.html' with tracking_id='UA-2920317-11' %}
+    <script type="text/javascript" src="/static/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.maskedinput-1.2.2.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    {% block third_party_js %}{% endblock third_party_js %}
+    <script>
+    {% block js %}
+    {% endblock %}
+    </script>
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#id_time_of').mask('99:99');
+            $('#id_time_to').mask('99:99');
+            });
+    </script>
+
+    <style>
+        body.modal-open {
+            overflow: hidden;
+        }
+    </style>
+
+</head>
+
+<body data-offset="50">
+    {% include 'ym.inc.html' with key='20458678' %}
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar navbar-inverse">
+            <div class="navbar-inner ">
+                <div class="container">
+                    <div class="navbar-text pull-left">
+                        <ul class="nav">
+                            <li><a href="/"><i class="icon-home icon-white"></i></a></li>
+                        </ul>
+                    </div>
+                    <form class="form-search navbar-search pull-left" method="get" action="{% url 'search' %}">
+                        <div class="input-append">
+                            <input type="text" class="span3 search-query autocomplete" autocomplete="off" name="q" data-provide="typeahead" placeholder="Поиск...">
+                            <button type="submit" class="btn btn-inverse"><i class="icon-search icon-white"></i></button>
+                        </div>
+                    </form>
+                    {% if request.user.is_authenticated %}
+                        <div class="navbar-text pull-right">
+                            <ul class="nav">
+                                <li><a href="#"><i>на счету: {{ request.user.profile.balance }} грн</i></a></li>
+                                {% if request.user.is_superuser %}
+                                    <li><a href="{% url 'admin:index' %}"><i class="icon icon-fire icon-white" title="Администрирование"></i></a></li>
+                                {% endif %}
+                                <li><a href="{% url 'catalog' %}"><i class="icon icon-user icon-white" title="{{ request.user.get_full_name|default:request.user.username }}"></i></a></li>
+                                <li><a href="{% url 'logout' %}"><i class="icon icon-off icon-white" title="Выход"></i></a></li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <div class="navbar-text pull-right">
+                            <ul class="nav">
+                                <li style="color: #FFFFFF;"><a href="{% url 'signup' %}">Регистрация</a></li>
+                                <li style="color: #FFFFFF;"><a href="{% url 'login' %}">Вход</a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top:50px;">
+    {% block manage_bar %}{% endblock %}
+
+    {% block content %}{% endblock %}
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    {% block clients %}{% endblock clients %}
+
+    <br>
+    <br>
+    <br>
+    <br>
+    {% comment %}
+    <footer class="footer" style="text-align: center;">
+        <div class="row">
+            <div class="span3">
+                <dl>
+                    <dd><a href="{% url about %}">О проекте</a></dd>
+                    <!--<dd><a href="#">Правила</a></dd>-->
+                    <dd><a href="{% url support %}">Сотрудничество</a></dd>
+                    <!--<dd><a href="#">Возможности</a></dd>-->
+                    <dd><a href="{% url jobs %}">Вакансии</a></dd>
+                </dl>
+            </div>
+            <div class="span3">
+                <dl>
+                    <dd><a href="{% url price %}">Создать интернет-магазин</a></dd>
+                    <dd><a href="{% url connect_shop %}">Подключить Online магазин</a></dd>
+                    <dd><a href="#">Подключить Offline магазин</a></dd>
+                    <dd><a href="#">Дополнительные сервисы</a></dd>
+                    <dd><a href="{% url advertisement %}">Реклама на сайте</a></dd>
+                </dl>
+            </div>
+            <div class="span3">
+                <dl>
+                    <dd><a href="{% url protect %}">Зашита потребителя</a></dd>
+                </dl>
+            </div>
+            <div class="span3">
+                <dl>
+                    <dd><a href="{% url dealers %}">Дилерам</a></dd>
+                    <dd><a href="#">Разработчикам</a></dd>
+                    <dd><a href="#">Инвесторам</a></dd>
+                </dl>
+            </div>
+        </div>
+        {% endcomment %}
+
+        {% comment %}
+        <div class="row">
+            <div style="margin:0 auto; text-align:center;width:800px;">
+                <div class="span2">
+                    <ul class="" style="background: #fff;text-align: left;">
+                        <li><a href="{% url about %}">О проекте</a></li>
+                        <!--<li><a href="#">Правила</a></li>-->
+                        <li><a href="{% url support %}">Сотрудничество</a></li>
+                        <!--<li><a href="#">Возможности</a></li>-->
+                        <li><a href="{% url jobs %}">Вакансии</a></li>
+                    </ul>
+                </div>
+                <div class="span2">
+                    <ul class="" style="background: #fff;text-align: left;">
+                        <li><a href="{% url connect_shop %}">Подключить -магазин</a></li>
+                        <li><a href="{% url price %}">Подключить offline-магазин</a></li>
+                        <li><a href="#">Дополнительные сервисы</a></li>
+                        <li><a href="{% url advertisement %}">Реклама на сайте</a></li>
+                    </ul>
+                </div>
+                <div class="span2">
+                    <ul class="" style="background: #fff;text-align: left;">
+                        <li><a href="{% url protect %}">Зашита потребителя</a></li>
+                    </ul>
+                </div>
+                <div class="span2">
+                    <ul class="" style="background: #fff;text-align: left;">
+                        <li><a href="{% url dealers %}">Дилерам</a></li>
+                        <li><a href="#">Разработчикам</a></li>
+                        <li><a href="#">Инвесторам</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <br/>
+{% endcomment %}
+        <div>&copy; ООО "Торговый Дом "МЕГА" 2012 v.1.0</div>
+    </footer>
+</div>
+{% block bottom_js %}{% endblock %}
+
+
+</body>
+</html>
+{% endspaceless %}

@@ -1,0 +1,101 @@
+{% extends "themes/findinshop/red/base_red.html" %}
+
+{% block title %}Карта магазинов и пунктов выдачи{% endblock %}
+
+
+{% block bottom_js %}
+    <script src="//maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.7"></script>
+{#    <script src="//code.jquery.com/jquery-1.9.0.min.js"></script>#}
+    <script type="text/javascript" src="/static/js/maplace.min.js"></script>
+    <script type="text/javascript">
+
+var Locs = [
+    {% for point in points %}
+        {% if point.lat %}
+            {
+                lat: {{ point.lat }},
+                lon: {{ point.lon }},
+                zoom: 12,
+                title: '{{  point.name }}',
+                html: '<p class="p-shop-url"><b>{{ point.user.website.name }}</b></p>'+
+                      '<p class="p-shop-kind">{{ point.get_kind_display }}</p>'+
+                      '<p class="p-shop-name"><b>{{ point.name }}</b></p>'+
+                      '{% if point.notes %}<p class="p-shop-notes">{{ point.get_html_description|safe }}</p>{% endif %}'+
+                      '{% if point.weekdays_from %}<p class="p-shop-work"><b>Режим работы</b><br />'+
+                      '<span>Пн-Пт.</span> {{ point.weekdays_from }} - {{ point.weekdays_to }} {% if point.saturday_from %}<span>Сб.</span> {{ point.saturday_from }} - {{ point.saturday_to }}{% endif %} {% if point.sunday_from %}<span>Вс.</span> {{ point.sunday_from }} - {{ point.sunday_to }}{% endif %}</p>{% endif %}'+
+                      '{% if point.phone %}<p class="p-shop-phone"><b>Телефон:</b> {{ point.phone }}</p>{% endif %}',
+                {% if point.user.website.logo_map %}
+                icon: '{{ point.user.website.logo_map.url }}'
+                {% endif %}
+            },
+        {% endif %}
+    {% endfor %}
+];
+        var maplace = new Maplace({
+            map_div: '#gmap-menu',
+            controls_on_map: false,
+            controls_type: 'list',
+            // controls_title: 'Список магазинов:'
+        });
+        maplace.Load({
+            locations: Locs,
+            force_generate_controls: true
+        });
+        $('select#city').change(function() {
+          $.getJSON("{% url "map_stores" user_id %}", {'city': $(this).val()} )
+          .done(function( data ) {
+            maplace.Load({
+                locations: data,
+                force_generate_controls: true
+            });
+        });
+        })
+    </script>
+{% endblock %}
+<!--{%block map_city %}
+<select id="city">
+                <option value="">Все города</option>
+                {% for city in cities %}
+                <option value="{{ city }}">{{ city }}</option>
+                {% endfor %}
+
+</select>
+{% endblock map_city %}-->
+
+
+{% block content %}
+
+<section class="breadcrumbs">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="breadcrumbs_select">
+              <div class="select-style">
+                <select id="city">
+                  <option value="">Все города</option>
+                                  {% for city in cities %}
+                                  <option value="{{ city }}">{{ city }}</option>
+                                  {% endfor %}
+
+                  </select>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="content">
+    <div class="container-fluid">
+      <div class="catalog-block" id="content">
+        <div id="gmap-menu" style="height: 771px; margin-bottom: -39px; margin-top: -39px; position: relative; overflow: hidden; margin-left: -15px;"></div>
+      </div>
+      <aside class="filter">
+
+
+
+
+      </aside>
+    </div>
+  </section>
+{% endblock %}

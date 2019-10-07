@@ -1,0 +1,20 @@
+<ul class="nav nav-tabs">
+
+    {% if request.user.website.location_site %}
+        <li {% if catalog %}class="active"{% endif %}><a href="{% url 'orders' %}">Каталог</a></li>
+        <li {% if cost_setting %}class="active"{% endif %}><a href="{% url 'cost_setting' %}">Стоимость клика</a></li>
+        <li {% if coupons %}class="active"{% endif %}><a href="{% url 'coupons' %}">Купоны</a></li>
+        {% if request.user.website.web_property.id == 1 %}<li {% if points %}class="active"{% endif %}><a href="{% url 'point_add' %}">Магазины/Пункты выдачи</a></li>{% endif %}
+    {% else %}
+        <li {% if catalog %}class="active"{% endif %}><a href="{% url 'orders' %}">Каталог</a></li>
+        <li {% if news %}class="active"{% endif %}><a href="{% url 'news' %}">Новости</a></li>
+        <li {% if pages %}class="active"{% endif %}><a href="{% url 'pages' %}">Страницы</a></li>
+        <li {% if website %}class="active"{% endif %}><a href="{% url 'site_settings' %}">Cайт</a></li>
+        <li {% if cost_setting %}class="active"{% endif %}><a href="{% url 'cost_setting' %}">Стоимость клика</a></li>
+        <li {% if coupons %}class="active"{% endif %}><a href="{% url 'coupons' %}">Купоны</a></li>
+        {% if request.user.website.web_property.id == 1 %}<li {% if points %}class="active"{% endif %}><a href="{% url 'point_add' %}">Магазины/Пункты выдачи</a></li>{% endif %}
+        <li {% if version %}class="active"{% endif %}><a href="{% url 'version' %}">Настройки</a></li>
+        <li {% if account %}class="active"{% endif %}><a href="{% url 'account_settings' %}">Профиль</a></li>
+        <li {% if tickets %}class="active"{% endif %}><a href="{% url 'tickets' %}">Помощь</a></li>
+    {% endif %}
+</ul>

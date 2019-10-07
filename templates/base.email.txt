@@ -1,0 +1,7 @@
+Здравствуйте!
+
+{% block content %}
+{% endblock %}
+
+--
+FireLine 2012

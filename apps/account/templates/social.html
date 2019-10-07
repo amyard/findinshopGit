@@ -1,0 +1,20 @@
+{% extends "account.lside.html" %}
+
+{% block title %}Социальные сети{% endblock %}
+
+{% block column  %}
+    <legend>Социальные сети</legend>
+    <div class="alert alert-info">Здесь можете подключить ваши аккаунты в социальных сетях и совершать быстрый вход на сайт без ввода логина/пароля.</div>
+    <div class="row">
+        <div class="span3"><i class="soc-icon-vk"></i>&nbsp;<strong>Вконтакте</strong> {% if not vk %}(не подключен){% else %}(подключен){% endif %}</div>
+        <div class="span2">
+            {% if vk %}
+                <a class="btn btn-danger" href="?d={{ vk.social_network }}">Отключить</a>
+            {% else %}
+                {% url account_social as callback_url %}
+                <a class="btn btn-primary" href="http://oauth.vk.com/authorize?client_id={{settings.VK_APP_ID}}&redirect_uri=http://{{site.domain}}%2Fuo2%2Fvkcb%2F%3Fnext%3D%2Fuss%2F&response_type=code" title="Подключить Вконтакте">Подключить</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+

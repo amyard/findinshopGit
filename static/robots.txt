@@ -1,0 +1,23 @@
+User-agent: Yandex
+Host: findinshop.com
+Disallow: /admin
+Disallow: /static
+Disallow: /d
+Disallow: /c
+Disallow: /asearch
+
+User-agent: Googlebot
+Disallow: /admin
+Disallow: /static
+Disallow: /d
+Disallow: /c
+Disallow: /asearch
+
+User-agent: *
+Disallow: /admin
+Disallow: /static
+Disallow: /d
+Disallow: /c
+Disallow: /asearch
+
+Sitemap: http://findinshop.com/sitemap.xml

@@ -1,0 +1,55 @@
+{% extends "base.catalog.html" %}
+
+{% block title %}Экспорт XLS{% endblock %}
+
+{% block column  %}
+
+    {% if exp_yml = 1 %}
+        <div class="alert alert-info" style="text-align: justify;">
+            Скопируйте эту ссылку <b>http://{{ request.user.website }}/w/export/</b> для передачи содержимого вашего каталога в <b>XML</b> формате сторонним аггрегаторам.
+            <br>
+            Или воспользуйтесь формой ниже, если необходимо экспортировать каталог в формате <b>MS Excel</b>. После обработки заявки Вы сможете скачать сформированый файл. Процедура займет некоторое время.
+        </div>
+    {% endif %}
+    {% if exp_xls = 1 %}
+        <a class="btn btn-default" style="margin-bottom: 20px; " href="{% url "export_task" action='add' %}">Выгрузить XLS</a>
+    {% else %}
+        <a class="btn btn-default" style="margin-bottom: 20px; " href="#" disabled="disabled" >Выгрузить в XLS</a>
+    {% endif %}
+    <table class="table">
+        <tr>
+            <th>№</th>
+            <th>Задание</th>
+            <th>Начато</th>
+            <th>Завершено</th>
+            <th width="1%">Статус</th>
+        </tr>
+        {% for task in tasks reversed %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{task|lower|capfirst}}</td>
+                <td>{{task.start|date:"d.m.Y H:i:s"}}</td>
+                <td>{{task.complete|date:"d.m.Y H:i:s"}}</td>
+                <td>
+                    {% if task.status != task.STATUS.DONE %}
+                        {{task.get_status_display}}
+                    {% else %}
+                        <div class="btn-group">
+                            <a class="btn btn-mini" href="{{task.data.url}}"><i class="icon-download-alt"></i></a>
+                            <a class="btn btn-mini" href="{% url "del_export_task" action='del' task_id=task.id %}"><i class="icon-trash"></i></a>
+                        </div>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block js %}
+    $(document).ready(
+        function()
+        {
+            window.setTimeout('location.reload()', 120000);
+        }
+    );
+{% endblock js %}

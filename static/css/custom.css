@@ -1,0 +1,427 @@
+.separate { border-top: 1px solid #DDDDDD;margin:10px 0px; }
+
+.brand1 { background:transparent url(/static/img/onSale12.png) no-repeat scroll 0 0;
+    margin-top:4px;
+    width:110px;
+    height:34px;
+    padding:0px !important;
+    display:inline-block;
+}
+
+.inline li {
+  display: inline;
+}
+
+.drop-shadow {
+    position:relative;
+    margin-bottom: 15px;
+    background:#fff;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.drop-shadow:before,
+.drop-shadow:after {
+    content:"";
+    position:absolute;
+    z-index:-2;
+}
+
+.border {
+    border: 1px solid #ddd;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 0px 10px 0px;
+}
+.border-nopadding {
+    border: 1px solid #ddd;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.category-block  {
+    margin-bottom: 10px;
+}
+
+.transition {
+    opacity: 0.5;
+    -webkit-transition: opacity .3s ease-in-out, -webkit-transform .3s ease-in-out;
+    -moz-transition: opacity .3s ease-in-out, -moz-transform .3s ease-in-out;
+    -o-transition: opacity .3s ease-in-out, -o-transform .3s ease-in-out;
+    transition: opacity .3s ease-in-out, transform .3s ease-in-out;
+}
+
+.transition:hover {
+    opacity: 1;
+}
+
+.carousel .carousel-control {
+    display: none;
+}
+.carousel:hover .carousel-control {
+    display: inherit;
+}
+
+/*=============== page_price============*/
+
+
+.tariff-block {
+    color: #000000;
+    font-size: 14px;
+    line-height: 18px;
+    width: 959px;
+    text-align: center;
+}
+.tariff-block {
+    display: block;
+    padding-bottom:0px;
+    padding-left: 0;
+    padding-right: 50px;
+    padding-top: 0;
+    text-align: center;
+    vertical-align: top;
+}
+.tariff-header {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 100%;
+}
+
+.article {
+    -moz-font-feature-settings: normal;
+    -moz-font-language-override: normal;
+    -x-system-font: none;
+    color: #000000;
+    font-family: Tahoma,Arial,Helvetica,Verdana,sans-serif;
+    font-size: 14px;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 20px;
+}
+
+.tariff-header .t {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("/static/img/img_price/bg-tariff-head.png");
+    background-origin: padding-box;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    color: #FFFFFF;
+    float: left;
+    height: 47px;
+    margin-right: 12px;
+    width: 200px;
+}
+
+.tariff-header .t strong {
+    display: block;
+    font-size: 10px;
+    line-height: 25px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.tariff-header .t {
+    color: #FFFFFF;
+}
+
+.tariff-header .t span {
+    display: block;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 23px;
+    text-align: center;
+}
+
+.tariff-header .t.free {
+    background-position: 0 0;
+}
+
+.tariff-header .t2 {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("/static/img/img_price/bg-tariff-head2.png");
+    background-origin: padding-box;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    color: #FFFFFF;
+    float: left;
+    height: 47px;
+    margin-right: 12px;
+    width: 200px;
+}
+.tariff-header .t2 strong {
+    display: block;
+    font-size: 10px;
+    line-height: 25px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.tariff-header .t2 {
+    color: #FFFFFF;
+}
+
+.tariff-header .t2 span {
+    display: block;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 23px;
+    text-align: center;
+}
+
+.tariff-header .t2.free {
+    background-position: 0 0;
+}
+
+
+.tariffs-content {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("/static/img/img_price/bg-tariffs.gif");
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: repeat-y;
+    background-size: auto auto;
+    margin-bottom: 20px;
+    padding-top: 10px;
+}
+.article ul {
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 0;
+    padding-top: 0;
+}
+.tariffs-list {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("/static/img/img_price/bg-tariffs-b.gif");
+    background-origin: padding-box;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin-bottom: 20px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    padding-bottom: 24px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+}
+
+.tariffs-list li:first-child {
+    margin-top: 0;
+}
+.article ul li {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("/static/img/img_price/bullet.png");
+    background-origin: padding-box;
+    background-position: 0 8px;
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    margin-bottom: 4px;
+    padding-left: 17px;
+}
+.tariffs-list li {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-attachment: scroll !important;
+    background-clip: border-box !important;
+    background-color: transparent !important;
+    background-image: url("/static/img/img_price/bg-tarrifs-list.gif") !important;
+    background-origin: padding-box !important;
+    background-position: 0 0 !important;
+    background-repeat: repeat-x !important;
+    background-size: auto auto !important;
+    border-bottom-color: #BEBEBE;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+    border-image-outset: 0 0 0 0;
+    border-image-repeat: stretch stretch;
+    border-image-slice: 100% 100% 100% 100%;
+    border-image-source: none;
+    border-image-width: 1 1 1 1;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: #BEBEBE;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: dotted;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: 1px;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: #BEBEBE;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: dotted;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: #BEBEBE;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-top-style: dotted;
+    border-top-width: 1px;
+    color: #2D2D2D;
+    font-size: 15px;
+    line-height: 28px;
+    margin-top: 10px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-bottom: 0;
+    padding-left: 18px;
+    padding-right: 10px;
+    padding-top: 0;
+}
+.tariffs-list .lr1 {
+    position: relative;
+}
+.tariffs-list .lr1 {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: none;
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: repeat;
+    background-size: auto auto;
+    text-align: left;
+    width: 301px;
+}
+.tariffs-list .list-row {
+    float: left;
+    font-size: 13px;
+    /*height: 38px;*/
+    height: 28px;
+    text-align: left;
+}
+
+.tariffs-list .lr1 span {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("/static/img/img_price/question.png");
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    cursor: pointer;
+    display: inline-block;
+    height: 11px;
+    margin-bottom: 7px;
+    margin-left: 5px;
+    margin-right: 0;
+    margin-top: 0;
+    position: absolute;
+    width: 12px;
+}
+
+.tariffs-list .lr2, .tariffs-list .lr3 {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("/static/img/img_price/bg-cell.png");
+    background-origin: padding-box;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    width: 210px;
+}
+
+.tariffs-list .lr3 {
+    color: #6BA83F;
+    float: right;
+    width: 156px;
+}
+
+.tariffs-list .lr0 {
+    background-origin: padding-box;
+    background-size: auto auto;
+    background-position: 50% 50%;
+    width: 210px;
+}
+
+.tariffs-list .lr00 {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    /*background-image: url("/static/img/img_price/bg-cell_none.png");*/
+    background-origin: padding-box;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    width: 207px;
+    /*padding-left:7px;*/
+}
+
+.support{
+    margin:0;
+    height:40px
+}
+.support_label {
+    float:left;
+    margin:5px 0 0 20px;
+}
+
+.support_input{
+    float:right;
+    margin:0 114px 0 0;
+}
+
+.support_textarea{
+    float:right;
+    margin:0 20px 0 0;
+    width: 300px;
+    height: 100px;
+}
+
+.input-prepend.input-block-level {
+      display: table;
+        width: 100%;
+    }
+
+    .input-prepend.input-block-level .add-on {
+          display: table-cell;
+            background-color: white;
+        }
+
+        .input-prepend.input-block-level > input {
+              box-sizing: border-box;
+                height: 30px;
+                  display: table-cell;
+                    width: 100%;
+                      border-left-style: none;
+                  }
+
+.hide{display: none;}
+span#image_url>img{text-align:center; margin-top:10px;max-height: 228px; max-width: 228px;}
+span#url, #installment{margin:0 4px;}

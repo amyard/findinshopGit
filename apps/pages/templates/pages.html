@@ -1,0 +1,61 @@
+{% extends "base.lside.html" %}
+
+{% block manage_bar %}
+    {% include 'manage.tabs.html' with pages=1 %}
+{% endblock %}
+
+{% block sidebar %}
+    <ul class="nav nav-tabs nav-stacked">
+        <li><a class="thumbnail" href="http://{{ request.user.website }}" target="_blank"><img alt="" src="
+        	{% if request.user.website.logo %}
+        		{{ request.user.website.logo.url }}
+        	{% else %}
+        		/static/img/website.jpg
+        	{% endif %}
+        	" width="257">
+        </a></li>
+        {% if request.user.website.domain %}
+            <li><a href="http://{{ request.user.website.domain }}" target="_blank"><h4 style="margin:0px;">{{ request.user.website.domain }}</h4></a></li>
+        {% else %}
+            <li><a href="http://{{ request.user.website }}" target="_blank"><h4 style="margin:0px;">{{ request.user.website }}</h4></a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block column %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th width="20%">Название</th>
+                {# <th>Превью</th> #}
+                <th width="1%">
+                    {% if request.user.website.pages.count < 8 %}
+                        <a href="{% url 'pages_add' %}" class="btn-link">Добавить</a>
+                    {% endif %}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in page %}
+                <tr>
+                    <td>
+                        {% if request.user.website.domain %}
+                            <a href="http://{{ request.user.website.domain }}/p/{{ item.id }}/" target="_blank">{{ item.title }}</a>
+                        {% else %}
+                            <a href="http://{{ request.user.website }}/p/{{ item.id }}/" target="_blank">{{ item.title }}</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group" style="">
+                            <a class="btn btn-mini" href="{% url "pages_edit" page_id=item.id %}"><i class="icon-edit"></i></a>
+                            {% if item.page_type == 1 %}
+                                <a class="btn btn-mini" href="{% url "pages_delete" page_id=item.id %}"><i class="icon-trash"></i></a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include 'paginator.inc.html' with page=page %}
+{% endblock column %}

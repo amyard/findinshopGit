@@ -1,0 +1,39 @@
+{% extends "news.html" %}
+
+{% block title %}Настройки{% endblock %}
+
+{% block column  %}
+    <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+            {% if act == 'add' %}
+                <legend>Добавить новость:</legend>
+            {% elif act == 'edit' %}
+                <legend>Редактировать новость:</legend>
+            {% endif %}
+
+            {% include 'form.inc.html' with form=form %}
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Сохранить</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}
+
+{% block third_party_js %}
+    <script type="text/javascript" src="/static/js/ckeditor/ckeditor.js"></script>
+{% endblock third_party_js %}
+
+
+{% block js %}
+    $(document).ready(
+        function()
+        {
+            CKEDITOR.replace('text', {
+                extraPlugins: 'autogrow',
+                autoGrow_maxHeight: 800,
+                removePlugins: 'resize',
+                width: 500,
+            });
+        });
+{% endblock js %}

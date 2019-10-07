@@ -1,0 +1,228 @@
+{% extends 'themes/findinshop/red/base_red.html' %}
+{% load endless %}
+{% load thumbnail %}
+
+{% block title %}
+    {{ section.name }} – сравнить цены в магазинах | FINDINSHOP.COM.
+{% endblock %}
+
+{% block description %}
+Сравнение цен на {{ section.name }}, список магазинов, в которых вы можете купить {{ section.name }}. Видеообзор, фото, описание.
+{% endblock %}
+
+{% block bottom_js %}
+    <script type="text/javascript">document.getElementById("search").focus();</script>
+    <script type="text/javascript" src="{{ STATIC_URL }}themes/findinshop/red/js/filters.js?v=1.0.2"></script>
+    <script type="text/javascript">
+        $(function(){
+            var filter_mode = {% if filter_mode %}'on'{% else %}'off'{% endif %};
+            if (filter_mode == 'on'){
+                $(".banners").hide();
+                $(".main").css("margin-right", "0px");
+                $("#filter_check").removeClass("check");
+            }
+
+            $('.filter-on').parents('div.box').prev().addClass('check');
+            $('.filter-on').parents('div.box').show();
+            $('.filter-on').parents('div.box').prev().prev().children().attr('src', '/static/themes/findinshop/red/img/minus.png');
+
+            $('.unroll').click(function(){
+                $(this).parent('p.short_description').hide();
+                $(this).parent('p.short_description').next().show();
+                return false;
+            });
+            $('.roll').click(function(){
+                $(this).parent('p.full_description_text').hide();
+                $(this).parent('p.full_description_text').prev().show();
+                return false;
+            });
+            $('#form_count_in_page select').change(function(){
+                $('#form_count_in_page').submit();
+            });
+
+            $('#form_sort_type select').change(function(){
+                $('#form_sort_type').submit();
+            });
+        });
+    </script>
+{% endblock %}
+{% block content %}
+
+<div id="header">
+
+		<!-- /// HEADER  //////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+			<div class="row">
+				<div class="span4" style="width: 200px">
+
+					<!-- // Logo // -->
+					<a href="/" id="logo">
+                    	<img class="responsive-img" src="{{ STATIC_URL }}themes/findinshop/red/img/logo.png" alt="">
+                    </a>
+
+				</div><!-- end .span4 -->
+				<div class="span8" style="width: 200px">
+          <form class="search" action="{% url "search" %}" method="get" style="width: 500px;">
+<input id="search" type="search" placeholder="Введите название товара..." autocomplete="on" name="q" style="width: 402px;" required>
+<button type="submit">ИСКАТЬ</button>
+</form>
+				</div><!-- end .span8 -->
+			</div><!-- end .row -->
+
+		<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+		</div><!-- end #header -->
+
+		<!-- /// CONTENT  /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+        <!--Сортировка товаров начало-->
+                <div id="page-header-2">
+
+            <div class="row" style="width: initial; padding-left: 12px;">
+            <div class="span12"style=" height: 10px; margin-top: -16px;">
+            <ul style="float: left;">
+            <li style="float: left; padding-right: 10px; padding-top: 4px; list-style-type: none;">Выводить</li>
+                <li style="float: left; padding-right: 10px; list-style-type: none;">
+                    <form id="form_sort_type" method="get">
+                        <select name="sort">
+                            <option value="1" {% if sort == '1' %} selected{% endif %}><span>по рейтингу</span></option>
+                            <option value="2" {% if sort == '2' %} selected{% endif %}><span>по цене вверх</span></option>
+                            <option value="3" {% if sort == '3' %} selected{% endif %}><span>по цене вниз</span></option>
+                        </select>
+                    </form>
+                </li>
+                <li style="float: left; padding-top: 4px; padding-right: 10px; list-style-type: none;">Показывать</li>
+                <li style="float: left; padding-right: 10px; list-style-type: none;">
+                        <form id="form_count_in_page" action="" method="get">
+                        <select name="count_in_page">
+                            <option value="20"{% if count_in_page == 20 %} selected{% endif %}><span>по 20</span></option>
+                            <option value="40"{% if count_in_page == 40 %} selected{% endif %}><span>по 40</span></option>
+                            <option value="80"{% if count_in_page == 80 %} selected{% endif %}><span>по 80</span></option>
+                        </select>
+                    </form>
+                </li>
+            </ul>
+        </div><!-- end .span12 -->
+                </div><!-- end .row -->
+        </div><!-- end #page-header-2 -->
+
+        <!--Сортировка товаров конец-->
+
+
+        <div id="content" style="padding-top: 2px;">
+            <div class="banners right">
+                <div id="filter_block">
+                    {% if section.features.all %}
+                        {% for feature in section.features.all %}
+                            <div class="spoiler">
+                                <label class="open_close" for="spoiler_check_{{ forloop.counter }}"><span>{{ feature.name }}</span>
+                                    <img class="minus2" src="{{ STATIC_URL }}themes/findinshop/red/img/plus.png" alt="" />
+                                </label>
+                                <input type="checkbox" name="spoiler" id="spoiler_check_{{ forloop.counter }}" class="one_of_filter spoiler_check" />
+                                <div class="box" style="font-size: 12px;">
+                                    <div class="line_box"><img src="{{ STATIC_URL }}themes/findinshop/red/img/filter_shadow.png" alt="" /></div>
+                                    <div id="select_{{ forloop.counter }}" class="other_select">
+                                        {% for parameter in feature.parameters.all %}
+														{% if not parameter.id in filters %}
+															<a href="?add={{ parameter.id }}"><input type="checkbox"/> {{ parameter.name }}</a><br />
+																{% else %}
+																<a class="filter-on" href="?remove={{ parameter.id }}"><input type="checkbox" checked /> {{ parameter.name }}</a><br />
+															{% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                <div class="buttons-panel">
+                    <!--a id="price-filter" onclick="return false;" href="#" class="filter-button prices checkbox-action" data-filter="{% if price_list %}{{ price_list.0 }}{% else %}{{ min_price }}{% endif %},{% if price_list %}{{ price_list.1 }}{% else %}{{ max_price }}{% endif %}">Применить фильтры</a-->
+                    <a rel="tabs_info" class="delete-filters" href=".">Сбрость фильтр</a>
+                </div>
+              </div>
+<div id="banners">
+                <!-- Admixer banner-->
+                <script type='text/javascript'>
+                (function () {
+                    var w = window, d = document;
+                    w.admixZArr = (w.admixZArr || []);
+                    w.admixerSmOptions = (w.admixerSmOptions || {});
+                    w.admixerSmOptions.showAdsOnLoad = true;
+                    if (!w.admixerSm) {
+                        var adms = document.createElement('script');
+                        adms.async = true;
+                        adms.type = 'text/javascript';
+                        adms.src = 'http://cdn.admixer.net/scriptlib/asm2.js?v=3';
+                        var node = d.getElementsByTagName('script')[0];
+                        node.parentNode.insertBefore(adms, node);
+                    }
+                })();
+                </script>
+
+                <div id="admixer_async_208644524" style="margin-bottom: 10px;"></div>
+                <script type="text/javascript">
+                    window.admixZArr = (window.admixZArr || []);
+                    window.admixZArr.push({ z: 'e9add1ca-61b7-483c-845f-fa2ae499a1af', ph: 'admixer_async_208644524'});
+                </script>
+
+                           <!-- and.Admixer banner-->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Результаты поиска -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-6049353267035907"
+     data-ad-slot="4474370271"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+							</div><!--and.banners-->
+                </div><!--and.banner right-->
+            <div class="main">
+                    <!-- Блок товаров. начало -->
+                            <div id="articles">
+					<ul class="products-lists_set">
+                                                                {% if products %}
+                    {% paginate count_in_page products %}
+                    {% for item in products %}
+						<li class="products-list__item_set">
+							<div itemscope itemtype="http://schema.org/Product" class="products-list__holder_set">
+								<div class="products-list__photo_set">
+                                                                    <a href="{% url "product_set" item.slug %}">
+                                                                       {% if item.image %}
+                                                                        <div class="photo_product_section" style="background: url({% thumbnail item.image 202x182 %}) no-repeat center;"></div>
+                                                                           {% else %}
+                                                                            <img class="products" src="{{ STATIC_URL }}themes/findinshop/red/img/photo_product.png" alt="{{ item.name }}" />
+                                                                           {% endif %}
+                                                                    </a>
+                                                                </div><!-- and products_list_photo_set-->
+                                                                <div class="products-list__descr_set">
+                                                                    <h3 itemprop="name" class="products-list__title_set">{{ item.name }}</h3>
+                                                                    <p itemprop="description" class="products-list__info_set">
+                                                                        {{ item.description|truncatechars:'450' }}
+                                                                    </p>
+                                                                    <p class="products-list__price_set">Цена от: <span class="price_view">{{ item.price_min }} - {{ item.price_max }} грн.<br></span> <span class="prop">(предложений {{ item.count }})</span></p>
+                                                                    <div class="products-list__more_set">
+                                                                        <a href="{% url "product_set" item.slug %}" rel="follow" target="_blank" class="products-list__btn-more_set">Сравнить цены</a>
+                                                                    </div><!-- and products-list__mores -->
+                                                                </div><!-- end products-list__descrs -->
+							</div><!-- end products_list_holders -->
+						</li>
+                                                                    {% endfor %}
+                {% endif %}
+					</ul>
+                                    <div class="clear"></div>
+                                </div><!-- end articles -->
+                    <!-- Блок товаров. конец-->
+                    <nav class="text-center">
+                      <ul class="pagination">
+                        <li>
+                          {% if entries %}
+                          {% show_pages %}
+                          {% endif %}
+                        </li>
+                      </ul>
+                    </nav>
+              <div class="clear"></div>
+                </div><!--and main-->
+                <div class="clear"></div>
+    </div>
+            <div id="footer_space"></div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base.catalog.html" %}
+
+{% block title %}Настройки{% endblock %}
+
+{% block column  %}
+    <div class="" style="margin-bottom:10px;">
+    <a href="{% url "catalog" %}">Каталог</a>
+    {{ block.super }} »
+    {% for ancestor in category_obj.get_ancestors %}
+        <a href="{% url "category" cat_id=ancestor.id%}">{{ancestor.name}}</a>
+         »
+    {% endfor %}
+    <a href="{% url "category" cat_id=category_obj.id%}">{{category_obj.name}}</a>
+    </div>
+    <div class="" style="margin-bottom:10px;">
+
+    {% for children in subcategories %}
+        <a href="{% url "category" cat_id=children.id %}">{{ children.name }}</a>
+        {% if not forloop.last %}
+            <span class="divider">&nbsp;|&nbsp;</span>
+        {% endif %}
+    {% endfor %}
+
+    <td>
+        <div class="btn-group">
+            <span class="btn">Действия над категорией</span>
+            <a class="btn btn-success" href="{% url "coupon_create" %}?filter=category__id={{ category_obj.id }}">+ купон</a>
+            <a class="btn btn-warning" style="font-size: 14px;" href="{% url "category_edit" cat_id=category_obj.id %}" title="Редактировать категорию"><i class="icon-edit icon-white"></i> Редактировать</a>
+            <a class="btn btn-danger" style="font-size: 14px;" href="{% url "category_delete" cat_id=category_obj.id %}" title="Удалить категорию и всё её содержимое"><i class="icon-trash icon-white"></i> Удалить</a>
+        </div>
+    </td>
+
+    </div>
+    {% if page %}
+        <form action="{% url "set_bestseller" %}" method="post">
+            {% csrf_token %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Наименование</th>
+                        <th width="55">&nbsp;</th>
+                        <th style="text-align: center;">Топ продаж</th>
+                        <th>Цена</th>
+                        <th width="1%"><a href="{% url "add_item" cat_id=category_obj.id %}" class="btn-link">Добавить</a></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td style="text-align: center;">
+                            <div class="btn-group">
+                                <button class="btn btn-mini" type="submit" title="Применить"><i class="icon icon-ok-circle"></i></button>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for item in page %}
+                        <tr>
+                            <td>
+                                <a href="http://{{ request.user.website }}/w/ip/{{item.id}}/" target="_blank">{{ item.name }}</a>
+                            </td>
+                            <td><a class="btn btn-mini" href="{% url "coupon_create" %}?filter=id={{ item.id }}">+ купон</a></td>
+                            <td style="text-align: center;">
+                                <input type="checkbox" name="{{item.id}}" value="True" {% if item.bestseller %} checked {% endif %} >
+                                <input type="hidden" name="{{item.id}}" value="False">
+                            </td>
+                            <td>{{ item.get_price|floatformat:2 }} {{ item.get_currency }}.</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-mini" href="{% url "edit_item" item_id=item.id %}" title="Редактировать товар"><i class="icon-edit"></i></a>
+                                    <a class="btn btn-mini" href="{% url "delete_item" item_id=item.id %}" title="Удалить товар"><i class="icon-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+    {% else %}
+        <div class="alert">
+            Нет товара в данной категории. Вы можете <a href="{% url "add_item" cat_id=category_obj.id %}" class="btn-link"><b>добавить</b></a> его вручную.
+        </div>
+    {% endif %}
+    {% include 'paginator.inc.html' with page=page %}
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="span12" style="text-align: center; margin-top: 20px;">
+        <img class="" src="/static/img/ban2.gif" alt="">
+    </div>
+</div>
+
+<br>
+
+<div class="row" style="">
+    <div class="span12" style="text-align: center;">
+        <form class="form-search" method="get" action="{% url search %}">
+            <div class="input-append">
+                <input type="text" class="span11" placeholder="Поиск..." name="q">
+                <button type="submit" class="btn"><i class="icon-search"></i> Поиск</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br>
+
+<div class="row">
+    {% for item in items %}
+        <div class="span3">
+            <a class="thumbnail" href="http://{{ item.site }}/w/ip/{{ item.id }}/" style="text-align:center;margin-bottom:10px; max-height: 210px; max-width: 210px; height: 210px; width: 210px;">
+            {% if item.get_price > 0 %}
+                <span class="label label-inverse" style="position:relative; top:10px; left:50px; z-index:10;">{{ item.get_price|floatformat:"2" }} грн.</span>
+            {% else %}
+                <span class="" style="position:relative; top:10px; left:50px; z-index:10;">&nbsp;</span>
+            {% endif %}
+            <img alt="" src="
+            {% if item.image %}
+                {{ item.image.url }}
+            {% elif item.image_url %}
+                {{ item.image_url }}
+            {% else %}
+                {{ settings.STATIC_URL }}img/no_image.png
+            {% endif %}
+            " style="position:relative; top:-20px; max-height: 185px; max-width: 185px;">
+            <span style="position:relative; bottom:22px;">{{ item.name|truncatechars:25 }}</span>
+            </a>
+        </div>
+    {% endfor %}
+</div>
+<legend>Новые поступления:</legend>
+<div class="row">
+    {% for item in latest|slice:":8" %}
+        <div class="span3">
+            <a class="thumbnail" href="http://{{ item.site }}/w/ip/{{ item.id }}/" style="text-align:center;margin-bottom:10px; max-height: 210px; max-width: 210px; height: 210px; width: 210px;">
+            {% if item.get_price > 0 %}
+                <span class="label label-inverse" style="position:relative; top:10px; left:50px; z-index:10;">{{ item.get_price|floatformat:"2" }} грн.</span>
+            {% else %}
+                <span class="" style="position:relative; top:10px; left:50px; z-index:10;">&nbsp;</span>
+            {% endif %}
+            <img alt="" src="
+            {% if item.image %}
+                {{ item.image.url }}
+            {% elif item.image_url %}
+                {{ item.image_url }}
+            {% else %}
+                {{ settings.STATIC_URL }}img/no_image.png
+            {% endif %}
+            " style="position:relative; top:-20px; max-height: 185px; max-width: 185px;">
+            <span style="position:relative; bottom:22px;">{{ item.name|truncatechars:25 }}</span>
+            </a>
+        </div>
+    {% endfor %}
+</div>
+<legend>Новости:</legend>
+<div class="row">
+    <div class="span12" style="font-size: 14px;">
+    <ul>
+        {% for entry in news %}
+            <li><a href="http://{{entry.website}}/n/{{entry.id}}/" target="_blank">{{entry.title}}</a></li>
+            <p>{{entry.text|striptags|truncatewords:30}}</p>
+            <hr style="border:dotted #ccc; border-width:1px 0 0; height:0;">
+        {% endfor %}
+    </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block clients %}
+{% endblock clients %}

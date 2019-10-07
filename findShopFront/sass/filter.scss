@@ -1,0 +1,114 @@
+.sidebar-filter {
+    width:calc((100% - (5 * 32px)) / 6);
+    float: right;
+    margin-left: 2rem;
+}
+
+@media screen and (max-width: 1472px) {
+    .sidebar-filter {
+        width:calc((100% - (4 * 32px)) / 5);
+    }
+}
+
+.filter {
+    width: 100%;
+    float: right;
+    background-color: $color-primary-white;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+
+    &__title {
+        &-img {
+            display: inline;
+        }
+        
+        &-name {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 24px;
+            color: $color-primary-black;
+            margin-left: 19px;
+        }
+    }
+
+    &__item {
+        padding: 24px 0px 0px 0px;
+        border-bottom: none;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid $color-primary-grey-filter-line;
+        }
+
+        &-padding {
+            padding-bottom: 16px;
+        }
+
+        &-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+
+            -webkit-transition: .3s ease;
+                -o-transition: .3s ease;
+                    transition: .3s ease;
+
+            &--name {
+                font-family: 'Open Sans';
+                font-style: normal;
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 24px;
+                color: $color-primary-black;
+            }
+        }
+
+        &-checkboxes {
+            padding: 24px 0px;
+            display: block;
+            -webkit-transition: .3s ease;
+                -o-transition: .3s ease;
+                    transition: .3s ease;
+
+            // &--input {
+            //     border: 2px solid #E3E3E3;
+            //     box-sizing: border-box;
+            //     border-radius: 2px
+            // }
+
+            &--label {
+                font-family: 'Open Sans';
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 20px;
+                color: $color-primary-black;
+
+                margin-left: 12px;
+            } 
+        }
+
+        &-container {
+            margin-top: 16px;
+        }
+
+        &-more{
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 20px;
+            color: $color-primary-grey-text;
+            border-bottom: 2px dashed $color-primary-grey-text;
+            box-sizing: border-box
+        }
+
+        &-submit {
+            padding: 5px 15px;
+            display: block;
+            margin-bottom: 16px;
+        }
+    }
+}

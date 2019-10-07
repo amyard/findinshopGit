@@ -1,0 +1,19 @@
+    {% if page.paginator.num_pages > 1 %}
+        <div class="pagination">
+        <ul>
+        {% if page.has_previous %}
+        <li><a href="?{% for k,v in request.GET.items %}{% if k == 'p' %}&p={{page.previous_page_number}}{% else %}&{{k}}={{v}}{% endif %}{% endfor %}{% if 'p' not in request.GET %}{% if request.GET %}&{% endif %}p={{page.previous_page_number}}{% endif %}">&larr;</a></li>
+        {% endif %}
+
+        {% for p in page.paginator.pages_window %}
+        <li {% if p == page.number %}class='active'{% endif %}>
+            <a href="?{% for k,v in request.GET.items %}{% if k == 'p' %}&p={{p}}{% else %}&{{k}}={{v}}{% endif %}{% endfor %}{% if 'p' not in request.GET %}{% if request.GET %}&{% endif %}p={{p}}{% endif %}">{{p}}</a>
+        </li>
+        {% endfor %}
+
+        {% if page.has_next %}
+        <li><a href="?{% for k,v in request.GET.items %}{% if k == 'p' %}&p={{page.next_page_number}}{% else %}&{{k}}={{v}}{% endif %}{% endfor %}{% if 'p' not in request.GET %}{% if request.GET %}&{% endif %}p={{page.next_page_number}}{% endif %}">&rarr;</a></li>
+        {% endif %}
+        </ul>
+        </div>
+    {% endif %}

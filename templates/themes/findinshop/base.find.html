@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>{% block title %} {{request.GET.q}} - Findinshop{% endblock title %}</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <link type="text/css" rel="stylesheet" href="{{STATIC_URL}}themes/findinshop/style.css" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <script type="text/javascript" src="{{STATIC_URL}}themes/findinshop/js/modernizr.custom.79639.js"></script>
+        <noscript><link rel="stylesheet" type="text/css" href="{{STATIC_URL}}themes/findinshop/css/noJS.css" /></noscript>
+        <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}themes/findinshop/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}themes/findinshop/media.css" />
+		<link rel="shortcut icon" href="/static/img/favicon.ico" />
+		<!--[if lt IE 9]>
+			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+		{% include 'ga.inc.html' with tracking_id='_' %}
+    </head>
+    <body>
+        <!--Блок подключения библиотеки скриптов Admixer-->
+        <script type='text/javascript'>
+        (function () {
+            var w = window, d = document;
+            w.admixZArr = (w.admixZArr || []);
+            w.admixerSmOptions = (w.admixerSmOptions || {});
+            w.admixerSmOptions.showAdsOnLoad = true;
+            if (!w.admixerSm) {
+                var adms = document.createElement('script');
+                adms.async = true;
+                adms.type = 'text/javascript';
+                adms.src = 'http://cdn.admixer.net/scriptlib/asm2.js?v=3';
+                var node = d.getElementsByTagName('script')[0];
+                node.parentNode.insertBefore(adms, node);
+            }
+        })();
+        </script>
+        <!--Конец блока подключения библиотеки скриптов Admixer-->
+        {% include 'ym.inc.html' with key='21259801' %}
+        <script>(function(d, s, id) {        var js, fjs = d.getElementsByTagName(s)[0];        if (d.getElementById(id)) return;        js = d.createElement(s); js.id = id;        js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";        fjs.parentNode.insertBefore(js, fjs);        }(document, 'script', 'facebook-jssdk'));    </script>
+        <img src="{{STATIC_URL}}themes/findinshop/images/calg.jpg" alt="" id="full-screen-background-image" >
+		</a>
+
+
+
+
+
+
+
+		<div class="global-nav top header_one">
+    	<nav class="nav-bar-inner">
+    		<ul class="primary-nav top left">
+            	<li class="home">
+        			<a href="/"><i class="icon arrow"></i></a>
+    			</li>
+    			<li class="upb">
+    			<a href="{% url 'signup' %}">
+    				создать интернет-магазин
+    			<i class="icon arrow" aria-hidden="true"></i>
+    			</a>
+    			</li>
+    			<li class="">
+    			<a href="{% url 'signup2' %}">
+    				подключить интернет-магазин
+    			</a>
+    			</li>
+    			<li class="">
+    			<a href="{% url 'support' %}">
+    				подключить каталог товаров 1с
+    			</a>
+    			</li>
+    			<li class="">
+    			<a href="{% url 'add_subscriber' %}">
+    				Получить скидку
+                        </a>
+    			</li>
+    		</ul>
+            {% comment %}
+    		<div class="language-selector right">
+
+                <div id="dd" class="wrapper-dropdown-5" tabindex="1">
+                    <span>{{country_code}}</span>
+                    <ul class="dropdown">
+                        <li><a href="#"><i class=""></i>UA</a></li>
+                        <li><a href="#"><i class=""></i>EN</a></li>
+                    </ul>
+                    <i class="icon arrow"></i>
+                </div>
+
+            </div>
+            {% endcomment %}
+    	</nav>
+        <div style="clear:both;"></div>
+    </div>
+	        <div id="header">
+		    <div id="header_two">
+            <div class="language-selector right">
+                <div id="dd" class="wrapper-dropdown-5" tabindex="1">
+                    <span style="cursor: auto;">{{country_code}}</span>
+                    <ul class="dropdown">
+                        <li><a href="#"><i class=""></i>UA</a></li>
+                        <li><a href="#"><i class=""></i>RU</a></li>
+                        <li><a href="#"><i class=""></i>BY</a></li>
+                    </ul>
+                    {#<i class="icon arrow"></i></div>#}
+                    <i class="icon"></i>
+                </div>
+            </div>
+            <div class="find">
+                <a href="/"><h1 id="logo">find<span>in</span>shop</h1></a>
+                {# <h1 id="logo">find<span>in</span>shop</h1> #}
+                <form class="form-search" action="/search">
+                    <input id="search" class="text ui-autocomplete-input" type="text" value="" placeholder="{{request.GET.q}}" autocomplete="off" name="q">
+                    <button class="add-on ok" type="submit">
+                        <span class="icon">Искать</span>
+                    </button>
+                </form>
+                {#                <a href="#" class="right input">Вход</a>#}
+                <div style="clear: both;"></div>
+            </div>
+
+			</div>
+
+            <div id="window">
+                <div class="reklama">
+                 {% comment %}
+				 <img src="images/logo-spons.png" alt="" >
+				{% endcomment %}
+                </div>
+            </div>
+
+            <div style="clear: both;"></div>
+            <div id="content">
+                {% block content %}{% endblock content %}
+                <div style="clear: both;"></div>
+            </div>
+            {% include "themes/findinshop/popup.html" %}
+            {% include "themes/findinshop/footer.html" %}
+            {# <!--LiveInternet counter--><script type="text/javascript">document.write("<a href='http://www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t50.6;r" + escape({{ TOP_REFERER }}) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) +";h"+escape(document.title.substring(0,80)) +  ";" + Math.random() + "' border=0 width=1 height=1 alt='' title='LiveInternet'><\/a>")</script><!--/LiveInternet--> #}
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+            <script type="text/javascript" src="{{ STATIC_URL }}js/transparency.min.js"></script>
+            <script type="text/javascript" src="{{ STATIC_URL }}js/endless_pagination/endless-pagination.js"></script>
+            <script type="text/javascript" src="http://{{ settings.INSTALLMENT_DOMAIN }}/static/js/installment-button.js"></script>
+            <script type="text/javascript" src="{{STATIC_URL}}themes/findinshop/js/jquery.autocomplete.min.js"></script>
+            <script type="text/javascript" src="{{ STATIC_URL }}themes/findinshop/js/findinshop.js"></script>
+            <script>
+                $(function() {
+                    $('.liveinternet-js').append("<a href='http://www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t50.6;r" + escape('http://findinshop.com/') + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) +";" + Math.random() + "' border=0 width=1 height=0 alt='' title='LiveInternet'><\/a>");
+                    var options = {
+                        get_item_info_url: '{% url "get_item_info" %}',
+                        add_subscriber_url: '{% url "add_subscriber" %}',
+                        search_autocomplete_url: '{% url "search_autocomplete" %}',
+                    };
+                    SEARCH.init(options);
+                    //$('#search').autocomplete({
+                    //    serviceUrl: '{% url "search_autocomplete" %}',
+                    //    minChars: 3,
+                    //    onSelect: function (suggestion) {
+                    //        location.href = "/search/?q=" + encodeURIComponent(suggestion.value).replace(/%20/g, '+');
+                            //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+                    //    }
+                    //});
+                });
+            </script>
+    </body>
+</html>

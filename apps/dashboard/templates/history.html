@@ -1,0 +1,719 @@
+{% extends 'themes/findinshop/red/base_red.html' %}
+
+{% load endless %}
+
+{% block title %}
+     {{ query|title }}  {% if vendor_list %}{% if vendor_list|length > 1 %}{% else %}{% endif %}
+        {% for vendor in vendor_list %}
+            {{ vendor }}{% if not forloop.last %}, {% else %} {% endif %}
+        {% endfor %}
+    {% endif %}
+    | FINDINSOP.COM -  расскажет где купить. Поиск, сравнение цен, контакты магазинов.
+{% endblock %}
+
+{% block description %}
+  Ищете где купить {{ query|title }}  {% if vendor_list %}{% if vendor_list|length > 1 %}{% else %}{% endif %}
+        {% for vendor in vendor_list %}
+            {{ vendor }}{% if not forloop.last %}, {% else %} {% endif %}
+        {% endfor %}
+    {% endif %}
+ ? Поисковая система FINDINSHOP - подскажет наличие, цену и контакты магазина. {% endblock %}
+
+ {% block bottom_js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}themes/findinshop/red/js/popup.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}themes/findinshop/red/js/filters.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}themes/findinshop/red/js/jquery.tmpl.min.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <!--link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"-->
+
+  <script src="{{ STATIC_URL }}themes/findinshop/red/assets/js/vendors/jquery-ui.js"></script>
+  <script src="{{ STATIC_URL }}themes/findinshop/red/assets/js/vendors/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script>
+    $(function() {
+      $(window).load(function(){
+        $(".filter-body").mCustomScrollbar({
+          theme:"dark-2"
+        });
+      });
+      /*Close modal window*/
+      $(".close").live("click", function(){
+        $("body").removeClass("modal-open");
+        $(".modal").fadeOut(100).removeClass("in");
+        $(".modal-backdrop").fadeOut(800).hide();
+        $(this).parent().fadeOut(100);
+        $('#overlay').hide('#overlay');
+        $('#product-detail-container').hide();
+        $('#product-detail-container-data').hide();
+        $('#social-container').hide();
+      });
+
+      /*Tabs in modal*/
+      $(document).on("click", "#myTabs a", function (ev) {
+        ev.preventDefault();
+        $(this).closest(".nav-tabs").find(".active").removeClass("active");
+        $(this).parent().addClass("active");
+        var attr = $(this).attr("aria-controls");
+        $(".tab-content > div").hide();
+        $(this).closest(".nav-tabs").next().next(".tab-content").find("#"+attr).show();
+      })
+
+      /*$("#slider").slider({
+        range: true,
+        min: 0,
+        max: 1500,
+        values: [ 0, 1500 ],
+        slide: function( event, ui ) {
+          $("#amount1").text("грн " + ui.values[ 0 ]);
+          $("#amount2").text("грн " + ui.values[ 1 ]);
+          $("#edit1").val(ui.values[ 0 ]);
+          $("#edit2").val(ui.values[ 1 ]);
+        }
+      });
+      $("#amount1").text("грн " + $("#slider-range").slider( "values", 0 ));
+      $("#amount2").text("грн " + $("#slider-range").slider( "values", 1 ));
+      $("#edit1").val($("#slider-range").slider( "values", 0 ));
+      $("#edit2").val($("#slider-range").slider( "values", 1 ));*/
+    });
+  </script>
+  <!-- /Scripts -->
+
+    <script type="text/javascript">
+        $(function(){
+            var filter_mode = {% if filter_mode %}'on'{% else %}'off'{% endif %};
+            if (filter_mode == 'on'){
+                $(".banners").hide();
+           $(".main").css("margin-right", "0px");
+                $("#filter_check").removeClass("check");
+            }
+
+
+
+            $('.show_popup').click(function(){
+                            var redirect_url = $(this).data('url');
+
+                            var url = '/w/gti/?item='+$(this).data('id');
+
+                            $.ajax({
+                                url: url,
+                                dataType: 'json',
+                                success: function(data) {
+                                    var template = $( '#product-detail-template' ).tmpl( data ).show();
+{#                                    $("body").addClass("modal-open").append("<div class='modal-backdrop fade in'></div>");#}
+{#                                  $('div.'+$(this).attr("rel")).fadeIn(500);#}
+{#                                  //$("body").append("<div id='overlay'></div>");#}
+                                  $('#overlay').show().css({'filter' : 'alpha(opacity=80)'});
+                                  $('#product-detail-container').show();
+                                  $('#product-detail-container-data').show();
+                                  $('#social-container').show();
+                                  $('#product-detail-container-data').html(template);
+                                  $('.yashare-auto-init').attr('data-yashareTitle', data['name'])
+                                                            .attr('data-yashareImage', data['image_url']);
+                                },
+                                error: function(data) {
+                                    console.log(data);
+                                    // window.location.href = redirect_url;
+                                }
+                            });
+              return false;
+                        });
+            //filter links
+            //$('.checkbox-action').click(function(){
+            //    window.location.href = window.location.href + $(this).data('filter');
+            //});
+{% comment %}  
+            //open filter block
+            $('.checkbox-checked').parents('div.box').prev().addClass('check');
+            $('.checkbox-checked').parents('div.box').show();
+            $('.checkbox-checked').parents('div.box').prev().prev().children().attr('src', '/static/themes/findinshop/red/img/minus.png');
+
+            $(window).scroll(function() {
+                if (parseInt($(this).scrollTop()) < 293) {
+                    if ($('#overlay').is(':visible')) {
+                        $(window).scrollTop(293);
+                    }
+                }
+            });
+
+            $("#slider").slider({
+              range: true,
+              min: {{ min_price }},
+              max: {{ max_price }},
+              values: [ {% if price_list %}{{ price_list.0 }}{% else %}{{ min_price }}{% endif %}, {% if price_list %}{{ price_list.1 }}{% else %}{{ max_price }}{% endif %} ],
+              slide: function( event, ui ) {
+                $( "#amount1" ).val(ui.values[ 0 ]);
+                $( "#amount2" ).val(ui.values[ 1 ]);
+
+                var prices = $( '#price-filter' ).data('filter').split(',');
+                var p_min = prices[0],
+                    p_max = prices[1];
+
+                p_min = ui.values[ 0 ];
+                p_max = ui.values[ 1 ];
+
+
+                var new_filter = p_min + ',' + p_max;
+
+                $( '#price-filter' ).data('filter', new_filter);
+
+              }
+            });
+            $( "#amount1" ).val( $( "#slider" ).slider( "values", 0 ));
+            $( "#amount2" ).val( $( "#slider" ).slider( "values", 1 ));
+      $( "#amount1" ).change(function(){
+        $( "#slider" ).slider("option", "values", [ parseInt($(this).val()), $( "#slider" ).slider( "values", 1 ) ]);
+        var prices = $( '#price-filter' ).data('filter').split(',');
+                var p_min = prices[0],
+                    p_max = prices[1];
+
+                p_min = $(this).val();
+
+                var new_filter = p_min + ',' + p_max;
+
+                $( '#price-filter' ).data('filter', new_filter);
+
+      });
+      $( "#amount2" ).change(function(){
+        $( "#slider" ).slider("option", "values", [ $( "#slider" ).slider( "values", 0 ) , parseInt($(this).val()) ]);
+        var prices = $( '#price-filter' ).data('filter').split(',');
+                var p_min = prices[0],
+                    p_max = prices[1];
+
+                p_max = $(this).val();
+
+                var new_filter = p_min + ',' + p_max;
+
+                $( '#price-filter' ).data('filter', new_filter);
+
+      });
+
+            $( "#select_type input").change(function(){
+                $( "#select_type input").not($(this)).removeAttr('checked');
+            });
+
+            //filters
+            $('#price-filter').click(function(){
+                var base_url = '{{ clean_filter }}',
+                    filter_url = '&',
+                    vendors = '',
+                    stores = '',
+                    cities = '',
+                    prices = $( '#price-filter' ).data('filter'),
+                    express = '',
+                    condition = '',
+                    colors = '';
+                    gender = '';
+
+                $( "#select_brend input:checked" ).each(function() {
+                    vendors += encodeURIComponent($( this ).data('filter')) + ',';
+                });
+                $( "#select_cities input:checked" ).each(function() {
+                    cities += $( this ).data('filter') + ',';
+                });
+
+                $( "#select_store input:checked" ).each(function() {
+                    stores += $( this ).data('filter') + ',';
+                });
+
+                $( "#select_type input:checked" ).each(function() {
+                    express = $( this ).data('filter');
+                });
+
+                $( "#select_condition input:checked" ).each(function() {
+                    condition += $( this ).data('filter');
+                });
+
+                $( "#select_color input:checked" ).each(function() {
+                    colors += $( this ).data('filter') + ',';
+                });
+
+                $( "#select_gender input:checked" ).each(function() {
+                    gender += $( this ).data('filter') + ',';
+                });
+
+                $( "#select_express input:checked" ).each(function() {
+                    express += $( this ).data('filter') + ',';
+                });
+
+                if (vendors) {
+                    filter_url += 'vendor=' + vendors.slice(0, -1) + '&';
+                }
+
+                if (stores) {
+                    filter_url += 'store=' + stores.slice(0, -1) + '&';
+                }
+
+                if (cities) {
+                    filter_url += 'cities=' + cities.slice(0, -1) + '&';
+                }
+
+                if (colors) {
+                    filter_url += 'color=' + colors.slice(0, -1) + '&';
+                }
+
+                if (gender) {
+                    filter_url += 'gender=' + gender.slice(0, -1) + '&';
+                }
+
+                if (express){
+                    filter_url += 'express=' + express + '&';
+                }
+
+                if (condition){
+                    filter_url += 'condition=' + condition + '&';
+                }
+
+                filter_url += 'price=' + prices;
+
+                window.location.href = base_url + filter_url;
+
+            });
+
+            $('#id_product_cupon').live('click', function(){
+                $('#id_form_get_coupon').show();
+                return false;
+            });
+
+            $('#check_coupon_form').live('click', function(){
+                $(this).val('Идет отправка...');
+                var post_data = $('#id_form_get_coupon').serialize();
+                $.ajax({
+                    "type": "POST",
+                    "dataType": "json",
+                    "url": "{% url 'validate_coupon_form' %}",
+                    "data": post_data,
+                    "success": function(result) {
+                        $('#check_coupon_form').val('Отправить');
+                        if (result['status'] == 'ok'){
+                            $('#id_form_get_coupon').html('<p>Ваш запрос принят! Код купона для покупки товара в магазине «'+result['store_name']+'» был выслан на указанный электронный адрес');
+                        } else {
+                            alert('Неверно заполнена форма!');
+                        }
+                    }
+                });
+                return false;
+            });
+
+{% endcomment %}
+        });
+    </script>
+     
+{% endblock %}
+
+{% block more_div %}
+<div id="product-detail-container">
+    <div id="product-detail-container-data"></div>
+    <div id="social-container">
+        <div id="fb-root"></div>
+    </div>
+</div>
+
+<!-- detail product template -->
+<script id="product-detail-template" type="text/x-jquery-tmpl">
+<div class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="checkbox" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 itemprop="name" class="modal-title" id="myModalLabel">${name}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="product-img">
+          <img itemprop="image" id="product-popup-info" src="${image_url}" alt="${name}" />
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div>
+          <!-- Nav tabs -->
+          <ul id="myTabs" class="nav nav-tabs" role="tablist">
+            <li class="active"><a data-tab="1" data-button-name="В МАГАЗИН" data-button-url="/bid/transition/${id}/" data-button-id="id_product" aria-controls="id_product" href="#id_product">Продукт</a></li>
+            <li><a data-tab="2" data-button-name="В МАГАЗИН" data-button-url="/bid/transition/${id}/" href="#id_product-store" aria-controls="id_product-store" data-button-id="id_product-store">Магазин</a></li>
+            {% templatetag openvariable %}if coupon_exist{% templatetag closevariable %}<li><a href="#id_product_cupon" data-button-name="Получить купон" data-button-url="#" data-tab="3" aria-controls="id_product_cupon" data-button-id="id_product_cupon">Купон на скидку</a></li>{% templatetag openvariable %}/if{% templatetag closevariable %}
+            {% templatetag openvariable %}if connect_items{% templatetag closevariable %}<li><a data-tab="4" data-button-name="Сравнить цены" data-button-url="${product_set_url}" href="#id_product_bid" aria-controls="id_product_bid" data-button-id="id_product_bid">Сравнение цен</a></li>{% templatetag openvariable %}/if{% templatetag closevariable %}
+          </ul>
+          <div itemprop="offers" itemscope itemtype="http://schema.org/Offer"  class="modal-price">
+            <div class="pull-left">Цена:</div>
+            <div itemprop="price" class="pull-right">${price} ${currency}</div>
+            <div class="clearfix"></div>
+          </div>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="id_product">
+              <p itemprop="description">${description}</p>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="id_product-store">
+              <table class="store" cellspacing="0">
+              <tbody itemscope itemtype="http://schema.org/LocalBusiness">
+                  <tr>
+                      <td>Название магазина</td>
+                      <td>{% templatetag openvariable %}if map_stores{% templatetag closevariable %}<a href="${map_stores_url}" target="_blank">Магазины и пункты выдачи</a> | {% templatetag openvariable %}/if{% templatetag closevariable %}<a href="/bid/transition/${id}/" class="popup-store" rel="nofollow" target="_blank" ><span itemprop="name">${store_name}</span></a></td>
+                  </tr>
+                  <tr class="end_store">
+                      <td>Доставка</td>
+                      <td class = "popup-delivery">${delivery}</td>
+                  </tr>
+                  <tr>
+                      <td>Способ оплаты</td>
+                      <td class="popup-payment-methods">${payment_methods}</td>
+                  </tr>
+                  <tr>
+                      <td>Контактный телефон</td>
+                      <td itemprop="telephone" class="popup-call-centre">${phone}</td>
+                  </tr>
+              </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="id_product_cupon">
+              <div class="cupon_info">
+                <div class="t_block">
+                    <p class="cupon_title">Купон на скидку</p>
+                      <p>Действителен до ${coupon_expire}</p>
+                </div>
+                <div class="cupon_val">
+                    ${coupon_size}
+                </div>
+              </div>
+              <form id="id_form_get_coupon" class="form-horizontal" style="display: none;">{% csrf_token %}
+                  {{ form_get_coupon.as_p }}
+                  <input type="hidden" name="coupon" value="${coupon}" />
+                  <input type="hidden" name="item" value="${id}" />
+                  <!--<p><input type="submit" id="check_coupon_form" value="Отправить" /></p>-->
+              </form>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="id_product_bid">
+              <p class="best">Лучшие цены<span> (из ${connect_items_count} магазинов)</span></p>
+              <table class="price_compare">
+                  {% templatetag openvariable %}each connect_items{% templatetag closevariable %}
+                      <tr>
+                          <td>${site}</td>
+                          <td>${price} грн</td>
+                          <!--td>Lowest Verified</td-->
+                      </tr>
+                  {% templatetag openvariable %}/each{% templatetag closevariable %}
+              </table>
+            </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="modal-footer">
+    <div class="modal-btns">
+      <a class="btn btn-default __medium" onclick="wishlist( ${id} )" id="wish" target="_blank" style="min-width: 138px;" >Добавить в избранное {{ item_id }}<i></i></a>
+
+      <a class="btn btn-default __medium" href="/bid/transition/${id}/" id="redirect-popup-button" target="_blank" style="min-width: 138px;" >В магазин <i class="fa fa-shopping-cart"></i></a>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</script>
+{% endblock %}
+</script>
+{% block content %}
+<section class="breadcrumbs">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-4">
+            <h1 class="result"> {{ query|title }}</h1>
+          </div>
+          <div class="col-sm-4">
+            <div class="breadcrumbs_find" style="display: none;">Найдено результатов: 23</div>
+          </div>
+          <div class="col-sm-4">
+            <div class="breadcrumbs_select">
+              <div class="select-style" style="display: none;">
+                <select>
+                  <option value="volvo">Сортировать</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="content">
+      <div class="container-fluid">
+        {% if object_list %}
+
+        <div class="catalog-block">
+          <ul class="catalog-block_ul row">
+
+            {% paginate 25 object_list %}
+            {% for item in object_list %}
+            <li class="catalog-block_li">
+              <div itemscope itemtype="http://schema.org/Product" class="item_box">
+                <div class="item_img">
+                <a class="show_popup" id="{{ item.item.id }}" data-id="{{ item.item.id }}" data-url="{% url 'transition' item.item.id %}" href="#" rel="nofollow">
+                  <img itemprop="image" class="product" src="{{ item.item.image_url }}" alt="1{{ item.item.name }}" onError="this.src='/static/img/img404.jpg'" rel="nofollow">
+                </a>
+                  </div>
+                <div class="item_footer">
+                  <div itemprop="name" class="item_t">{{ item.item.name|truncatechars:50 }}</div>
+                <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                  <div itemprop="price" class="item_price">{{ item.item.price|floatformat:'-2' }} грн <!--{{ item.currency|slice:':3' }}--></div>
+                  </span>
+                  <div class="item_detail">
+                    <a class="openModal show_popup btn btn-default btn-block __medium" rel="tabs_info" id="{{ item.item.id }}" data-id="{{ item.item.id }}" data-url="{% url 'transition' item.item.id %}" href="#" rel="nofollow">Подробнее</a>
+                  </div>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+        </ul>
+  
+            {% else %}
+    <!-- <section class="content"> -->
+      <!-- <div class="container"> -->
+        <div class="row">
+          <div class="col-md-offset-1 col-md-8">
+            <div class="not-found">
+              <div class="not-found_t">О<span>Й</span></div>
+              <div class="not-found_slogan1">Ваша история просмотров пуста</div>
+              <div class="not-found_slogan2">Попробуйте зарегистрироваться</div>
+              <div class="not-found_slogan3">Или вернитесь на главную</div>
+              <div class="not-found_btn">
+                <a href="/" class="btn btn-default __medium">На главную</a>
+              </div>
+            </div>
+            {% endif %}
+        </div>
+
+
+      <aside  class="col-md-3">
+        <div class="row">
+          <div class="filter-box col-xs-4 col-md-12">
+            
+              <a href="{% url 'wishlist' 'wishlist'%}" style="margin-left: 30px;"><button class="btn btn-default navigation-btn">Избраное</button> </a>
+
+          </div>
+
+          <div class="filter-box col-xs-4 col-md-12">
+            
+              <a href="{% url 'history' 'history' %}" style="margin-left: 30px;"><button class="btn btn-default navigation-btn">Просмотренное</button> </a>
+
+          </div>
+
+          <div class="filter-box col-xs-4 col-md-12">
+            
+              <a href="{% url 'dashboard' %}" style="margin-left: 30px;"><button class="btn btn-default navigation-btn">Настройки</button> </a>
+
+          </div>
+        </div>
+      </aside>
+
+    </div>
+    </section>
+          <nav class="text-center">
+            <ul class="pagination">
+              <li>
+                {% if object_list %}
+                {% show_pages %}
+                {% endif %}
+              </li>
+            </ul>
+          </nav>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+
+  })
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+{% comment %}  
+
+
+          </ul>
+            <div class="clear"></div>
+        </div>
+        <aside  class="filter">
+          {% if vendors %}
+          <div class="filter-box">
+            <div class="filter-header" name="spoiler" id="spoiler_check_brend">
+              <a href="#">Бренд</a>
+              </div>
+            <div class="filter-body">
+                {% for vendor in vendors %}
+             <div class="checkbox" id="select_brend">
+              <label>
+                  {% if vendor in vendor_list %}
+                  <input type="checkbox" data-filter="{{ vendor }}" class="vendors checkbox-action checkbox-checked" checked />{{ vendor }}<br />
+                  {% else %}
+                  <input type="checkbox" data-filter="{{ vendor }}" class="vendors checkbox-action checkbox-checked" />{{ vendor }}<br />
+                  {% endif %}
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+          {% if colors %}
+          <div class="filter-box">
+            <div class="filter-header" name="spoiler" id="spoiler_check_color">
+              <a href="#">Цвет</a>
+              </div>
+            <div class="filter-body">
+              {% for color in colors %}
+              <div class="checkbox" id="select_color">
+                <label>
+                      {% if color|lower in color_list %}
+                          <input type="checkbox" data-filter="{{ color }}" class="colors checkbox-action checkbox-checked" checked />{{ color }}<br />
+                      {% else %}
+                          <input type="checkbox" data-filter="{{ color }}" class="colors checkbox-action" />{{ color }}<br />
+                      {% endif %}
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+
+          {% if gender %}
+          <div class="filter-box">
+            <div class="filter-header" name="spoiler" id="spoiler_check_gender">
+              <a href="#">Пол</a>
+              </div>
+            <div class="filter-body">
+              {% for item in gender %}
+              <div class="checkbox" id="select_gender">
+                <label>
+                  {% if item in gender_list %}
+                      <input type="checkbox" data-filter="{{ item }}" class="stores checkbox-action checkbox-checked" checked />{{ item }}<br />
+                  {% else %}
+                      <input type="checkbox" data-filter="{{ item }}" class="stores checkbox-action" />{{ item }}<br />
+                  {% endif %}
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+         {% endif %}
+
+
+          {% if stores %}
+          <div class="filter-box">
+            <div class="filter-header" name="spoiler" id="spoiler_check_shop">
+              <a href="#">Магазин</a>
+              </div>
+            <div class="filter-body">
+              {% for store in stores %}
+              <div class="checkbox" id="select_store">
+                <label>
+                  {% if store in store_list %}
+                  <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action checkbox-checked" checked />{{ store }}<br />
+                  {% else %}
+                  <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action" />{{ store }}<br />
+                  {% endif %}
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          {% if express|length >= 1 %}
+          <div class="filter-box">
+            <div class="filter-header" name="spoiler" id="spoiler_check_shop">
+              <a href="#">Тип магазина</a>
+              </div>
+            <div class="filter-body">
+              <div class="checkbox" id="select_express">
+                <label>
+                  {% if '0' in selected_express %}
+                  <input type="checkbox" data-filter="0" class="stores checkbox-action checkbox-checked" checked />Online-магазин<br/>
+                  {% else %}
+                  <input type="checkbox" data-filter="0" class="stores checkbox-action" />Online-магазин<br/>
+                  {% endif %}
+                  {% if '1' in selected_express %}
+                  <input type="checkbox" data-filter="1" class="stores checkbox-action checkbox-checked" checked />Offline-магазин<br/>
+                  {% else %}
+                  <input type="checkbox" data-filter="1" class="stores checkbox-action" />Offline-магазин<br/>
+                  {% endif %}
+                </label>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if cities %}
+          <div class="filter-box">
+            <div class="filter-header" name="spoiler" id="spoiler_check_city">
+              <a href="#">Город</a>
+              </div>
+            <div class="filter-body">
+              {% for city in cities %}
+              <div class="checkbox" id="select_cities">
+                <label>
+                  {% if city.id in selected_cities %}
+                  <input type="checkbox" data-filter="{{ city.id }}" class="stores checkbox-action checkbox-checked" checked />{{ city.city }}<br />
+                  {% else %}
+                  <input type="checkbox" data-filter="{{ city.id }}" class="stores checkbox-action" />{{ city.city }}<br />
+                  {% endif %}
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          {% endif %}
+
+          <div class="filter-box">
+            <div class="filter-header"><a href="#">Цена</a></div>
+            <div class="filter-range-body">
+              <div class="clearfix"></div>
+              <div id="slider"></div>
+              <div class="price-fields">
+                <span>от:  </span>
+                <input id="amount1" type="text" class="price-fields-input"/>
+                <span> до: </span>
+                <input id="amount2" type="text" class="price-fields-input"/>
+                <span> грн.</span>
+              </div>
+            </div>
+          </div>
+          <div class="filter-apply">
+            <div class="row">
+              <div class="col-md-6">
+                <a id="price-filter" onclick="return false;" href="#" class="btn btn-default __medium btn-block prices checkbox-action" data-filter="{% if price_list %}{{ price_list.0 }}{% else %}{{ min_price }}{% endif %},{% if price_list %}{{ price_list.1 }}{% else %}{{ max_price }}{% endif %}">Применить</a>
+              </div>
+              <div class="col-md-6">
+                <a rel="tabs_info" class="btn btn-gray __medium btn-block" href="{{ clean_filter }}" rel="nofollow">Сбросить</a>
+              </div>
+            </div>
+          </div>
+            {% endif %}
+
+            <!-- Установите этот блок в том месте, где должен отображаться банер    -->
+<div id="admixer_async_208644524"></div>
+<script type="text/javascript">
+    window.admixZArr = (window.admixZArr || []);
+    window.admixZArr.push({ z: 'e9add1ca-61b7-483c-845f-fa2ae499a1af', ph: 'admixer_async_208644524'});
+</script>
+        </aside>
+      </div>
+    </section>
+  </div>
+  <!-- /main wrapper -->
+          <nav class="text-center">
+            <ul class="pagination">
+              <li>
+                {% if object_list %}
+                {% show_pages %}
+                {% endif %}
+              </li>
+            </ul>
+          </nav>
+    <div class="clear"></div>
+</div><!-- end #content -->
+{% endcomment %}

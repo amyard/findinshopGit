@@ -1,0 +1,47 @@
+{% extends "base.catalog.html" %}
+
+{% block title %}Создать новый Магазин/Пункт выдачи{% endblock %}
+
+{% block manage_bar %}
+    {% include 'manage.tabs.html' with points=1 %}
+{% endblock %}
+
+
+{% block column  %}
+
+    {% if messages %}
+        <div class="alert alert-info alert-block" style="text-align: justify;">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <ul class="nav nav-pills">
+        <li><a href="{% url "point_add" %}">Создать новый Магазин/Пункт выдачи</a></li>
+        <li class="active"><a href="{% url "points" %}">Ваши Магазины/Пункты выдачи</a></li>
+    </ul>
+
+    {% if points %}
+        <table width="100%">
+            <tr>
+                <td><b>Название</b></td>
+                <td><b>Тип</b></td>
+                <!--td><b>Адрес</b></td-->
+                <td><b>Действие</b></td>
+            </tr>
+            {% for point in points %}
+                <tr>
+                    <td>{{ point.name }}</td>
+                    <td>{{ point.get_kind_display }}</td>
+                    <!--td>{{ point.address }}</td-->
+                    <td><a href="{% url "point_edit" point.id %}">редактировать</a> | <a href="{% url "point_delete" point.id %}">удалить</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Вы пока не добавили ни одной точки.</p>
+    {% endif %}
+
+{% endblock %}

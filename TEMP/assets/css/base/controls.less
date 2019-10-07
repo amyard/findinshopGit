@@ -1,0 +1,105 @@
+/**
+* Controls styles
+**/
+
+.form-control {
+  border-radius: 0;
+}
+
+.form-control-custom {
+  display: block;
+  width: 100%;
+  height: 46px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: rgba(255,255,255,.9);
+  background-image: none;
+  border: 1px solid @color-orange;
+  border-radius: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.form-control-new {
+  display: block;
+  width: 100%;
+  height: 46px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #999;
+  background-color: rgba(255,255,255,1);
+  background-image: none;
+  border: none;
+  border-bottom: 1px solid @color-border;
+  border-radius: 0;
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
+}
+
+.input-group-btn:last-child > .btn,
+.input-group-btn:last-child > .btn-group {
+  margin-left: 4px;
+}
+
+.select-style {
+  display: inline-block;
+  padding: 0;
+  margin: 3px 0 0 0;
+  border: 1px solid @color-border;
+  width: 230px;
+  overflow: hidden;
+  background-color: @color-white;
+  background: @color-white url(../../../assets/images/select/arrow.jpg) no-repeat 100% 50%;
+  cursor: pointer;
+
+  select {
+    padding: 5px 8px;
+    font-size: .857em;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+}
+
+.select-style select:focus {
+  outline: none;
+}
+
+.price-fields-input {
+  width: 30%;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #999;
+  background-color: @color-white;
+  background-image: none;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+@media (max-width: @screen-phone) {
+  .price-fields-input {
+    width: 25%;
+  }
+}

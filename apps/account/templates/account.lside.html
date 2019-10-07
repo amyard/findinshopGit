@@ -1,0 +1,31 @@
+{% extends 'base.lside.html'%}
+
+{% block manage_bar %}
+    {% include 'manage.tabs.html' with account=1 %}
+{% endblock %}
+
+{% block sidebar %}
+    <ul class="nav nav-tabs nav-stacked" style="font-size: 14px;">
+        {#<li><a class="thumbnail" href="{% url account_page user.id %}"><img alt="" src="{{ user.profile.get_userpic_url }}" width="257">#}
+
+        <li><a class="thumbnail" href="http://{{ request.user.website }}" target="_blank"><img alt="" src="
+                {% if request.user.website.logo %}
+                    {{ request.user.website.logo.url }}
+                {% else %}
+                    /static/img/website.jpg
+                {% endif %}
+        " width="257">
+        </a></li>
+
+        </a></li>
+        <li><a href="{% url 'account_page' user.id %}"><h4 style="margin:0px;">{{ user.get_full_name|default:user.username }}</h4></a></li>
+
+        {% if request.user == user %}
+            {% block menu %}
+            <li><a href="{% url 'account_settings' %}"><i class="icon-cog"></i> Настройки</a></li>
+            <li><a href="{% url 'password_change' %}"><i class="icon-edit"></i> Изменить пароль</a></li>
+            {% endblock %}
+        {% endif %}
+    </ul>
+{% endblock %}
+

@@ -1,0 +1,144 @@
+{% extends "base.catalog.html" %}
+
+{% block manage_bar %}
+    {% include 'manage.tabs.html' with cost_setting=1 %}
+{% endblock %}
+
+{% block title %}Настройки стоимости клика{% endblock %}
+
+{% block third_party_css %}
+    <style>.hidden{display: none;}</style>
+{% endblock third_party_css %}
+
+
+{% block js %}
+
+        function clean_data(value){
+            return value.toString().replace('.', ',');
+        }
+
+        $(function(){
+            $('.load-children').click(function(){
+                var section_id = $(this).data('id'),
+                    url_json_category = '{% url "url_get_category_cost" %}';
+
+                if ($(this).data('status') == 'empty'){
+                    
+                    $.getJSON(url_json_category+section_id, function(res){
+                        var answer = '';
+                        for(var i in res){
+                            answer += '<tr><td>&nbsp;&nbsp;&nbsp;- '+res[i].name+'</td><td>'+res[i].base_cost+'</td><td>'+res[i].current_rate+'</td><td>'+res[i].total_cost+'</td><td><div class="btn-group" style=""><a class="btn btn-mini category-cost" href="#" data-rate="'+res[i].current_rate+'" data-id="'+res[i].id+'" data-name="'+res[i].name+'"><i class="icon-edit"></i></a></div></td></tr>'
+                        }
+                        $('#section-'+section_id).after(answer);
+                        $('#id-section-'+section_id).data('status', 'loaded');
+                    });
+
+                }
+
+                return false;
+
+            });
+
+            $('.category-cost').live('click', function(){
+                $('#category-name b').html($(this).data('name'));
+                $('#id_section').val($(this).data('id'));
+                $('#id_current_rate').val($(this).data('rate'));
+
+                //return false;
+            });
+
+            $('.change_rate').click(function(){
+                $(this).addClass('selected');
+            });
+
+            $('.change_rate.selected').live('mouseout', function(){
+
+                var self = $(this);
+
+                $(this).removeClass('selected')
+                       .blur();
+
+                if ( clean_data($(this).val()) !== clean_data($(this).data('value')) ){
+                    var url = '/bid/update-cost/';
+
+                    //remove messages
+                    $('.alert.alert-info.alert-block').remove();
+                    $(this).after('<img width="28" height="28" src="/static/img/ajax-loader.gif" />');
+                    
+                    $.get(url, {section: $(this).data('id'), current_rate: clean_data($(this).val())}, function(data){
+                        if (data['status'] == 'ok'){
+                            self.data('value', clean_data(self.val()));
+                            self.val(clean_data(self.val()));
+                            $('#total'+self.data('id')).html(clean_data(data['total']));
+                            $('.nav.nav-pills').before('<div class="alert alert-info alert-block" style="text-align: justify;"><button type="button" class="close" data-dismiss="alert">×</button><p>'+data['message']+'</p></div>');
+                        } else {
+                            self.val(clean_data(self.data('value')));
+                            $('.nav.nav-pills').before('<div class="alert alert-info alert-block" style="text-align: justify;"><button type="button" class="close" data-dismiss="alert">×</button><p>'+data['message'][0]+'</p></div>');
+                        }
+                    });
+
+                    $(this).next().remove();
+                }
+            });
+
+                //var new_val = $(this).val();
+                //if ( !new_val ){
+                    //new_value = 1.2;
+                //}
+
+        });
+
+{% endblock %}
+
+
+
+{% block column  %}
+
+    {% if messages %}
+        <div class="alert alert-info alert-block" style="text-align: justify;">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <ul class="nav nav-pills">
+        <li class="active"><a href="{% url "cost_setting" %}">Настройка стоимости клика</a></li>
+        <li><a href="{% url "report_click" %}">Отчет о кликах</a></li>
+    </ul>
+
+    <!--form action="" method="post">{% csrf_token %}
+        <p id="category-name">Редактирование ставки для <b>Выберите раздел для редактирования...</b></p>
+        <p>
+            {{ form.non_field_errors }}
+            {{ form.current_rate.errors }}
+        </p>
+        <p>
+            {{ form.current_rate.label }}:<br />
+            {{ form.current_rate }}
+            &nbsp;<span class="small">{{ form.current_rate.help_text }}</span>
+        </p>
+        <p class="hidden">{{ form.section }}</p>
+        <input type="submit" value="Изменить ставку" />
+    </form-->
+
+    <table width="100%">
+        <tr>
+            <td><b>Название категории</b></td>
+            <td><b>Базовая стоимость(грн)</b></td>
+            <td><b>Текущая ставка(грн)</b></td>
+            <td><b>Общая стоимость клика(грн)</b></td>
+        </tr>
+        {% if sections %}
+            {% for section in sections %}
+                <tr id="section-{{ section.pk }}">
+                    <td>{{ section.name }}</td>
+                    <td>{% if not section.base_cost %}0{% else %}{{ section.base_cost }}{% endif %}</td>
+                    <td><input type="text" class="change_rate" data-id="{{ section.id }}" data-value="{% if not section.current_rate %}0{% else %}{{ section.current_rate }}{% endif %}" value="{% if not section.current_rate %}0{% else %}{{ section.current_rate }}{% endif %}" /></td>
+                    <td id="total{{ section.id }}">{% if not section.total_cost %}0{% else %}{{ section.total_cost }}{% endif %}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
+{% endblock %}

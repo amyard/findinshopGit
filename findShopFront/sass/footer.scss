@@ -1,0 +1,33 @@
+.footer {
+    background: $color-footer-dark;
+    color: $color-primary-white;
+    padding: 24px 0;
+    
+    &-content {
+        display: flex;
+
+        &__item {
+            width: 20%;
+            padding-bottom: 50px;
+            padding-left: 0px;
+
+            & ul {
+                display: block;
+            }
+
+            & ul li {
+                padding-left: 0px;
+                padding-top: 16px;
+                margin-bottom: 0px;
+                display: flex;s
+                
+                &:first-child {
+                    padding-top: 26px;
+                }
+                & span {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}

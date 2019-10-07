@@ -1,0 +1,155 @@
+/**
+* Footer styles
+**/
+
+.footer {
+  height: 299px;
+
+  .footer-top {
+    padding-top: 45px;
+    padding-bottom: 40px;
+    border-top: 1px solid @color-orange;
+
+    .footer-title {
+      position: relative;
+      font-size: 1.3em;
+      color: #fff;
+      margin-bottom: 22px;
+      padding-bottom: 22px;
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 1px;
+        background-color: @color-white;
+      }
+    }
+
+    .footer_links {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        line-height: 28px;
+
+        &:before {
+          content: "\203A";
+          color: @color-orange;
+          padding-right: 10px;
+        }
+
+        a {
+          color: @color-white;
+          font-size: .857em;
+        }
+      }
+    }
+
+    .footer_contacts {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        line-height: 28px;
+
+        a {
+          color: @color-white;
+          font-size: .857em;
+
+          i {
+            width: 15px;
+            font-size: 1.2em;
+            color: @color-orange;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+
+    .footer_social {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        line-height: 28px;
+
+        a {
+          color: @color-white;
+          font-size: .857em;
+
+          i {
+            width: 15px;
+            font-size: 1.2em;
+            color: @color-orange;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    background-color: @color-black;
+
+    p.copy {
+      font-size: .857em;
+      color: @color-white;
+      margin: 0;
+    }
+  }
+}
+
+@media (min-width: 1500px) {
+  .footer {
+    .footer-top {
+      background: url(../../../assets/images/bg/footer-bg.jpg) center center;
+      -webkit-background-size: cover;
+      background-size: cover;
+    }
+  }
+}
+
+@media (max-width: 1499px) {
+  .footer {
+    .footer-top {
+      background-color: rgba(0, 0, 0, .8);
+      -webkit-background-size: cover;
+      background-size: cover;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .footer {
+    .footer-box {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .footer-top {
+      .footer-title {
+        &:before {
+          left: 50%;
+          margin-left: -25px;
+        }
+      }
+
+      /*.footer_links,
+      .footer_contacts,
+      .footer_social {
+        li {
+
+        }
+      }*/
+    }
+  }
+}

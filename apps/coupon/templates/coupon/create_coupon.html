@@ -1,0 +1,19 @@
+{% extends "base.catalog.html" %}
+
+{% block manage_bar %}
+    {% include 'manage.tabs.html' with coupons=1 %}
+{% endblock %}
+
+{% block title %}Создать купон{% endblock %}
+
+{% block column  %}
+
+<legend>Создание купона для {% if category %}категории "{{ category.name }}"{% else %}{{ product.name }}{% endif %}</legend>
+
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <p><input type="submit" value="Создать купон" /></p>
+</form>
+
+
+{% endblock %}

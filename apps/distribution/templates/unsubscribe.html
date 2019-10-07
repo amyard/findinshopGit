@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}
+    &nbsp;-&nbsp;Управление подпиской
+{% endblock title %}
+{% block content %}
+    <div class="main-container">
+        <div class="main wrapper clearfix" style="">
+            {% if email %}
+                <div class="specials">
+                    <div class="specials_title">
+                        Управление подпиской для {{email}}
+                    </div>
+                    <div class="specials_content" style="text-align: center; font-size:14px; ">
+                        {% if action == 'confirm' %}
+                            Вы отписаны от рассылки
+                        {% else %}
+                            Вы действительно хотите отписаться от рассылки?
+                            <br>
+                            <a href="?act=confirm&email={{email}}" style="color: #660000; padding: 0 10px;">Да</a>
+                            <a href="/" style="color: #660000; padding: 0 10px;">Нет</a>
+                        {% endif %}
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            {% endif %}
+        </div> <!-- #main -->
+    </div> <!-- #main-container -->
+{% endblock content %}

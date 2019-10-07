@@ -1,0 +1,32 @@
+{% extends "base.catalog.html" %}
+
+{% block column %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Создан</th>
+                <th>Изменен</th>
+                <th>Сумма</th>
+                <th>Статус</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td><a href="{% url "order_control" order_id=order.id action='v' %}">{{order.number}}</a></td>
+                    <td>{{order.created_date}}</td>
+                    <td>{{order.modified_date}}</td>
+                    <td>{{order.cost}} грн.</td>
+                    <td>{{order.get_status_title}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-mini" href="{% url "order_control" order_id=order.id action='d' %}" title="Удалить заказ"><i class="icon-remove"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock column %}

@@ -1,0 +1,16 @@
+{% extends 'base.html'%}
+
+{% block titulbanner %}
+    {% include 'headadmin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="span3">
+            {% block sidebar %}{% endblock %}
+        </div>
+        <div class="span9">
+            {% block column %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

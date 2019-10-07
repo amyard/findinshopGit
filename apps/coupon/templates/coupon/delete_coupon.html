@@ -1,0 +1,18 @@
+{% extends "base.catalog.html" %}
+
+{% block manage_bar %}
+    {% include 'manage.tabs.html' with coupons=1 %}
+{% endblock %}
+
+{% block title %}Удаление купона{% endblock %}
+
+{% block column  %}
+
+<legend>Удаление купона</legend>
+
+<form action="" method="post">{% csrf_token %}
+    <p>Действительно хотите удалить "{{ object }}" купон?</p>
+    <input type="submit" value="Да, конечно" />
+</form>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.website.html" %}
+
+{% block title %}Настройки шаблонов{% endblock %}
+
+{% block column  %}
+    <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Редактирование зоны</legend>
+            {% include 'form.inc.html' with form=form %}
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Сохранить</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}
+
+{% block js %}
+    $(document).ready(
+        function()
+        {
+            $('textarea').css('height','200px').redactor({
+                lang: 'ru',
+                autoresize: true
+            });
+        }
+    );
+{% endblock js %}

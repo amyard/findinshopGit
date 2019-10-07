@@ -1,0 +1,24 @@
+<ul class="nav nav-pills">
+    {% comment %}
+    {% if flag_rw1 = 1 %}
+        <li {% if type = 'task' %} class="active" {% endif %}><a href="{% url import_task %}">Импорт данных XML (Hotline)</a></li>
+    {% endif %}
+    {% endcomment %}
+    {% if flag_rw2 = 1 %}
+        <li {% if type = 'task_YML' %} class="active" {% endif %}><a href="{% url "import_task_YML" %}">Импорт данных YML (Yandex.Market)</a></li>
+    {% endif %}
+    {% comment %}
+    {% if flag_rw3 = 1 %}
+        <li {% if type = 'task_Excel' %} class="active" {% endif %}><a href="{% url import_task_Excel %}">Импорт данных MS Excel</a></li>
+    {% endif %}
+    {% if flag_rw4 = 1 %}
+        <li {% if type = 'task_HotPrise' %} class="active" {% endif %}><a href="{% url import_task_HotPrise %}">Импорт данных XML (Hotprice)</a></li>
+    {% endif %}
+    {% endcomment %}
+
+    {% if flag_rw5 = 1 %}
+        <li {% if type = 'task_1C' %} class="active" {% endif %}><a href="{% url "import_task_1c" %}">Импорт данных 1C</a></li>
+    {% endif %}
+
+    <li {% if type = 'status' %} class="active" {% endif %}><a href="{% url "import_status" %}">История импорта</a></li>
+</ul>

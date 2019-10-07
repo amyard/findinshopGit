@@ -1,0 +1,43 @@
+<div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner ">
+            <div class="container">
+                <div class="navbar-text pull-left">
+                    <ul class="nav">
+                        <li><a href="/"><i class="icon-home icon-white"></i></a></li>
+                    </ul>
+                </div>
+                {% if nav_search %}
+                    <form id="autocompleteForm" class="form-search navbar-search pull-left" method="get" action="{% url search %}">
+                        <div class="input-append">
+                            <input type="text" class="span8 autocomplete" autocomplete="off" name="q" data-provide="typeahead" placeholder="Поиск...">
+                            <button type="submit" class="btn btn-inverse"><i class="icon-search icon-white"></i></button>
+                        </div>
+                    </form>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                    <div class="navbar-text pull-right">
+                        <ul class="nav">
+                            {% if request.user.is_superuser %}
+                                <li><a href="{% url 'admin:index' %}"><i class="icon icon-fire icon-white" title="Администрирование"></i></a></li>
+                                <li><a href="{% url 'force_index_update' %}"><i class="icon icon-white icon-refresh" title="Перестройка индекса"></i></a></li>
+                            {% endif %}
+                            <li><a href="{% url 'catalog' %}"><i class="icon icon-user icon-white" title="{{ request.user.get_full_name|default:request.user.username }}"></i></a></li>
+                            <li><a href="{% url 'logout' %}"><i class="icon icon-off icon-white" title="Выход"></i></a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="navbar-text pull-right">
+                        <ul class="nav">
+                            {% comment %}
+                            <li style="color: #FFFFFF;"><a href="{% url signup %}">Регистрация</a></li>
+                            {% endcomment %}
+                            <li style="color: #FFFFFF;"><a href="{% url login %}">Вход</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+

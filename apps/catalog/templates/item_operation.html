@@ -1,0 +1,105 @@
+{% extends "base.catalog.html" %}
+
+
+{% block column  %}
+        <div class="alert alert-info alert-block" style="text-align: justify;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4>Внимание!</h4>
+            На данной странице Вам предоставляется возможность устанавливать дополнительные параметры для необходимой группы товаров. А именно:
+            <li>Скидка на товар</li>
+            <li>Возможность оптовой торговли товаром</li>
+            Сперва Вам необходимо обозначить параметры для выборки товара, затем нажать кнопку <b>Фильтровать</b>. Вы можете указывать несколько параметров сразу. Обратите внимание, что поле "Скидка"
+            принимает опциональные знаки <b>&gt;</b> и <b>&lt;</b> перед своим значением.
+            <br>
+            Вы увидите таблицу с товарами, попавшими под установленные критерии. В следующей форме следует определить необходимые действия над найденными товарами и нажать кнопку <b>Установить</b>.
+            <br>
+            По завершению операции над товарами Вы будете проинформированы.
+        </div>
+        {% if applied %}
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Внимание!</h4>
+                Обновлены данные для товара бренда <b>{{vendor}}</b>.
+                <br>
+                {{ discount|yesno:"<li>Установлена скидка</li>,<li>Удалена скидка</li>, "|safe}}
+                {{ wholesale|yesno:"<li>Установлен маркер оптовой продажи</li>,<li>Снят маркер оптовой продажи</li>, "|safe}}
+            </div>
+        {% endif %}
+
+        <div class="well">
+            <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset>
+                    {% include 'form.inc.html' with form=currency_setting_form %}
+                    <div class="controls">
+                        <button class="btn btn-primary" type="submit" name="currency_setting" style="width: 130px; font-size: 14px;"><i class="icon-ok-sign icon-white"></i> Установить</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        {% if aform and fform %}
+            <div class="well">
+                <form method="get" action="" class="form-horizontal" enctype="multipart/form-data">
+                    <fieldset>
+                        {% include 'form.inc.html' with form=fform %}
+                        <div class="controls">
+                            <button class="btn btn-primary" type="submit" style="width: 130px; font-size: 14px;"><i class="icon-search icon-white"></i> Фильтровать</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            {% if items %}
+            <div style="">
+                Найдено товаров: {{items|length}}
+                <br>
+                <br>
+                <table class="table">
+                    <tr>
+                        <th>Наименование</th>
+                        <th>Бренд</th>
+                        <th width="15%">Скидка, %</th>
+                        <th width="1%">Опт</th>
+                        <th width="15%">Цена, грн.</th>
+                        <th width="1%">&nbsp;</th>
+                    </tr>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{item.name}}</td>
+                            <td>{{item.vendor}}</td>
+                            <td>{{item.discount|default:"Нет"}}</td>
+                            <td style="text-align: center;">
+                                {% if item.wholesale %}
+                                    <i class="icon-plus"></i>
+                                {% else %}
+                                    <i class="icon-minus"></i>
+                                {% endif %}
+                            </td>
+                            <td>{{item.get_price}}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-mini" href="{% url "edit_item" item_id=item.id %}"><i class="icon-edit"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+            <div class="well">
+                <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset>
+                        {% include 'form.inc.html' with form=aform %}
+                        <div class="controls">
+                            {% if website_property.setting_discounts %}
+                                <button class="btn btn-primary" type="submit" style="width: 130px; font-size: 14px;"><i class="icon-ok-sign icon-white"></i> Установить</button>
+                            {% else %}
+                                <button class="btn btn-primary" type="" disabled="disabled" style="width: 130px; font-size: 14px;"><i class="icon-ok-sign icon-white"></i> Установить</button>
+                            {% endif %}
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        {% endif %}
+{% endblock column %}

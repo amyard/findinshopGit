@@ -1,0 +1,43 @@
+{% extends "themes/findinshop/red/base_red.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+ <div id="header">
+
+		<!-- /// HEADER  //////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+			<div class="row">
+				<div class="span4" style="width: 200px;">
+                                    <!-- // Logo // -->
+                                        <a href="/" id="logo">
+                                            <img class="responsive-img" src="{{ STATIC_URL }}themes/findinshop/red/img/logo.png" alt="найти в магазине">
+                                        </a>
+				</div><!-- end .span4 -->
+				<div class="span8">
+                                    <form id="newsletter-subscribe-form" action="{% url 'search' %}" method="get" style="width: 95%;">
+                                        <input id="search" class="text ui-autocomplete-input" type="text" value="" placeholder="Введите название товара" autocomplete="off" name="q">
+                                        <input type="submit" value="Искать">
+                                    </form>
+				</div><!-- end .span8 -->
+			</div><!-- end .row -->
+
+		<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+		</div><!-- end #header -->
+    <div id="content">
+        <div class="row" style="width: 767px;">
+    <form method="post" action="{% url 'signup2' %}" class="form-horizontal">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Подключить интернет-магазин</legend>
+            {% include 'form.inc.html' with form=form %}
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Регистрация</button>
+            </div>
+        </fieldset>
+    </form>
+ </div><!-- end .row -->
+ <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+</div><!-- end #content -->
+{% endblock %}

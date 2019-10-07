@@ -1,0 +1,40 @@
+{% extends "base.catalog.html" %}
+
+{% block manage_bar %}
+    {% include 'manage.tabs.html' with coupons=1 %}
+{% endblock %}
+
+{% block title %}Ваши купоны{% endblock %}
+
+{% block column  %}
+
+<legend>Ваши купоны</legend>
+
+{% if coupons %}
+    <table width="100%">
+        <tr>
+            <td><b>Код</b></td>
+            <td><b>Дата начала действия</b></td>
+            <td><b>Активен до</b></td>
+            <td><b>Название категории или товара</b></td>
+            <td><b>Тип</b></td>
+            <td><b>Скидка</b></td>
+            <td><b>Действия</b></td>
+        </tr>
+    {% for coupon in coupons %}
+        <tr>
+            <td>{{ coupon.code }}</td>
+            <td>{{ coupon.date_start }}</td>
+            <td>{{ coupon.date_end }}</td>
+            <td>{{ coupon.name_category }}</td>
+            <td>{{ coupon.get_types_display }}</td>
+            <td>{{ coupon.size }}</td>
+            <td><a href="{% url "coupon_delete" coupon.id %}">Удалить</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>Пока не создан ни один купон.</p>
+{% endif %}
+
+{% endblock %}

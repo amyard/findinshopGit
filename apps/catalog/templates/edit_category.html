@@ -1,0 +1,59 @@
+{% extends "base.catalog.html" %}
+
+{% block title %}Настройки категории{% endblock %}
+
+{% block third_party_css %}
+    <link href="/static/js/chosen/chosen.css" rel="stylesheet"/>
+{% endblock third_party_css %}
+
+{% block column  %}
+    <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Редактирование категории:</legend>
+
+            {% include 'form.inc.html' with form=form %}
+            <br>
+            <legend>Параметры категории:</legend>
+            {% include 'formset.inc.html' with formset=formset %}
+            <a class="btn-link" id="add_more">Добавить параметр</a>
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Сохранить</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}
+
+{% block third_party_js %}
+    <script type="text/javascript" src="/static/js/chosen/chosen.jquery.js"></script>
+{% endblock third_party_js %}
+
+{% block js %}
+    $(document).ready(
+        function()
+        {
+            $('select').chosen({no_results_text: "Нет результатов по"})
+
+            $('#add_more').click(function() {
+                cloneMore('table tr:last', 'form');
+            });
+        }
+    );
+    function cloneMore(selector, type) {
+        var newElement = $(selector).clone(true);
+        var total = $('#id_' + type + '-TOTAL_FORMS').val();
+
+        newElement.find(':input').each(function() {
+            $(this).attr('name', function(i, val) {
+                return val.replace('-'+(total-1)+'-', '-'+total+'-')
+            });
+            var id = 'id_' + $(this).attr('name');
+            $(this).attr('id', id)
+            $(this).attr('value', '')
+        });
+
+        total++;
+        $('#id_' + type + '-TOTAL_FORMS').val(total);
+        $(selector).after(newElement);
+    }
+{% endblock js %}

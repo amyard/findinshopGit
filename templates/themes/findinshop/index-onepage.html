@@ -1,0 +1,12 @@
+{% extends "themes/findinshop/base.html" %}{% block content %} 
+
+   <a href="/">        
+   <img src="{{STATIC_URL}}/themes/findinshop/images/bg3.jpg" alt="" id="full-screen-background-image" /> 
+   {# <div class="reklama"> #}    
+   {# <img src="{{STATIC_URL}}/themes/findinshop/images/logo-spons.png" alt="" > #}    
+   {# </div> #}    </a>    <div id="wrapper">    <div id="find">   
+   <h1 id="logo">find<span>in</span>shop</h1>    <form class="form-search" action="/search">  
+   <input id="search"      class="text ui-autocomplete-input"   
+   type="text" value="" placeholder="Я ищу..."      autocomplete="off" name="q">   
+   <button class="add-on ok" type="submit">        <span class="icon">Поиск</span>   
+   </button>    </form>    </div>    </div>{% endblock content %}

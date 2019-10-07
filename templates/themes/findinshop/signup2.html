@@ -1,0 +1,16 @@
+{% extends "themes/findinshop/base.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+    <form method="post" action="{% url signup2 %}" class="form-horizontal">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Подключить интернет-магазина (Бесплатно) </legend>
+            {% include 'form.inc.html' with form=form %}
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Регистрация</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}

@@ -1,0 +1,269 @@
+{% extends 'themes/findinshop/red/base_red.html' %}
+{% load endless %}
+{% load thumbnail %}
+{% load order_set %}
+{% load website_extra %}
+{% block title %}Сравнить цену на FINDINSHOP.{% endblock %}
+
+{% block navbar %}
+  {% if res_search %}
+    {% include 'navbar.html' with nav_search=1 %}
+  {% else %}
+    {% include 'navbar.html' %}
+  {% endif %}
+{% endblock navbar %}
+
+
+{% block content %}
+  <div id="header">
+
+    <!-- /// HEADER  //////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <div class="row">
+      <div class="span4" style="width: 200px">
+
+        <!-- // Logo // -->
+        <a href="/" id="logo">
+          <img class="responsive-img" src="{{ STATIC_URL }}themes/findinshop/red/img/logo.png" alt="">
+        </a>
+
+      </div><!-- end .span4 -->
+      <div class="span8">
+        <form id="newsletter-subscribe-form" action="{% url search %}" method="get" style="width: 95%;">
+          <input id="search" class="text ui-autocomplete-input" type="text" value=""
+                 placeholder="Введите название товара" autocomplete="off" name="q">
+          <input type="submit" value="Искать">
+        </form>
+      </div><!-- end .span8 -->
+    </div><!-- end .row -->
+
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+  </div><!-- end #header -->
+
+  <!-- /// CONTENT  /////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+  <div id="content">
+  <div class="wrapper_width">
+  <div class="banners right">
+    <script type='text/javascript'>
+      (function () {
+        var w = window, d = document;
+        w.admixZArr = (w.admixZArr || []);
+        w.admixerSmOptions = (w.admixerSmOptions || {});
+        w.admixerSmOptions.showAdsOnLoad = true;
+        if (!w.admixerSm) {
+          var adms = document.createElement('script');
+          adms.async = true;
+          adms.type = 'text/javascript';
+          adms.src = 'http://cdn.admixer.net/scriptlib/asm2.js?v=3';
+          var node = d.getElementsByTagName('script')[0];
+          node.parentNode.insertBefore(adms, node);
+        }
+      })();
+    </script>
+
+    <div id="admixer_async_298522885" style="margin-bottom: 10px;"></div>
+    <script type="text/javascript">
+      window.admixZArr = (window.admixZArr || []);
+      window.admixZArr.push({z: '76591ae7-e961-4823-a7ca-2c437b019fc3', ph: 'admixer_async_298522885'});
+    </script>
+
+  </div>
+  {% if sections %}
+
+    <div class="main" style="margin-top: 112px; min-height: 789px;">
+      <h2>{{ sections.0.parent.name }}</h2>
+
+      {% if sections.0.parent.thumb %}
+        <img src="{{ MEDIA_URL }}{{ sections.0.parent.thumb }}"/>
+      {% endif %}
+      <span>{{ sections.0.parent.description }}</span>
+    </div>
+    <ul class="section-set">
+      {% for section in sections %}
+        {% if section.icon %}
+          <li><img src="{{ MEDIA_URL }}{{ section.icon }}"/> <a href="
+              {% if section.have_child %}{% url section_detail section.slug %}{% else %}{% url products section.slug %}{% endif %}">{{ section.name }}</a>
+          </li>
+        {% else %}
+          <li><a href="
+              {% if section.have_child %}{{ section.slug }}{% else %}/section/{{ section.get_slug }}{% endif %}">{{ section.name }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <hr>
+  <div id="articles">
+    <ul class="products-lists_set">
+      {% if products %}
+        {% paginate count_in_page products %}
+        {% for item in products %}
+          <li class="products-list__item_set">
+            <div itemscope itemtype="http://schema.org/Product" class="products-list__holder_set">
+              <div class="products-list__photo_set">
+                <a href="{{ item.slug }}">
+                  {% if item.image %}
+                    <div class="photo_product_section"
+                         style="background: url({% thumbnail item.image 202x182 %}) no-repeat center;"></div>
+                  {% else %}
+                    <img class="products" src="{{ STATIC_URL }}themes/findinshop/red/img/photo_product.png"
+                         alt="{{ item.name }}"/>
+                  {% endif %}
+                </a>
+              </div><!-- and products_list_photo_set-->
+              <div class="products-list__descr_set">
+                <h3 itemprop="name" class="products-list__title_set">{{ item.name }}</h3>
+                <p itemprop="description" class="products-list__info_set">
+                  {{ item.description|truncatechars:'450' }}
+                </p>
+                <p class="products-list__price_set">Цена от: <span
+                    class="price_view">{{ item.price_min }} - {{ item.price_max }} грн.<br></span> <span class="prop">(предложений {{ item.count }})</span>
+                </p>
+                <div class="products-list__more_set">
+                  <a href="{{ item.slug }}" rel="follow" target="_blank"
+                     class="products-list__btn-more_set">Сравнить цены</a>
+                </div><!-- and products-list__mores -->
+              </div><!-- end products-list__descrs -->
+            </div><!-- end products_list_holders -->
+          </li>
+        {% endfor %}
+        </ul>
+        <div class="clear"></div>
+        </div><!-- end articles -->
+        <!-- Блок товаров. конец-->
+        <nav class="text-center">
+          <ul class="pagination">
+            <li>
+              {% if entries %}
+                {% show_pages %}
+              {% endif %}
+            </li>
+          </ul>
+        </nav>
+        <div class="clear"></div>
+      {% endif %}
+
+  {% if product_model %}
+    <div class="compare-original">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="compare-original_box">
+              <div class="box_img">
+                {% if product_model.image %}
+                  <img src="{% thumbnail product_model.image 202x182 %}" alt="{{ product_model.name }}"/>
+                {% else %}
+                  <!--img src="{{ STATIC_URL }}themes/findinshop/red/img/photo_product.png" alt="{{ product_model.name }}" /-->
+                {% endif %}
+              </div>
+              <div class="box_info">
+                <div class="box_t">{{ product_model.name }}</div>
+                <div class="box_options">{{ product_model.description }}</div>
+                <!--div class="box_price">Цена от: <span class="price_view">{{ item.price_min }} - {{ item.price_max }} грн.<br></span></div-->
+                <ol>
+                      {% for group in product_model.feature_group.all %}
+                         <li>{{ group }}
+                        {% feature_by_group group product_model %}
+                       </li>
+                      {% endfor %}
+                </ol>
+
+              </div>
+            </div>
+          </div>
+          {% if product_model.image2 %}
+            <div class="col-md-4">
+              <div class="compare-original_thumbs">
+                <ul class="thumbs_ul">
+                  <li>
+                    <a href="{{ MEDIA_URL }}{{ product_model.image2 }}" data-lightbox="roadtrip">
+                      <img src="{{ MEDIA_URL }}{{ product_model.image2 }}" alt="{{ product_model.name }}"/>
+                    </a>
+                  </li>
+                  {% if product_model.image3 %}
+                    <li>
+                      <a href="{{ MEDIA_URL }}{{ product_model.image3 }}" data-lightbox="roadtrip">
+                        <img src="{{ MEDIA_URL }}{{ product_model.image3 }}" alt="{{ product_model.name }}"/>
+                      </a>
+                    </li>
+                  {% endif %}
+                  {% if product_model.image4 %}
+                    <li>
+                      <a href="{{ MEDIA_URL }}{{ product_model.image4 }}" data-lightbox="roadtrip">
+                        <img src="{{ MEDIA_URL }}{{ product_model.image4 }}" alt="{{ product_model.name }}"/>
+                      </a>
+                    </li>
+                  {% endif %}
+                  {% if product_model.image5 %}
+                    <li>
+                      <a href="{{ MEDIA_URL }}{{ product_model.image5 }}" data-lightbox="roadtrip">
+                        <img src="{{ MEDIA_URL }}{{ product_model.image5 }}" alt="{{ product_model.name }}"/>
+                      </a>
+                    </li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <section class="compare">
+    <div class="container-fluid">
+    <div class="compare-list">
+    <!--div class="compare-actions">
+              Найдено результатов: {{ product_model.items.count }}
+
+    <!-- Repeat items -->
+    {% if product_model.items.all %}
+      {% for product in product_model.items.all|order_by:'-click_cost' %}
+        {% if product.price > 0 %}
+          <div class="compare-list_item">
+            <div class="list-item_img">
+              {% if product.site.logo %}
+                <a href="#"><img src="{% thumbnail product.site.logo 100x100 %}" alt="{{ product.name }}"
+                                 rel="nofollow"></a>
+              {% endif %}
+            </div>
+            <div class="list-item_info">
+              <div class="list-item_header">
+                <div class="list-item_t">{{ product.name }}</div>
+                <div class="list-item_price">{{ product.price }} грн.</div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="list-item_desc">
+                {{ product.description|truncatechars:'450' }}
+              </div>
+              <div class="list-item_btn">
+                <a href="{% url transition product.pk %}" rel="nofollow" target="_blank"
+                   class="btn btn-default __small">В магазин <i class="fa fa-shopping-cart"></i></a>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <p>Пока что нет ни одного варианта.</p>
+    {% endif %}
+
+    <!-- /Repeat items -->
+    <nav class="text-center">
+      <ul class="pagination">
+        <li>
+          {% if entries %}
+            {% show_pages %}
+          {% endif %}
+        </li>
+      </ul>
+    </nav>
+    <div class="clear"></div>
+  {% endif %}
+<div id="footer_space"></div>
+
+
+</div><!-- end #content.wrapper_width -->
+</div><!-- end #content -->
+
+{% endblock %}

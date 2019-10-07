@@ -1,0 +1,60 @@
+/**
+* Button styles
+**/
+
+.btn-default {
+  padding: 12px 25px;
+  color: #fff;
+  text-transform: uppercase;
+  background-color: @color-orange;
+  border-color: @color-orange;
+  border-radius: 0;
+  -webkit-transition: all .25s linear;
+  -moz-transition: all .25s linear;
+  -ms-transition: all .25s linear;
+  -o-transition: all .25s linear;
+  transition: all .25s linear;
+  
+  &:hover,
+  &:focus {
+    background-color: darken(@color-orange, 5%);
+    border-color: darken(@color-orange, 5%);
+    color: @color-white;
+  }
+
+  &.__medium {
+    padding: 7.5px 12px;
+    font-size: 12px;
+  }
+
+  &.__small {
+    padding: 4px 20px;
+    font-size: 12px;
+  }
+}
+
+.btn-gray {
+  padding: 12px 25px;
+  color: #fff;
+  text-transform: uppercase;
+  background-color: @color-gray;
+  border-color: @color-gray;
+  border-radius: 0;
+  -webkit-transition: all .25s linear;
+  -moz-transition: all .25s linear;
+  -ms-transition: all .25s linear;
+  -o-transition: all .25s linear;
+  transition: all .25s linear;
+
+  &:hover,
+  &:focus {
+    background-color: darken(@color-gray, 5%);
+    border-color: darken(@color-gray, 5%);
+    color: @color-white;
+  }
+
+  &.__medium {
+    padding: 7.5px 12px;
+    font-size: 12px;
+  }
+}

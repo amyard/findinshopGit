@@ -1,0 +1,21 @@
+{% load category_tags %}
+<div class="border" style="margin-top: 20px;">
+    <div class="" style="padding-top:10px;">
+        <ul class="" style="list-style-type: none; margin-left:10px;">
+            {% with request.website.catalog as catalog %}
+                {% if catalog %}
+                    {% recursetree catalog.category_set.all %}
+                        <li>
+                            <a href="{% url 'filter_by_cat' cat_id=node.id %}">{{ node.name }}</a>
+                            {% if not node.is_leaf_node %}
+                                <ul class="level-{{node.get_level|add:"1"}}" style="list-style-type: none; margin-left:10px;">
+                                    {{ children }}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endrecursetree %}
+                {% endif %}
+            {% endwith %}
+        </ul>
+    </div>
+</div>

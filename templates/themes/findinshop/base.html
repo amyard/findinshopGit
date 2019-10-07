@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Findinshop -  on-line shopping centre.{% endblock title %}</title>
+	<meta name="keywords" content="создать интернет магазин, добавить интернет магазин, каталог интернет магазинов, сравнение цен интернет магазинов, искать в интернет магазине, найти в интернет магазине, купить в интернет магазине">
+	<meta name="description" content="Findinshop - on-line shopping centre.">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width">
+	<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}themes/findinshop/style.css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+    <script type="text/javascript" src="{{STATIC_URL}}themes/findinshop/js/modernizr.custom.79639.js"></script>
+    <noscript><link rel="stylesheet" type="text/css" href="{{STATIC_URL}}themes/findinshop/css/noJS.css" /></noscript>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}themes/findinshop/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}themes/findinshop/media.css" />
+    <!--[if lt IE 9]>
+        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+    {% include 'ga.inc.html' with tracking_id='_' %}
+    {% include 'ym.inc.html' with key='_' %}
+</head>
+<body>
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <div class="global-nav top">
+    	<nav class="nav-bar-inner">
+    		<ul class="primary-nav top left">
+            	<li class="home">
+        			<a href="/"><i class="icon arrow"></i></a>
+    			</li>
+    			<li class="upb">
+    			<a href="{% url signup %}">
+    				создать интернет-магазин
+    			<i class="icon arrow" aria-hidden="true"></i>
+    			</a>
+    			</li>
+    			<li class="">
+    			<a href="{% url signup2 %}">
+    				подключить интернет-магазин
+    			</a>
+    			</li>
+				
+    			<li class="">
+    			<a href="{% url support %}">
+    				подключить каталог товаров 1с
+    			</a>
+    			</li>
+    			<li class="">
+    			<a href="{% url add_subscriber %}">
+    				Получить скидку
+    			</a>
+    			</li>
+				
+                {% comment %}
+				<li>
+				<div class="language-selector right">
+                <div id="dd" class="wrapper-dropdown-5" tabindex="1">
+                    <span>RU</span>
+                    <ul class="dropdown">
+                        <li><a href="#"><i class=""></i>UA</a></li>
+                        <li><a href="#"><i class=""></i>EN</a></li>
+                    </ul>
+                    <i class="icon arrow"></i>
+                </div>
+    		</div>
+            </li>
+            {% endcomment %}
+    		</ul>
+
+    	</nav>
+        <div style="clear:both;"></div>
+    </div>
+
+    <div id="wrapper-main">
+        {% block content %}
+        {% endblock content %}
+    
+    {% include "themes/findinshop/footer.html" %}
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}themes/findinshop/js/jquery.autocomplete.min.js"></script>
+	<script type="text/javascript">
+		function DropDown(el) {
+			this.dd = el;
+			this.placeholder = this.dd.children('span');
+			this.opts = this.dd.find('ul.dropdown > li');
+			this.val = '';
+			this.index = -1;
+			this.initEvents();
+		}
+		DropDown.prototype = {
+			initEvents : function() {
+				var obj = this;
+
+				obj.dd.on('click', function(event){
+					$(this).toggleClass('active');
+					return false;
+				});
+
+				obj.opts.on('click',function(){
+					var opt = $(this);
+					obj.val = opt.text();
+					obj.index = opt.index();
+					obj.placeholder.text(obj.val);
+				});
+			},
+			getValue : function() {
+				return this.val;
+			},
+			getIndex : function() {
+				return this.index;
+			}
+		}
+		$(function() {
+            $('.liveinternet-js').append("<a href='http://www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t27.6;r" + escape(top.document.referer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) +";" + Math.random() + "' border=0 width=1 height=0 alt='' title='LiveInternet: показано количество просмотров и посетителей'><\/a>");
+			var dd = new DropDown( $('#dd') );
+			$(document).click(function() {
+				// all dropdowns
+				$('.wrapper-dropdown-5').removeClass('active');
+			});
+            //$('#search').autocomplete({
+            //    serviceUrl: '{% url search_autocomplete %}',
+            //    minChars: 3,
+            //    onSelect: function (suggestion) {
+            //        location.href = "/search/?q=" + encodeURIComponent(suggestion.value).replace(/%20/g, '+');
+                    //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+            //    }
+            //});
+		});
+    </script>
+</body>
+</html>

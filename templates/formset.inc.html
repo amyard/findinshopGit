@@ -1,0 +1,40 @@
+{{ formset.management_form }}
+
+<table>
+<tbody>
+{% for form in formset %}
+<tr>
+{% if forloop.counter == 1 %}
+{% for field in form %}
+    {% if not field.is_hidden %}
+    <td>
+        <div class="control-group"><strong>{{ field.label }}</strong></div>
+    </td>
+    {% endif %}
+{% endfor %}
+{% endif %}
+</tr>
+<tr>
+{% if form.non_field_errors %}
+    <div class="control-group error">
+        <label class="control-label"></label>
+            <div class="controls">
+                <span class="help-inline">{{ form.non_field_errors }}</span>
+            </div>
+    </div>
+{% endif %}
+{% for field in form %}
+    {% if field.is_hidden %}<div class="clearfix">{{field}}</div> {% else %}
+    <td>
+        <div class="control-group {% if field.errors %}error{% endif %}">
+            {{ field }}
+            <span class="help-inline">{{ field.errors }}</span>
+            <p class="help-block">{{ field.help_text }}</p>
+        </div>
+    </td>
+    {% endif %}
+{% endfor %}
+</tr>
+{% endfor %}
+</tbody>
+</table>

@@ -1,0 +1,26 @@
+{{ form.media }}
+
+{% if form.non_field_errors %}
+    <div class="control-group error">
+        <label class="control-label"></label>
+            <div class="controls">
+                <span class="help-inline">{{ form.non_field_errors }}</span>
+            </div>
+    </div>
+{% endif %}
+
+
+{% for field in form %}
+    {% if field.is_hidden %}<div class="clearfix">{{ field }}</div> {% else %}
+
+    <div class="control-group {% if field.errors %}error{% endif %}">
+        <label for="{{ field.id_for_label }}" class="control-label">{{ field.label|safe }}</label>
+        <div class="controls">
+            {{ field }}
+            <span class="help-inline">{{ field.errors }}</span>
+            <p class="help-block">{{ field.help_text }}</p>
+        </div>
+    </div>
+
+    {% endif %}
+{% endfor %}

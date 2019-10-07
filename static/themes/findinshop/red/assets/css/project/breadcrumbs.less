@@ -1,0 +1,29 @@
+/**
+* Breadcrumbs styles
+**/
+
+.breadcrumbs {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border-top: 1px solid @color-border;
+  border-bottom: 1px solid @color-border;
+  color: #555;
+
+  .breadcrumbs_find {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .breadcrumbs_select {
+    text-align: right;
+  }
+}
+
+@media (max-width: 767px) {
+  .breadcrumbs {
+    .breadcrumbs_select {
+      text-align: center;
+      margin-top: 10px;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{% extends "base.website.html" %}
+
+{% block title %}Настройки шаблонов{% endblock %}
+
+{% block column  %}
+<legend>Доступные зоны</legend>
+<table class="table">
+    <tr>
+        <th>Ключ</th>
+        <th>Ссылка</th>
+    </tr>
+    {% for item in spaces %}
+    <tr>
+        <td><a href="{% url "spaces_edit" space_id=item.id %}">{{ item.key }}</a></td>
+        <td>{% firstof item.banner_url "Зона свободна" %}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

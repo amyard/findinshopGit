@@ -1,0 +1,28 @@
+{% extends "themes/findinshop/base.html" %}
+
+{% block title %}Обратная связь{% endblock %}
+
+{% block content %}
+    {% if status == 'ok' %}
+        <div class="alert alert-succes">
+            <h3>Ваше сообщение отправлено!</h3>
+            <p>В ближайшее время с вами свяжутся наши специалисты.</p>
+        </div>
+    {% elif status == 'error' %}
+        <div class="alert alert-error">
+            <h3>Извините, произошла ошибка!</h3>
+        </div>
+    {% elif form %}
+        <form method="post" action="" class="form-horizontal">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Обратная связь</legend>
+                {% include 'form.inc.html' with form=form %}
+                <div style="clear: both;"></div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Отправить</button>
+                </div>
+            </fieldset>
+        </form>
+    {% endif %}
+{% endblock %}

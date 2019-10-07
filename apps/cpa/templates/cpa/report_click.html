@@ -1,0 +1,94 @@
+{% extends "base.catalog.html" %}
+
+{% block manage_bar %}
+    {% include 'manage.tabs.html' with cost_setting=1 %}
+{% endblock %}
+
+{% block title %}Отчет о кликах{% endblock %}
+
+{% block third_party_css %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <style>
+        form p{float: left; margin-right: 10px;}
+        div.clear{height: 1px; clear: both;}
+    </style>
+{% endblock third_party_css %}
+
+
+{% block bottom_js %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/datepicker/jquery.ui.datepicker.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/datepicker/jquery.ui.datepicker-ru.js"></script>
+<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/javascript">
+    $(function(){
+          $.datepicker.setDefaults({
+            dateFormat: 'mm/dd/yy',
+            prevText: '',
+            nextText: '',
+          });
+
+        $('#id_date_from').datepicker();
+        $('#id_date_to').datepicker();
+    });
+</script>
+{% endblock %}
+
+
+{% block column  %}
+
+    {% if messages %}
+        <div class="alert alert-info alert-block" style="text-align: justify;">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <ul class="nav nav-pills">
+        <li><a href="{% url 'cost_setting' %}">Настройка стоимости клика</a></li>
+        <li class="active"><a href="{% url 'report_click' %}">Отчет о кликах</a></li>
+    </ul>
+
+    <form action="" method="get">
+        {{ form.as_p }}
+        <p><label>&nbsp;</label><input type="submit" value="Вывести отчет" /></p>
+    </form>
+
+    <div class="clear"></div>
+
+    {% if reports %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <td colspan="4">Отчет за период {{ from }} - {{ to }}</td>
+                    <td colspan="2"><a class="btn-link" href="{% url 'report_xml' report_key %}"><i class="icon-download"></i>Скачать XLS</a></td>
+                </tr>
+                <tr>
+                    <td><b>Раздел</b></td>
+                    <td><b>Собственная категория</b></td>
+                    <td><b>Продукт</b></td>
+                    <td><b>Стоимость клика(грн.)</b></td>
+                    <td><b>IP клика</b></td>
+                    <td><b>Дата\Время</b></td>
+                </tr>
+            </thead>
+                {% for report in reports %}
+                    <tr>
+                        <td>{{ report.section.name }}</td>
+                        <td>{{ report.category }}</td>
+                        <td>{{ report.product_name }}</td>
+                        <td>{{ report.cost }}</td>
+                        <td>{% if report.ip %}{{ report.ip }}{% else %}-{% endif %}</td>
+                        <td>{{ report.date|date:"d.m.Y H:i" }}</td>
+                    </tr>
+                {% endfor %}
+        </table>
+    {% elif from and to %}
+        <p>Нет отчета на данный период.</p>
+    {% else %}
+        <p>Укажите временной отрезок для по которому хотите получить отчет.</p>
+    {% endif %}
+
+
+{% endblock %}

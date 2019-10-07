@@ -1,0 +1,324 @@
+/* CSS Document */
+
+* {
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+}
+
+table, td, img {border:0;}
+form, td {margin:0; padding:0;}
+td { vertical-align:top; text-align:left;}
+
+.main-width { width:950px; margin:0 auto; text-align:left;}
+.main-width2 { width:1050px; margin:0 auto; text-align:left;}
+
+.wrapper{ width:100%; overflow:hidden;}
+
+/* ============================= content ===================== */
+
+.name{ font-size:17px; text-decoration:none; line-height:20px; font-weight:bold;}
+.name:hover{ color:#717171;}
+
+.product-col{
+	width:150px!important;
+	padding-bottom:26px;
+}
+.product-col .img{
+	border:1px solid #d7d7d7;
+	width:148px;
+	height:151px;
+	overflow:hidden;
+}
+.product-col .img img{
+	width:148px;
+	height:148px;
+}
+.product-col .name{
+	color:#2e2e2e;
+	font-size:9px;
+	text-decoration:none;
+	text-transform:uppercase;
+	line-height:15px;
+}
+.product-col .name:hover{
+	text-decoration:underline;
+}
+.price{
+	color:#2e2e2e;
+	font-size:11px;
+	line-height:15px;
+	font-weight:normal;
+}
+.price strong{
+	font-weight:normal;
+}
+.product-col .prod-info{
+	padding:26px 0 0 0;
+}
+.product-col .price{
+	float:left;
+	font-size:9px;
+}
+.product-col .button{
+	float:left;
+	margin-left:14px;
+}
+#specialsListingHeading{
+	color:#000000;
+	font-size:18px;
+	line-height:37px;
+	text-transform:uppercase;
+	font-family: 'Oswald', sans-serif;
+	display:block;
+	margin-bottom:14px;
+	font-weight:normal;
+}
+
+.main-width2{
+	/*width:960px;*/
+	overflow:hidden;
+	background:#fff;
+}
+.main-width2 .product{
+	width:228px;
+	float:left;
+	border:1px solid #d7d7d7;
+	padding:17px 0 17px 0;
+	margin:0 10px 8px 0;
+	position:relative;
+	overflow:hidden;
+}
+.main-width2 .product .prod-info{
+	position:absolute;
+	bottom:-70px;
+	background:#727171;
+	margin: 0 10px 0 8px;
+	width:186px;
+	padding:8px 10px 7px 14px;
+}
+*+html .main-width2 .product .prod-info{
+	padding-bottom:0;
+}
+.main-width2 .product .name{
+	font-size:9px;
+	color:#ffffff;
+	line-height:15px;
+	text-decoration:none;
+	text-transform:uppercase;
+	text-shadow:1px 1px #424242;
+}
+.main-width2 .product .name:hover{
+	text-decoration:underline;
+}
+
+.main-width2 .product .price{
+	font-size:9px;
+	color:#ffffff!important;
+	line-height:15px;
+	text-decoration:none;
+	text-shadow:1px 1px #424242;
+	float:left;
+}
+.main-width2 .product .price .normalprice{
+	padding-right:10px;
+	color:#ffffff!important;
+	text-decoration:line-through;
+}
+.main-width2 .product .price .productSpecialPrice{
+	color:#ffffff!important;
+}
+.button{
+	margin:4px 0 0 18px;
+	display:inline-block;
+	float:left;
+}
+
+
+body {
+    padding-bottom: 40px;
+    color: #5a5a5a;
+}
+
+
+
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper-custom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    margin-top: 20px;
+    margin-bottom: -90px; /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
+}
+
+
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+    margin-bottom: 60px;
+}
+
+.carousel .container {
+    position: absolute;
+    z-index: 9;
+}
+
+.carousel-control {
+    height: 80px;
+    margin-top: 0;
+    font-size: 120px;
+    text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    background-color: transparent;
+    border: 0;
+    z-index: 10;
+}
+
+.carousel .item {
+    height: auto;
+    /*height: 100%;*/
+}
+.carousel img {
+        /*position: absolute;*/
+    /*width: 100%;*/
+    max-width: 1600px;
+
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*margin-left: -800px;*/
+
+
+        /*vertical-align: middle;*/
+    }
+
+.carousel-caption {
+    background-color: transparent;
+    position: static;
+    max-width: 550px;
+    padding: 0 20px;
+    margin-top: 200px;
+}
+.carousel-caption h1,
+.carousel-caption .lead {
+    margin: 0;
+    line-height: 1.25;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,.4);
+}
+.carousel-caption .btn {
+    margin-top: 10px;
+}
+
+
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .span4 {
+    text-align: center;
+}
+.marketing h2 {
+    font-weight: normal;
+}
+.marketing .span4 p {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+    margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+.featurette {
+    padding-top: 120px; /* Vertically center images part 1: add padding above and below text. */
+    overflow: hidden; /* Vertically center images part 2: clear their floats. */
+}
+.featurette-image {
+    margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+}
+
+/* Give some space on the sides of the floated elements so text doesn't run right into it. */
+.featurette-image.pull-left {
+    margin-right: 40px;
+}
+.featurette-image.pull-right {
+    margin-left: 40px;
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+    font-size: 50px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+
+/*Новые стили*/
+.name{
+    font-size:9px;
+    color:#ffffff;
+    line-height:15px;
+    text-decoration:none;
+    text-transform:uppercase;
+    text-shadow:1px 1px #424242;
+}
+.name:hover{
+    text-decoration:underline;
+    color:#ffffff;
+}
+
+
+.openDiv{
+    display:none;
+//ну и настраиваете блок как хотите
+}
+
+
+.form-search { position: relative; margin: 7px 12px; }
+.form-search .add-on { position: absolute; top: 0; z-index: 4; padding: 9px; border: 0; background: none; }
+.form-search .add-on .icon { display: block; width: 16px; height: 16px; }
+.form-search .ok { left: 0; }
+.form-search .ok .icon { background-image: url(/static/img/icons/icon-search-16-white.png); text-indent: -9999px;}
+.form-search .remove { right: 0; display: none; }
+.form-search .remove .icon { background-image: url(/static/img/icons/icon-remove-16-white.png); text-indent: -9999px; }
+.form-search .text { padding: 6px 30px 6px 42px; border: 1px solid transparent; border-radius: 3px; width: 240px; background: transparent; color: #ffffff; }
+
+
+
+
+#ddd ul {
+    font: 14px Verdana, Geneva, sans-serif;
+    text-align: center;
+}
+
+#ddd ul li {
+    display : inline-block;
+    width : 80px;
+    height: 80px;
+    margin-bottom: 10px;
+    background: #E76D13;
+    vertical-align: top;
+    text-align: center;
+    line-height: normal;
+
+    /* эмуляция inline-block для IE6-7*/
+//display : inline;
+//zoom : 1;
+}

@@ -1,0 +1,27 @@
+{% extends "themes/findinshop/base.html" %}
+
+{% block title %}Подписаться на скидки{% endblock %}
+
+{% block content %}
+    {% if status == 'ok' %}
+        <div class="alert alert-succes">
+            <h3>Подписка прошла успешно!</h3>
+        </div>
+    {% elif status == 'error' %}
+        <div class="alert alert-error">
+            <h3>Извините, произошла ошибка!</h3>
+        </div>
+    {% elif form and not status %}
+        <form method="post" action="" class="form-horizontal">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Подписаться на скидки</legend>
+                {% include 'form.inc.html' with form=form %}
+                <div style="clear: both;"></div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Подписаться</button>
+                </div>
+            </fieldset>
+        </form>
+    {% endif %}
+{% endblock %}

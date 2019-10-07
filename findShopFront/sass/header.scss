@@ -1,0 +1,55 @@
+.header {
+    background-color: $color-primary-white;
+    height: auto;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+
+    &__logo {
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 24px;
+        margin: auto 0;
+        padding: 22px 0;
+    }
+
+    &__search {
+        margin-left: 48px;
+
+        &-form {
+            margin: 16px 0;
+        }
+        &-input {
+            width: 576px;
+            border: 1px solid #757575;
+            box-sizing: border-box;
+            border-radius: 2px;
+            padding: 8px 12px;
+
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 20px;
+            color:$color-primary-grey-text;
+
+        }
+
+        &-group-btn {
+            border-radius: 0px 2px 2px 0px;
+            width: 80px;
+            height: 36px;
+        }
+    }
+
+    &__action {
+        float: right;
+        padding: 23px 0px;
+
+        &-login {
+           background: $color-primary-grey;
+           padding: 26px;
+           margin-left: 24px;
+        }
+    }
+}

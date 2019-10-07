@@ -1,0 +1,19 @@
+User-agent: Yandex
+Disallow: /admin
+Disallow: /d
+Disallow: /c
+Disallow: /search
+
+User-agent: Googlebot
+Disallow: /admin
+Disallow: /d
+Disallow: /c
+
+
+User-agent: *
+Disallow: /admin
+Disallow: /d
+Disallow: /c
+Disallow: /search
+
+Host: findinshop.com
