@@ -161,7 +161,7 @@ $(document).ready(function () {
     }
 
     function addSecondDataForBorrom(height) {
-        return `<div class='col-1-of-4 product-item delete-empty' style='opacity: 0; height: ${height}px; margin-bottom: 96px;'></div>`
+        return `<li class='catalog-block_li col-1-of-4 product-item delete-empty' style='opacity: 0; height: ${height}px; margin-bottom: 96px;'></li>`
     }
 
     function getAjaxData(url) {
