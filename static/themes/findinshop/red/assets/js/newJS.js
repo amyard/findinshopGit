@@ -61,8 +61,6 @@ $(document).ready(function () {
             return 5
         } else if (1199 < windowWidth < 1400) {
             return 4
-        } else if (991 < windowWidth < 1200) {
-            return 3
         }
     }
 
@@ -75,6 +73,97 @@ $(document).ready(function () {
                 <div class="full-description">\
                     <div class="full-description__close">\
                         <span class='full-description__close--btn'>&times;</span>\
+                    </div>\
+
+                    <div class="full-description__content">\
+
+                        <div class="full-description__content--img">\
+                            <img alt='' src='${data.image_url}'>\
+                        </div>\
+
+                        <div class="full-description__content--info">\
+                            <div>\
+
+                                <ul class="nav nav-tabs" role="tablist">\
+                                    <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Продукт</a></li>\
+                                    <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Магазин</a></li>\
+                                    <li class='discount-btn d-none'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
+                                </ul>\
+
+                                <div class="tab-content">\
+                                    <div role="tabpanel" class="tab-pane active" id="home">\
+                                        <h3>${data.name}</h3>\
+                                        <p>${data.description}</p>\
+                                        <div class='product-item--stars d-flex marg-y-24'>\
+                                            <img src="img/star.png" alt="">\
+                                            <img src="img/star.png" alt="">\
+                                            <img src="img/star.png" alt="">\
+                                            <img src="img/star.png" alt="">\
+                                            <img src="img/star.png" alt="">\
+                                        </div>\
+                                        <span class='product-item--old-price d-block'>1999 грв</span>\
+                                        <h2 class="no-pad-top">${data.price}</h2>\
+                                    </div>\
+                                    <div role="tabpanel" class="tab-pane" id="profile">\
+                                        <table>\
+                                            <tr>\
+                                                <td class='table-grey'>Название магазина</td>\
+                                                <td class='table-black'><a href="${data.map_stores_url}" target="_blank">Магазины и пункты выдачи</a> | <a href="/bid/transition/${data.id}/" class="popup-store" rel="nofollow" target="_blank" >${data.store_name}</a></td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td class='table-grey'>Доставка</td>\
+                                                <td class='table-black'>${data.delivery}</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td class='table-grey'>Способ оплаты</td>\
+                                                <td class='table-black'>${data.payment_methods}</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td class='table-grey'>Контактный телефон</td>\
+                                                <td class='table-black'>${data.phone}</td>\
+                                            </tr>\
+                                        </table>\
+                                        <span class='product-item--old-price d-block'>1999 грв</span>\
+                                        <h2 class="no-pad-top">${data.price}</h2>\
+                                    </div>\
+                                    <div role="tabpanel" class="tab-pane d-none" id="discount">\
+                                        <div class='discount'>\
+                                            <p class='orange-color'>-50%</p>\
+                                            <p>Действителен до 26.09.2020 07:19</p>\
+                                        </div>\
+
+                                        <form class="header__search-form modal-input-form" action="" method="get">\
+                                            <div class="input-group">\
+                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Ваше имя" autocomplete="on" name="" required="">\
+                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Вашу почту" autocomplete="on" name="" required="">\
+                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Ваш телефон" autocomplete="on" name="" required="">\
+                                            </div>\
+                                        </form>\
+                                        <span class='product-item--old-price d-block'>1999 грв</span>\
+                                        <h2 class="no-pad-top">${data.price}</h2>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </div>\
+
+                    </div>\
+
+                    <div class="full-description__footer">\
+                        <img src="../img/like.png" alt="" class="svg-icon" onclick="wishlist( ${data.id} )" id="wish" target="_blank">\
+                        <img src="img/mdi-scale-balance.png" alt="">\
+                        <a class='orange-btn-cs orange-btn-padding-cs' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В магазин</a>\
+                    </div>\
+                </div>\
+            </div>\
+        `
+    }
+
+    function addModalDataDiv(data) {
+        return `\
+            <div class="modal-body">\
+                <div class="full-description">\
+                    <div class="full-description__close">\
+                        <span class='full-description__close--btn close'>&times;</span>\
                     </div>\
 
                     <div class="full-description__content">\
@@ -195,7 +284,7 @@ $(document).ready(function () {
         })
 
 
-        if(windowWidth > 986) {
+        if(windowWidth > 1199) {
             // первый раз нажали на кнопку
             if(!classBtn.includes('active')) {
 
@@ -261,7 +350,7 @@ $(document).ready(function () {
                 }
             }
         } else {
-            displayModal('descModal')
+            displayModal('descModal', JSON.parse(ajaxData))
         }
     });
 
@@ -278,7 +367,13 @@ $(document).ready(function () {
     ////           MODAL
     /////////////////////////////////////////////////////////////////////////////////
 
-    function displayModal(id) {
+    function displayModal(id, data) {
+
+        // addModalDataDiv
+        $(`#${id} .modal-footer`).remove();
+        $(`#${id} .modal-body`).remove();
+        $(`#${id} .modal-content`).prepend(addModalDataDiv(data));
+
 
         $('body').css({'overflow':'hidden'})
         $('body').on('click', '.close', function(){
@@ -315,19 +410,21 @@ $(document).ready(function () {
         }, 310);
     }
 
-    $(document).on('click', '.filter__title', function() {
-        if ($(window).width() <= 986) {
-            displayModal('successModal')
-        }
-    });
+//    $(document).on('click', '.filter__title', function() {
+//        if ($(window).width() <= 986) {
+//            displayModal('successModal')
+//        }
+//    });
 
 
     /////////////////////////////////////////////////////////////////////////////////
     ////           MODAL
     /////////////////////////////////////////////////////////////////////////////////
-    $(document).on('click', '.discount-btn', function(){
-        $('.modal-footer .orange-btn').html('Получить купон');
-    });
+//    $(document).on('click', '.discount-btn', function(){
+//        $('.modal-footer .orange-btn').html('Получить купон');
+//    });
+
+
     $(document).on('click', '.tab-pane.active', function(event){
         event.preventDefault();
     });
