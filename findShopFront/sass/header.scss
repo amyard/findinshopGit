@@ -16,8 +16,18 @@
     &__search {
         margin-left: 48px;
 
+        &-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            margin: auto;
+            display: none;
+            transition: all .3s ease;
+        }
+
         &-form {
             margin: 16px 0;
+            transition: 1s all linear;
         }
         &-input {
             width: 576px;
@@ -45,11 +55,53 @@
     &__action {
         float: right;
         padding: 23px 0px;
+        
 
         &-login {
            background: $color-primary-grey;
            padding: 26px;
            margin-left: 24px;
+           position: relative;
+
+           & img {
+                display: inline-block;
+                position: absolute;
+                left: 40%;
+                display: none;
+           }
         }
+    }
+}
+
+
+@media screen and (max-width: 1200px) {
+    .header__action-signin {
+        display: none;
+    }
+    .header__search-input {
+        width: 381px;
+    }
+}
+
+
+@media screen and (max-width: 986px) {
+    .header__search {
+        margin-left: 8px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .header__action-login span {
+        display: none;
+    }
+    .header__action-login img {
+        display: inline-block;
+        left: 25%!important;
+    }
+    .header__search-form {
+        display: none;
+    }
+    .header__search-icon {
+        display: inline-block;
     }
 }

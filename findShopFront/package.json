@@ -17,5 +17,8 @@
     "concat": "^1.0.3",
     "npm-run-all": "^4.1.1",
     "postcss-cli": "^4.1.1"
+  },
+  "dependencies": {
+    "bootstrap-slider": "^10.6.2"
   }
 }
