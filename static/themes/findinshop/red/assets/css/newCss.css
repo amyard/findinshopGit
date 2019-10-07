@@ -1,0 +1,190 @@
+.opacity-zero {
+    opacity: 0;
+}
+
+.testtest {
+    margin-bottom: 64px;
+}
+
+.opacity-zero {
+    opacity: 0;
+}
+
+
+.orange-btn-cs {
+    background-color: #FF4B00;
+    color: #fff !important;
+    cursor: pointer;
+    margin-right: 96px;
+}
+
+.orange-btn-padding-cs {
+    padding: 14px 24px;
+}
+
+
+.nav-tabs {
+    border-bottom: 1px solid $color-primary-grey-tabs;
+}
+
+.nav-tabs li {
+    padding: 12px 24px 12px 0px;
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 0px;
+    color: $color-primary-grey-text;
+}
+
+.nav-tabs li a {
+    padding: 15px 0;
+}
+.nav-tabs li.active {
+    color: $color-primary-orange;
+}
+.nav-tabs li.active a {
+    border-bottom: 2px solid $color-primary-orange;
+}
+
+.tab-content h3 {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    color: $color-primary-black;
+    padding: 24px 0;
+}
+
+.tab-content h2 {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 36px;
+    color: $color-primary-black;
+    padding: 24px 0;
+}
+
+.tab-content p {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: $color-primary-black;
+    margin-bottom: 0px;
+}
+
+
+.product-item--old-price {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration-line: line-through;
+    color: #757575;
+    padding-top: 20px;
+    display: none; }
+
+.full-description {
+  height: 100%;
+  border: 1px solid #e3e3e3;
+  background: #fff; }
+  .full-description table {
+    margin: 24px 0 4px 0px; }
+    .full-description table .table-grey,
+    .full-description table .table-black {
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      padding: 6px 0px; }
+    .full-description table .table-grey {
+      color: #757575; }
+    .full-description table .table-black {
+      color: #000; }
+  .full-description .discount {
+    display: flex;
+    margin: 24px 0px; }
+    .full-description .discount p {
+      flex: 1;
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      color: #000; }
+    .full-description .discount p:nth-child(2) {
+      text-align: end; }
+    .full-description .discount .orange-color {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 24px;
+      color: #FF4B00; }
+  .full-description__close {
+    height: 36px;
+    position: relative; }
+    .full-description__close--btn {
+      position: absolute;
+      top: 15px;
+      right: 29px;
+      color: #757575;
+      font-size: 26px;
+      cursor: pointer; }
+  .full-description__content {
+    margin-top: 7px;
+    display: flex; }
+    .full-description__content--img {
+      height: 324px;
+      margin-right: 32px; }
+      .full-description__content--img img {
+        height: 100%;
+        margin-left: auto;
+        margin-right: auto; }
+    .full-description__content--info {
+      width: calc(100% - 315px - 32px - 96px); }
+  .full-description__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 96px; }
+    .full-description__footer .orange-btn {
+      margin-right: 96px; }
+    .full-description__footer .svg-icon {
+      margin-right: 52px; }
+
+@media screen and (max-width: 1280px) {
+  .full-description__content--img {
+    margin-right: 0px;
+    height: 215px; }
+  .full-description__content--info {
+    width: calc(100% - 215px - 64px); }
+  .full-description__footer .orange-btn {
+    margin-right: 64px; } }
+
+@media screen and (max-width: 986px) {
+  #descModal .modal-dialog {
+    height: 100%; }
+  .full-description__close--btn {
+    right: 0px; }
+  .full-description__content {
+    flex-direction: column; }
+    .full-description__content--img {
+      width: 100%;
+      height: 215px;
+      margin-bottom: 72px; }
+    .full-description__content--info {
+      width: 100%;
+      text-align: left; }
+  #descModal .modal-footer {
+    justify-content: flex-end !important; }
+    #descModal .modal-footer .full-description__footer .orange-btn {
+      margin-right: 0px; } }
+
+
+

@@ -1,6 +1,5 @@
 {% extends 'themes/findinshop/red/base_red.html' %}
 {% load endless %}
-{% load static %}
 
 {% block title %}
      {{ query|title }}  {% if vendor_list %}{% if vendor_list|length > 1 %}{% else %}{% endif %}
@@ -28,17 +27,6 @@
 
   <script src="{{ STATIC_URL }}themes/findinshop/red/assets/js/vendors/jquery-ui.js"></script>
   <script src="{{ STATIC_URL }}themes/findinshop/red/assets/js/vendors/jquery.mCustomScrollbar.concat.min.js"></script>
-
-<link rel="stylesheet" href="{{ STATIC_URL }}themes/findinshop/red/assets/css/newCss.css">
-<script src="{{ STATIC_URL }}themes/findinshop/red/assets/js/newJS.js"></script>
-
-
-
-<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
-<!--<link rel="stylesheet" href="{% static 'newstyles/css/newtest.css' %}">-->
-<!--<script src='https://code.jquery.com/jquery-3.4.1.js'></script>-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>-->
-<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>-->
 
   <script>
     $(function() {
@@ -102,51 +90,54 @@
 
 
             $('.show_popup').click(function(){
-                var redirect_url = $(this).data('url');
+                            var redirect_url = $(this).data('url');
 
-                var url = '/w/gti/?item='+$(this).data('id');
+                            var url = '/w/gti/?item='+$(this).data('id');
 
-                $.ajax({
-                    url: url,
-                    dataType: 'json',
-                    success: function(data) {
-                        var template = $( '#product-detail-template' ).tmpl( data ).show();
-                      $('#overlay').show().css({'filter' : 'alpha(opacity=80)'});
-                      $('#product-detail-container').show();
-                      $('#product-detail-container-data').show();
-                      $('#social-container').show();
-                      $('#product-detail-container-data').html(template);
-                      $('.yashare-auto-init').attr('data-yashareTitle', data['name'])
-                                                .attr('data-yashareImage', data['image_url']);
+                            $.ajax({
+                                url: url,
+                                dataType: 'json',
+                                success: function(data) {
+                                    var template = $( '#product-detail-template' ).tmpl( data ).show();
+{#                                    $("body").addClass("modal-open").append("<div class='modal-backdrop fade in'></div>");#}
+{#                                  $('div.'+$(this).attr("rel")).fadeIn(500);#}
+{#                                  //$("body").append("<div id='overlay'></div>");#}
+                                  $('#overlay').show().css({'filter' : 'alpha(opacity=80)'});
+                                  $('#product-detail-container').show();
+                                  $('#product-detail-container-data').show();
+                                  $('#social-container').show();
+                                  $('#product-detail-container-data').html(template);
+                                  $('.yashare-auto-init').attr('data-yashareTitle', data['name'])
+                                                            .attr('data-yashareImage', data['image_url']);
 
 
-                      $('body').css({'overflow':'hidden'})
-                      $('body').on('click', '.close', function(){
-                          $('body').css({'overflow':'auto'})
-                      })
+                                  $('body').css({'overflow':'hidden'})
+                                  $('body').on('click', '.close', function(){
+                                      $('body').css({'overflow':'auto'})
+                                  })
 
-                      setTimeout(function()
-                          {
-                            var windowHeight = $(window).height(),
-                                windowWidth = $(window).width(),
-                                modalHeight = $('.modal .modal-content').height(),
-                                modalWidth = $('.modal .modal-content').width(),
-                                newSize = windowHeight + 1;
+                                  setTimeout(function()
+                                      {
+                                        var windowHeight = $(window).height(),
+                                            windowWidth = $(window).width(),
+                                            modalHeight = $('.modal .modal-content').height(),
+                                            modalWidth = $('.modal .modal-content').width(),
+                                            newSize = windowHeight + 1;
 
-                            if(windowHeight < modalHeight) {
-                                $('.modal .modal-content').css({'height':`${newSize}px`, 'overflow-y':'scroll'})
-                            }
-                            if(windowWidth < modalWidth) {
-                                $('.modal .modal-content').css({'width':`${windowWidth}px`})
-                            }
-                      }, 100);
+                                        if(windowHeight < modalHeight) {
+                                            $('.modal .modal-content').css({'height':`${newSize}px`, 'overflow-y':'scroll'})
+                                        }
+                                        if(windowWidth < modalWidth) {
+                                            $('.modal .modal-content').css({'width':`${windowWidth}px`})
+                                        }
+                                  }, 100);
 
-                    },
-                    error: function(data) {
-                        console.log(data);
-                        // window.location.href = redirect_url;
-                    }
-                });
+                                },
+                                error: function(data) {
+                                    console.log(data);
+                                    // window.location.href = redirect_url;
+                                }
+                            });
               return false;
                         });
             //filter links
@@ -475,7 +466,7 @@
             {% paginate 25 entries %}
             {% if sphinx_backend %}
             {% for item in entries %}
-            <li class="catalog-block_li product-item">
+            <li class="catalog-block_li">
               <div itemscope itemtype="http://schema.org/Product" class="item_box">
                 <div class="item_img">
                 <a class="show_popup" id="{{ item.id }}" data-id="{{ item.id }}" data-url="{% url 'transition' item.id %}" href="#" rel="nofollow">
@@ -483,13 +474,12 @@
                 </a>
                   </div>
                 <div class="item_footer">
-                  <div itemprop="name" class="item_t product-item--title" data-id="{{ item.name }}">{{ item.name|truncatechars:50 }}</div>
+                  <div itemprop="name" class="item_t">{{ item.name|truncatechars:50 }}</div>
                 <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                  <div itemprop="price" class="item_price product-item--price">{{ item.price|floatformat:'-2' }} грн <!--{{ item.currency|slice:':3' }}--></div>
+                  <div itemprop="price" class="item_price">{{ item.price|floatformat:'-2' }} грн <!--{{ item.currency|slice:':3' }}--></div>
                   </span>
-                  <div class="item_detail" data-id="{{ item.description }}">
-                  <div class="item_detail" data-id="{{ item.description }}">
-                    <a class="full-desc btn btn-default btn-block __medium" rel="tabs_info" id="{{ item.id }}" data-id="{{ item.id }}" data-url="{% url 'transition' item.id %}" href="#" rel="nofollow">Подробнее</a>
+                  <div class="item_detail">
+                    <a class="openModal show_popup btn btn-default btn-block __medium" rel="tabs_info" id="{{ item.id }}" data-id="{{ item.id }}" data-url="{% url 'transition' item.id %}" href="#" rel="nofollow">Подробнее</a>
                   </div>
                 </div>
               </div>
