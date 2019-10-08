@@ -105,7 +105,7 @@ $(document).ready(function () {
                                             <img src="img/star.png" alt="">\
                                         </div>\
                                         <span class='product-item--old-price d-block'>1999 грв</span>\
-                                        <h2 class="no-pad-top">${data.price}</h2>\
+                                        <h2 class="price-btn no-pad-top">${data.price}</h2>\
                                     </div>\
                                     <div role="tabpanel" class="tab-pane" id="profile">\
                                         <table>\
@@ -161,96 +161,96 @@ $(document).ready(function () {
         `
     }
 
-    function addModalDataDiv(data) {
-        return `\
-            <div class="modal-body">\
-                <div class="full-description">\
-                    <div class="full-description__close">\
-                        <span class='full-description__close--btn close'>&times;</span>\
-                    </div>\
-
-                    <div class="full-description__content">\
-
-                        <div class="full-description__content--img">\
-                            <img alt='' src='${data.image_url}'>\
-                        </div>\
-
-                        <div class="full-description__content--info">\
-                            <div>\
-
-                                <ul class="nav nav-tabs" role="tablist">\
-                                    <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Продукт</a></li>\
-                                    <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Магазин</a></li>\
-                                    <li class='discount-btn d-none'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
-                                </ul>\
-
-                                <div class="tab-content">\
-                                    <div role="tabpanel" class="tab-pane active" id="home">\
-                                        <h3>${data.name}</h3>\
-                                        <p>${data.description}</p>\
-                                        <div class='product-item--stars d-flex marg-y-24 d-none'>\
-                                            <img src="img/star.png" alt="">\
-                                            <img src="img/star.png" alt="">\
-                                            <img src="img/star.png" alt="">\
-                                            <img src="img/star.png" alt="">\
-                                            <img src="img/star.png" alt="">\
-                                        </div>\
-                                        <span class='product-item--old-price d-block'>1999 грв</span>\
-                                        <h2 class="no-pad-top">${data.price}</h2>\
-                                    </div>\
-                                    <div role="tabpanel" class="tab-pane" id="profile">\
-                                        <table>\
-                                            <tr>\
-                                                <td class='table-grey'>Название магазина</td>\
-                                                <td class='table-black'><a href="${data.map_stores_url}" target="_blank">Магазины и пункты выдачи</a> | <a href="/bid/transition/${data.id}/" class="popup-store" rel="nofollow" target="_blank" >${data.store_name}</a></td>\
-                                            </tr>\
-                                            <tr>\
-                                                <td class='table-grey'>Доставка</td>\
-                                                <td class='table-black'>${data.delivery}</td>\
-                                            </tr>\
-                                            <tr>\
-                                                <td class='table-grey'>Способ оплаты</td>\
-                                                <td class='table-black'>${data.payment_methods}</td>\
-                                            </tr>\
-                                            <tr>\
-                                                <td class='table-grey'>Контактный телефон</td>\
-                                                <td class='table-black'>${data.phone}</td>\
-                                            </tr>\
-                                        </table>\
-                                        <span class='product-item--old-price d-block'>1999 грв</span>\
-                                        <h2 class="no-pad-top">${data.price}</h2>\
-                                    </div>\
-                                    <div role="tabpanel" class="tab-pane d-none" id="discount">\
-                                        <div class='discount'>\
-                                            <p class='orange-color'>-50%</p>\
-                                            <p>Действителен до 26.09.2020 07:19</p>\
-                                        </div>\
-
-                                        <form class="header__search-form modal-input-form" action="" method="get">\
-                                            <div class="input-group">\
-                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Ваше имя" autocomplete="on" name="" required="">\
-                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Вашу почту" autocomplete="on" name="" required="">\
-                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Ваш телефон" autocomplete="on" name="" required="">\
-                                            </div>\
-                                        </form>\
-                                        <span class='product-item--old-price d-block'>1999 грв</span>\
-                                        <h2 class="no-pad-top">${data.price}</h2>\
-                                    </div>\
-                                </div>\
-                            </div>\
-                        </div>\
-
-                    </div>\
-
-                    <div class="full-description__footer">\
-                        <img src="../img/like.png" alt="" class="svg-icon" onclick="wishlist( ${data.id} )" id="wish" target="_blank">\
-                        <img src="img/mdi-scale-balance.png" alt="">\
-                        <a class='orange-btn-cs orange-btn-padding-cs' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В магазин</a>\
-                    </div>\
-                </div>\
-            </div>\
-        `
-    }
+//    function addModalDataDiv(data) {
+//        return `\
+//            <div class="modal-body">\
+//                <div class="full-description">\
+//                    <div class="full-description__close">\
+//                        <span class='full-description__close--btn close'>&times;</span>\
+//                    </div>\
+//
+//                    <div class="full-description__content">\
+//
+//                        <div class="full-description__content--img">\
+//                            <img alt='' src='${data.image_url}'>\
+//                        </div>\
+//
+//                        <div class="full-description__content--info">\
+//                            <div>\
+//
+//                                <ul class="nav nav-tabs" role="tablist">\
+//                                    <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Продукт</a></li>\
+//                                    <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Магазин</a></li>\
+//                                    <li class='discount-btn d-none'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
+//                                </ul>\
+//
+//                                <div class="tab-content">\
+//                                    <div role="tabpanel" class="tab-pane active" id="home">\
+//                                        <h3>${data.name}</h3>\
+//                                        <p>${data.description}</p>\
+//                                        <div class='product-item--stars d-flex marg-y-24 d-none'>\
+//                                            <img src="img/star.png" alt="">\
+//                                            <img src="img/star.png" alt="">\
+//                                            <img src="img/star.png" alt="">\
+//                                            <img src="img/star.png" alt="">\
+//                                            <img src="img/star.png" alt="">\
+//                                        </div>\
+//                                        <span class='product-item--old-price d-block'>1999 грв</span>\
+//                                        <h2 class="no-pad-top">${data.price}</h2>\
+//                                    </div>\
+//                                    <div role="tabpanel" class="tab-pane" id="profile">\
+//                                        <table>\
+//                                            <tr>\
+//                                                <td class='table-grey'>Название магазина</td>\
+//                                                <td class='table-black'><a href="${data.map_stores_url}" target="_blank">Магазины и пункты выдачи</a> | <a href="/bid/transition/${data.id}/" class="popup-store" rel="nofollow" target="_blank" >${data.store_name}</a></td>\
+//                                            </tr>\
+//                                            <tr>\
+//                                                <td class='table-grey'>Доставка</td>\
+//                                                <td class='table-black'>${data.delivery}</td>\
+//                                            </tr>\
+//                                            <tr>\
+//                                                <td class='table-grey'>Способ оплаты</td>\
+//                                                <td class='table-black'>${data.payment_methods}</td>\
+//                                            </tr>\
+//                                            <tr>\
+//                                                <td class='table-grey'>Контактный телефон</td>\
+//                                                <td class='table-black'>${data.phone}</td>\
+//                                            </tr>\
+//                                        </table>\
+//                                        <span class='product-item--old-price d-block'>1999 грв</span>\
+//                                        <h2 class="no-pad-top">${data.price}</h2>\
+//                                    </div>\
+//                                    <div role="tabpanel" class="tab-pane d-none" id="discount">\
+//                                        <div class='discount'>\
+//                                            <p class='orange-color'>-50%</p>\
+//                                            <p>Действителен до 26.09.2020 07:19</p>\
+//                                        </div>\
+//
+//                                        <form class="header__search-form modal-input-form" action="" method="get">\
+//                                            <div class="input-group">\
+//                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Ваше имя" autocomplete="on" name="" required="">\
+//                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Вашу почту" autocomplete="on" name="" required="">\
+//                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Ваш телефон" autocomplete="on" name="" required="">\
+//                                            </div>\
+//                                        </form>\
+//                                        <span class='product-item--old-price d-block'>1999 грв</span>\
+//                                        <h2 class="no-pad-top">${data.price}</h2>\
+//                                    </div>\
+//                                </div>\
+//                            </div>\
+//                        </div>\
+//
+//                    </div>\
+//
+//                    <div class="full-description__footer">\
+//                        <img src="../img/like.png" alt="" class="svg-icon" onclick="wishlist( ${data.id} )" id="wish" target="_blank">\
+//                        <img src="img/mdi-scale-balance.png" alt="">\
+//                        <a class='orange-btn-cs orange-btn-padding-cs' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В магазин</a>\
+//                    </div>\
+//                </div>\
+//            </div>\
+//        `
+//    }
 
     function addSecondDataForBorrom(height) {
         return `<li class='catalog-block_li col-1-of-4 product-item delete-empty' style='opacity: 0; height: ${height}px; margin-bottom: 96px;'></li>`
@@ -284,6 +284,15 @@ $(document).ready(function () {
         $('html, body').animate({ scrollTop:  $('.full-description').offset().top - pixel }, speed);
     }
 
+    function imgContainerDesc (windowWidth) {
+        if (windowWidth > 1199) {
+            var imgDescBlockWidth = $('.full-description__content--img').width(),
+                containerDescBlockWidth = $('.full-description').width()
+                newWidth = parseInt(containerDescBlockWidth) - parseInt(imgDescBlockWidth) - 74 - 64;
+            $('.full-description__content--info').css({'width': `${newWidth}px`})
+        }
+    }
+
     $(document).on('click', '.full-desc', function(event){
         event.preventDefault();
 
@@ -314,6 +323,8 @@ $(document).ready(function () {
             mgBtm = windowWidth < 1200 ?  `-${$('.catalog-block_li').first().css('margin-bottom')}` : 'auto'
             mgBtm = windowWidth < 1200 ?  '-50px' : 'auto'
 
+
+            // делаю меньше растояние между блоком с коннетном и самим итемом
             if (windowWidth >= 768 && windowWidth < 1200) {
                 mgBtm = '-50px'
             } else if (windowWidth < 768) {
@@ -339,6 +350,7 @@ $(document).ready(function () {
 
             var getDivAfterInsert = Math.ceil(correctItem / getPosition) * getPosition;
 
+
             position = parseInt(getDivAfterInsert) > parseInt(amountOfItems) ? amountOfItems : getDivAfterInsert
 
             var currDiv = allItems[position];
@@ -357,15 +369,18 @@ $(document).ready(function () {
                     last.after(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     changeSizeOfImg()
                     scrollDownToDecsBlock()
+                    imgContainerDesc (windowWidth)
                 } else {
                     jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     changeSizeOfImg()
                     scrollDownToDecsBlock()
+                    imgContainerDesc (windowWidth)
                 }
             } else {
                 jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm))
                 changeSizeOfImg()
                 scrollDownToDecsBlock()
+                imgContainerDesc (windowWidth)
 
                 // когда добаляет блок, то сносится маргин у последнего блока каждо строки
                 // ({'margin-right':'0', 'margin-left':'2rem'})
