@@ -220,13 +220,13 @@ class BaseFindResponse(object):
         context['entries'] = self.sphinx_res
 
 
-
-
-
-        print('--------------------------------')
-        search = self.search_value['query']
-
-        print(search)
+        #
+        #
+        #
+        # print('--------------------------------')
+        # search = self.search_value['query']
+        #
+        # print(search)
         # res = Item.objects.filter(vendor__name=search)
         # res = Item.objects.filter(name__icontains=search, price__gt= 0)
         # for i in res:
@@ -240,8 +240,8 @@ class BaseFindResponse(object):
         #     for asd in i.point.all():
         #         print(asd)
 
-        res = Item.objects.filter(name__icontains=search, price__gt=0).order_by('point').values_list('point__name', flat=True).distinct('point')
-        print(res)
+        # res = Item.objects.filter(name__icontains=search, price__gt=0).order_by('point').values_list('point__name', flat=True).distinct('point')
+        # print(res)
 
 
         # point = models.ManyToManyField('website.Point', verbose_name=u'Магазин', blank=True)

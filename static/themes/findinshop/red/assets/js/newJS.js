@@ -280,31 +280,81 @@ $(document).ready(function () {
         $('html, body').animate({ scrollTop: parentDiv.offset().top-130  }, speed);
     }
 
+
 //    function scrollDownToDecsBlock() {
-//        $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 250 }, 'slow');
+//        wind = $(window).width();
+//        console.log('333333')
+//        if(wind >=1400) {
+//            $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 350 }, 'slow');
+//        } else if (wind >= 1200) {
+//            $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 400 }, 'slow');
+//        } else if (wind >= 992) {
+//            $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 230 }, 'slow');
+//        } else if (wind >= 768) {
+//            $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 230 }, 'slow');
+//        } else {
+//            $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 200  }, 'slow');
+//        }
+//
 //    }
 
-    function scrollDownToDecsBlock(getPosition, speed) {
 
+    function scrollDownToDecsBlock(getPosition) {
         var allItems = $('.product-item').slice(1, getPosition),
-            test = $('.full-description').height(),
-            wind = $(window).height();
+            wind = $(window).height(),
+            testDiv = $('.testtest').next(),
+            windWdt = $(window).width(),
+            descWdt = $('.full-description').width();
+
+//        allItems.find('.full-desc.active').length == 1
+//            ? $(".orange-btn-cs").get(0).scrollIntoView({block: "nearest", behavior: "smooth"});
+//            : $(".testtest").get(0).scrollIntoView({block: "end", behavior: "smooth"})
+
 
         if (allItems.find('.full-desc.active').length == 1) {
-            if (wind >= 992) {
-                pixel = 0
-            } else if(wind >= 768 && wind < 992) {
-                pixel = 30
-            } else {
-                pixel = 90
+//            $(".orange-btn-cs").get(0).scrollIntoView({block: "nearest", behavior: "smooth"});
+
+            if(windWdt >=1527) {
+                pixel = $('.full-description').height() + $('.item_box').height() + 5;
+            } else if (windWdt >= 1309 && windWdt <= 1526) {
+                pixel = $('.full-description').height() + $('.item_box').height() - 12;
             }
-            newt = test + (wind - test) + pixel
+            $('html, body').animate({ scrollTop: testDiv.offset().top - pixel}, 800);
+
         } else {
-            newt = test + (wind - test) - 80
+            console.log('---------222222222')
+//            $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 350 }, 1000);
+//            $(".testtest").get(0).scrollIntoView({block: "end", behavior: "smooth"})
+            newt = descWdt + (wind - descWdt) - 67
+            $('html, body').animate({ scrollTop:  $('.orange-btn-cs').offset().top - newt }, 800);
+
         }
 
-        $('html, body').animate({ scrollTop:  $('.orange-btn-cs').offset().top - newt }, speed);
     }
+
+//    function scrollDownToDecsBlock(getPosition, speed) {
+//
+//        var allItems = $('.product-item').slice(1, getPosition),
+//            test = $('.full-description').width(),
+//            wind = $(window).height();
+//
+//        if (allItems.find('.full-desc.active').length == 1) {
+//
+//            console.log(wind)
+//            if (wind >= 992 && wind < 1083) {
+//                newt = test + (wind - test) - 0
+//            } else if(wind >= 768 && wind < 992) {
+//                newt = test + (wind - test) + 30
+//            } else {
+//                newt = test + (wind - test) + 450
+//            }
+//
+//        } else {
+//            newt = test + (wind - test) - 80
+//        }
+//
+//        $('html, body').animate({ scrollTop:  $('.orange-btn-cs').offset().top - newt }, speed);
+//    }
 
     function scrollTopToTheBtn(pixel, speed) {
         var width = $('.full-description').height(),
@@ -356,10 +406,6 @@ $(document).ready(function () {
             $(this).parent().parent().find('.product-item--price').css({'margin-top':'0px'});
             $(this).parent().parent().find('.product-item--stars').css({'display':'flex'});
 
-//            mgBtm = windowWidth < 1200 ?  `-${$('.catalog-block_li').first().css('margin-bottom')}` : 'auto'
-//            mgBtm = windowWidth < 1200 ?  '-50px' : 'auto'
-
-
             // делаю меньше растояние между блоком с коннетном и самим итемом
             if (windowWidth >= 1200) {
                 mgBtm = '-40px'
@@ -408,21 +454,19 @@ $(document).ready(function () {
                     changeSizeOfImg()
                     imgContainerDesc(windowWidth)
 
-                    scrollDownToDecsBlock(650, 1000)
+                    setTimeout(scrollDownToDecsBlock(getPosition), 150);
                 } else {
                     jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     changeSizeOfImg()
                     imgContainerDesc(windowWidth)
 
-                    scrollDownToDecsBlock(650, 1000)
+                    setTimeout(scrollDownToDecsBlock(getPosition), 150);
                 }
             } else {
                 jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm))
                 changeSizeOfImg()
                 imgContainerDesc(windowWidth)
-
-
-                scrollDownToDecsBlock(getPosition, 1000)
+                setTimeout(scrollDownToDecsBlock(getPosition), 150);
 
                 // когда добаляет блок, то сносится маргин у последнего блока каждо строки
                 // ({'margin-right':'0', 'margin-left':'2rem'})
