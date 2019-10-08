@@ -154,7 +154,7 @@ $(document).ready(function () {
                     <div class="full-description__footer">\
                         <img src="../img/like.png" alt="" class="svg-icon d-none" onclick="wishlist( ${data.id} )" id="wish" target="_blank">\
                         <img src="img/mdi-scale-balance.png" alt="" class="d-none">\
-                        <a class='orange-btn-cs orange-btn-padding-cs' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В магазин</a>\
+                        <a class='orange-btn-cs orange-btn-padding-cs' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В МАГАЗИН</a>\
                     </div>\
                 </div>\
             </div>\
@@ -311,7 +311,9 @@ $(document).ready(function () {
             amountOfItems = $('.product-item').length,
             redirect_url = $(this).data('url'),
             url = '/w/gti/?item='+$(this).data('id'),
-            ajaxData = getAjaxData(url);
+            ajaxData = getAjaxData(url),
+            filterOrangeBtnWidth = $('#price-filter').width(),
+            filterOrangeBtnHeight = $('#price-filter').height();
 
 
         // первый раз нажали на кнопку
@@ -405,6 +407,8 @@ $(document).ready(function () {
     $(document).on('click', '.full-desc.active', function(event){
         event.preventDefault();
         deleteExtraData();
+//        document.getElementsByClassName("item_box").classList.remove("hasactive");
+//        $('.full-description__close--btn').click()
     });
 
     $(document).on('click', '.full-description__close--btn', function() {

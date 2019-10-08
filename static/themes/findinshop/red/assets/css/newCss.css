@@ -24,7 +24,7 @@
 }
 
 .orange-btn-padding-cs {
-    padding: 14px 24px;
+    padding: 7.5px 36px;
 }
 
 
@@ -252,7 +252,8 @@
 @media screen and (max-width: 1199px) {
     .catalog-block .catalog-block_ul .catalog-block_li:hover .item_box,
     .catalog-block .catalog-block_ul .catalog-block_li:focus .item_box,
-    .catalog-block .catalog-block_ul .catalog-block_li:active .item_box {
+    .catalog-block .catalog-block_ul .catalog-block_li:active .item_box
+    {
         box-shadow: none;
         moz-box-shadow: none;
         webkit-box-shadow: none;
@@ -296,7 +297,8 @@
 
 .catalog-block .catalog-block_ul .catalog-block_li:hover .item_box,
 .catalog-block .catalog-block_ul .catalog-block_li:focus .item_box,
-.catalog-block .catalog-block_ul .catalog-block_li:active .item_box {
+.catalog-block .catalog-block_ul .catalog-block_li:active .item_box
+{
     border-color: #ff4b00!important;
 }
 
