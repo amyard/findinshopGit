@@ -314,6 +314,14 @@ $(document).ready(function () {
             mgBtm = windowWidth < 1200 ?  `-${$('.catalog-block_li').first().css('margin-bottom')}` : 'auto'
             mgBtm = windowWidth < 1200 ?  '-50px' : 'auto'
 
+            if (windowWidth >= 768 && windowWidth < 1200) {
+                mgBtm = '-50px'
+            } else if (windowWidth < 768) {
+                mgBtm = '-75px'
+            } else {
+                mgBtm = 'auto'
+            }
+
 
             var parentDiv = $(this).parent().parent().parent().parent()
 
