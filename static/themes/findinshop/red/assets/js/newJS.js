@@ -280,20 +280,34 @@ $(document).ready(function () {
         $('html, body').animate({ scrollTop: parentDiv.offset().top-130  }, speed);
     }
 
-    function scrollDownToDecsBlock() {
-        $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 250 }, 'slow');
+//    function scrollDownToDecsBlock() {
+//        $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 250 }, 'slow');
+//    }
+
+    function scrollDownToDecsBlock(speed) {
+        $('html, body').animate({ scrollTop:  $('.orange-btn-cs').offset().top - 50 }, speed);
     }
 
     function scrollTopToTheBtn(pixel, speed) {
-        $('html, body').animate({ scrollTop:  $('.full-description').offset().top - pixel }, speed);
+        var width = $('.full-description').height(),
+            wind = $(window).height(),
+            newHeight = wind-width,
+            newnew = width;
+
+//        console.log(width, wind)
+        $('html, body').animate({ scrollTop:  $('.full-description__content').offset().top - newnew }, speed);
     }
 
     function imgContainerDesc (windowWidth) {
         if (windowWidth > 1199) {
-            var imgDescBlockWidth = $('.full-description__content--img').width(),
+            setTimeout(function() {
+                var imgDescBlockWidth = $('.full-description__content--img').width(),
                 containerDescBlockWidth = $('.full-description').width()
                 newWidth = parseInt(containerDescBlockWidth) - parseInt(imgDescBlockWidth) - 74 - 64;
-            $('.full-description__content--info').css({'width': `${newWidth}px`})
+
+                console.log(imgDescBlockWidth, containerDescBlockWidth)
+                $('.full-description__content--info').css({'width': `${newWidth}px`})
+            }, 300)
         }
     }
 
@@ -326,12 +340,14 @@ $(document).ready(function () {
             $(this).parent().parent().find('.product-item--price').css({'margin-top':'0px'});
             $(this).parent().parent().find('.product-item--stars').css({'display':'flex'});
 
-            mgBtm = windowWidth < 1200 ?  `-${$('.catalog-block_li').first().css('margin-bottom')}` : 'auto'
-            mgBtm = windowWidth < 1200 ?  '-50px' : 'auto'
+//            mgBtm = windowWidth < 1200 ?  `-${$('.catalog-block_li').first().css('margin-bottom')}` : 'auto'
+//            mgBtm = windowWidth < 1200 ?  '-50px' : 'auto'
 
 
             // делаю меньше растояние между блоком с коннетном и самим итемом
-            if (windowWidth >= 768 && windowWidth < 1200) {
+            if (windowWidth >= 1200) {
+                mgBtm = '-40px'
+            } else if (windowWidth >= 768 && windowWidth < 1200) {
                 mgBtm = '-50px'
             } else if (windowWidth < 768) {
                 mgBtm = '-75px'
@@ -374,19 +390,22 @@ $(document).ready(function () {
                     last = jQuery($('.delete-empty').last())
                     last.after(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     changeSizeOfImg()
-                    scrollUpToTheParentDiv(parentDiv, 800)
-                    imgContainerDesc (windowWidth)
+                    scrollTopToTheBtn(1, 1000)
+//                    scrollUpToTheParentDiv(parentDiv, 800)
+                    imgContainerDesc(windowWidth)
                 } else {
                     jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     changeSizeOfImg()
-                    scrollUpToTheParentDiv(parentDiv, 800)
-                    imgContainerDesc (windowWidth)
+                    scrollTopToTheBtn(1, 1000)
+//                    scrollUpToTheParentDiv(parentDiv, 800)
+                    imgContainerDesc(windowWidth)
                 }
             } else {
                 jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm))
                 changeSizeOfImg()
-                scrollUpToTheParentDiv(parentDiv, 800)
-                imgContainerDesc (windowWidth)
+                scrollTopToTheBtn(1, 1000)
+//                scrollUpToTheParentDiv(parentDiv, 800)
+                imgContainerDesc(windowWidth)
 
                 // когда добаляет блок, то сносится маргин у последнего блока каждо строки
                 // ({'margin-right':'0', 'margin-left':'2rem'})

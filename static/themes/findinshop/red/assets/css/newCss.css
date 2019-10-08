@@ -102,6 +102,7 @@
 
 .full-description {
 //       box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.35);
+      width: 100%;
       margin-left: 10px;
       height: 100%;
       border: 1px solid #ff4b00;
