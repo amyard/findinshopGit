@@ -152,8 +152,8 @@ $(document).ready(function () {
                     </div>\
 
                     <div class="full-description__footer">\
-                        <img src="../img/like.png" alt="" class="svg-icon" onclick="wishlist( ${data.id} )" id="wish" target="_blank">\
-                        <img src="img/mdi-scale-balance.png" alt="">\
+                        <img src="../img/like.png" alt="" class="svg-icon d-none" onclick="wishlist( ${data.id} )" id="wish" target="_blank">\
+                        <img src="img/mdi-scale-balance.png" alt="" class="d-none">\
                         <a class='orange-btn-cs orange-btn-padding-cs' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В магазин</a>\
                     </div>\
                 </div>\
@@ -287,7 +287,7 @@ $(document).ready(function () {
     $(document).on('click', '.full-desc', function(event){
         event.preventDefault();
 
-        console.log('-----------was clicked')
+        deleteExtraData()
 
         var classBtn = $(this).attr('class'),
             allItems = $('.product-item'),
@@ -369,12 +369,12 @@ $(document).ready(function () {
 
                 // когда добаляет блок, то сносится маргин у последнего блока каждо строки
                 // ({'margin-right':'0', 'margin-left':'2rem'})
-                var allDataAfter = $(".testtest").nextAll();
-                $.each(allDataAfter, function(index, value) {
-                    if((index+1) % getPosition == 0) {
-                        jQuery(value).css({'margin-right':'0', 'margin-left':'2rem'})
-                    }
-                });
+//                var allDataAfter = $(".testtest").nextAll();
+//                $.each(allDataAfter, function(index, value) {
+//                    if((index+1) % getPosition == 0) {
+//                        jQuery(value).css({'margin-right':'0', 'margin-left':'2rem'})
+//                    }
+//                });
             }
         } else {
             //  убираем active из кнопки
