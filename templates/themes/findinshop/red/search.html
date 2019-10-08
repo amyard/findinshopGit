@@ -587,25 +587,25 @@
          {% endif %}
 
 
-          {% if stores %}
-          <div class="filter-box">
-            <div class="filter-header" name="spoiler" id="spoiler_check_shop">
-              <a href="#">Магазин</a>
-              </div>
-            <div class="filter-body">
-              {% for store in stores %}
-              <div class="checkbox" id="select_store">
-                <label>
-                  {% if store in store_list %}
-                  <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action checkbox-checked" checked />{{ store }}<br />
-                  {% else %}
-                  <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action" />{{ store }}<br />
-                  {% endif %}
-                </label>
-              </div>
-              {% endfor %}
-            </div>
-          </div>
+<!--          {% if stores %}-->
+<!--          <div class="filter-box">-->
+<!--            <div class="filter-header" name="spoiler" id="spoiler_check_shop">-->
+<!--              <a href="#">Магазин</a>-->
+<!--              </div>-->
+<!--            <div class="filter-body">-->
+<!--              {% for store in stores %}-->
+<!--              <div class="checkbox" id="select_store">-->
+<!--                <label>-->
+<!--                  {% if store in store_list %}-->
+<!--                  <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action checkbox-checked" checked />{{ store }}<br />-->
+<!--                  {% else %}-->
+<!--                  <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action" />{{ store }}<br />-->
+<!--                  {% endif %}-->
+<!--                </label>-->
+<!--              </div>-->
+<!--              {% endfor %}-->
+<!--            </div>-->
+<!--          </div>-->
 
           {% if express|length >= 1 %}
           <div class="filter-box">
