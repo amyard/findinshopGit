@@ -284,10 +284,25 @@ $(document).ready(function () {
 //        $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 250 }, 'slow');
 //    }
 
-    function scrollDownToDecsBlock(pixel, speed) {
-        var test = $('.full-description').height(),
-            wind = $(window).height(),
-            newt = test + (wind - test)-70;
+    function scrollDownToDecsBlock(getPosition, speed) {
+
+        var allItems = $('.product-item').slice(1, getPosition),
+            test = $('.full-description').height(),
+            wind = $(window).height();
+
+        if (allItems.find('.full-desc.active').length == 1) {
+            if (wind >= 992) {
+                pixel = 0
+            } else if(wind >= 768 && wind < 992) {
+                pixel = 30
+            } else {
+                pixel = 90
+            }
+            newt = test + (wind - test) + pixel
+        } else {
+            newt = test + (wind - test) - 80
+        }
+
         $('html, body').animate({ scrollTop:  $('.orange-btn-cs').offset().top - newt }, speed);
     }
 
@@ -307,8 +322,6 @@ $(document).ready(function () {
                 var imgDescBlockWidth = $('.full-description__content--img').width(),
                 containerDescBlockWidth = $('.full-description').width()
                 newWidth = parseInt(containerDescBlockWidth) - parseInt(imgDescBlockWidth) - 74 - 64;
-
-                console.log(imgDescBlockWidth, containerDescBlockWidth)
                 $('.full-description__content--info').css({'width': `${newWidth}px`})
             }, 300)
         }
@@ -394,10 +407,14 @@ $(document).ready(function () {
                     last.after(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     changeSizeOfImg()
                     imgContainerDesc(windowWidth)
+
+                    scrollDownToDecsBlock(650, 1000)
                 } else {
                     jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     changeSizeOfImg()
                     imgContainerDesc(windowWidth)
+
+                    scrollDownToDecsBlock(650, 1000)
                 }
             } else {
                 jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm))
@@ -405,7 +422,7 @@ $(document).ready(function () {
                 imgContainerDesc(windowWidth)
 
 
-                scrollDownToDecsBlock(650, 1000)
+                scrollDownToDecsBlock(getPosition, 1000)
 
                 // когда добаляет блок, то сносится маргин у последнего блока каждо строки
                 // ({'margin-right':'0', 'margin-left':'2rem'})
