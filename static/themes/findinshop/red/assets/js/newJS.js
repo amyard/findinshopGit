@@ -312,13 +312,16 @@ $(document).ready(function () {
 
 
         if (allItems.find('.full-desc.active').length == 1) {
-//            $(".orange-btn-cs").get(0).scrollIntoView({block: "nearest", behavior: "smooth"});
 
-            if(windWdt >=1527) {
+            if(windWdt >=1399) {
                 pixel = $('.full-description').height() + $('.item_box').height() + 5;
-            } else if (windWdt >= 1309 && windWdt <= 1526) {
+            } else if (windWdt >= 1201 && windWdt <= 1398) {
                 pixel = $('.full-description').height() + $('.item_box').height() - 12;
+            } else if (windWdt >= 993 && windWdt <= 1200) {
+                pixel = $('.full-description').height() + $('.item_box').height() - 210;
             }
+
+            console.log('-----------windWdt', windWdt)
             $('html, body').animate({ scrollTop: testDiv.offset().top - pixel}, 800);
 
         } else {
@@ -373,7 +376,7 @@ $(document).ready(function () {
                 containerDescBlockWidth = $('.full-description').width()
                 newWidth = parseInt(containerDescBlockWidth) - parseInt(imgDescBlockWidth) - 74 - 64;
                 $('.full-description__content--info').css({'width': `${newWidth}px`})
-            }, 300)
+            }, 310)
         }
     }
 
@@ -451,22 +454,23 @@ $(document).ready(function () {
 
                     last = jQuery($('.delete-empty').last())
                     last.after(addDataDiv(JSON.parse(ajaxData), mgBtm))
-                    changeSizeOfImg()
-                    imgContainerDesc(windowWidth)
+                    // changeSizeOfImg()
+                    // imgContainerDesc(windowWidth)
 
-                    setTimeout(scrollDownToDecsBlock(getPosition), 150);
+                    // setTimeout(scrollDownToDecsBlock(getPosition), 150);
                 } else {
                     jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm))
-                    changeSizeOfImg()
-                    imgContainerDesc(windowWidth)
+                    // changeSizeOfImg()
+                    // imgContainerDesc(windowWidth)
 
-                    setTimeout(scrollDownToDecsBlock(getPosition), 150);
+                    // setTimeout(scrollDownToDecsBlock(getPosition), 150);
                 }
             } else {
                 jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm))
-                changeSizeOfImg()
-                imgContainerDesc(windowWidth)
-                setTimeout(scrollDownToDecsBlock(getPosition), 150);
+                // changeSizeOfImg()
+                // imgContainerDesc(windowWidth)
+
+                // setTimeout(scrollDownToDecsBlock(getPosition, 310));
 
                 // когда добаляет блок, то сносится маргин у последнего блока каждо строки
                 // ({'margin-right':'0', 'margin-left':'2rem'})
