@@ -276,6 +276,10 @@ $(document).ready(function () {
             : $('.full-description__content--img img').css({'height': 'auto'})
     }
 
+    function scrollUpToTheParentDiv(parentDiv, speed){
+        $('html, body').animate({ scrollTop: parentDiv.offset().top-130  }, speed);
+    }
+
     function scrollDownToDecsBlock() {
         $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 250 }, 'slow');
     }
@@ -368,18 +372,18 @@ $(document).ready(function () {
                     last = jQuery($('.delete-empty').last())
                     last.after(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     changeSizeOfImg()
-                    scrollDownToDecsBlock()
+                    scrollUpToTheParentDiv(parentDiv, 800)
                     imgContainerDesc (windowWidth)
                 } else {
                     jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     changeSizeOfImg()
-                    scrollDownToDecsBlock()
+                    scrollUpToTheParentDiv(parentDiv, 800)
                     imgContainerDesc (windowWidth)
                 }
             } else {
                 jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm))
                 changeSizeOfImg()
-                scrollDownToDecsBlock()
+                scrollUpToTheParentDiv(parentDiv, 800)
                 imgContainerDesc (windowWidth)
 
                 // когда добаляет блок, то сносится маргин у последнего блока каждо строки
