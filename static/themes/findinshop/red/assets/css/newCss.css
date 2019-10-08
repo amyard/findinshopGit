@@ -270,7 +270,7 @@
       height: 100%!important; }
 }
 
-@media screen and (max-width: 1199px) {
+@media screen and (max-width: 1200px) {
     .catalog-block .catalog-block_ul .catalog-block_li {
         overflow: visible!important;
         margin-bottom: 100px;
@@ -290,6 +290,9 @@
         border-left: 1px solid #ededed;
         border-right: 1px solid #ededed;
         border-top: 1px solid #ededed;
+    }
+    .full-description {
+        margin-left: 0px;
     }
 }
 

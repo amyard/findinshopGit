@@ -284,8 +284,11 @@ $(document).ready(function () {
 //        $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 250 }, 'slow');
 //    }
 
-    function scrollDownToDecsBlock(speed) {
-        $('html, body').animate({ scrollTop:  $('.orange-btn-cs').offset().top - 50 }, speed);
+    function scrollDownToDecsBlock(pixel, speed) {
+        var test = $('.full-description').height(),
+            wind = $(window).height(),
+            newt = test + (wind - test)-70;
+        $('html, body').animate({ scrollTop:  $('.orange-btn-cs').offset().top - newt }, speed);
     }
 
     function scrollTopToTheBtn(pixel, speed) {
@@ -299,7 +302,7 @@ $(document).ready(function () {
     }
 
     function imgContainerDesc (windowWidth) {
-        if (windowWidth > 1199) {
+        if (windowWidth > 1200) {
             setTimeout(function() {
                 var imgDescBlockWidth = $('.full-description__content--img').width(),
                 containerDescBlockWidth = $('.full-description').width()
@@ -390,22 +393,19 @@ $(document).ready(function () {
                     last = jQuery($('.delete-empty').last())
                     last.after(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     changeSizeOfImg()
-                    scrollTopToTheBtn(1, 1000)
-//                    scrollUpToTheParentDiv(parentDiv, 800)
                     imgContainerDesc(windowWidth)
                 } else {
                     jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     changeSizeOfImg()
-                    scrollTopToTheBtn(1, 1000)
-//                    scrollUpToTheParentDiv(parentDiv, 800)
                     imgContainerDesc(windowWidth)
                 }
             } else {
                 jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm))
                 changeSizeOfImg()
-                scrollTopToTheBtn(1, 1000)
-//                scrollUpToTheParentDiv(parentDiv, 800)
                 imgContainerDesc(windowWidth)
+
+
+                scrollDownToDecsBlock(650, 1000)
 
                 // когда добаляет блок, то сносится маргин у последнего блока каждо строки
                 // ({'margin-right':'0', 'margin-left':'2rem'})
