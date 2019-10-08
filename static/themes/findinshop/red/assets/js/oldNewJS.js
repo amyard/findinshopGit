@@ -59,21 +59,17 @@ $(document).ready(function () {
     function getCurrentPosition(windowWidth) {
         if (windowWidth > 1399) {
             return 5
-        } else if (windowWidth > 1199 && windowWidth < 1400) {
+        } else if (1199 < windowWidth < 1400) {
             return 4
-        } else if (windowWidth >= 768 && windowWidth < 1200) {
-            return 3
-        } else {
-            return 2
         }
     }
 
     // create block
-    function addDataDiv(data, mgBtm) {
+    function addDataDiv(data) {
         return `\
             <div class='testtest'>\
                 <span class='opacity-zero'>dd<br>dd<br>dd<br></span>\
-                <div class="full-description" style="margin-top: ${mgBtm}">\
+                <div class="full-description">\
                     <div class="full-description__close">\
                         <span class='full-description__close--btn'>&times;</span>\
                     </div>\
@@ -287,7 +283,6 @@ $(document).ready(function () {
     $(document).on('click', '.full-desc', function(event){
         event.preventDefault();
 
-        console.log('-----------was clicked')
 
         var classBtn = $(this).attr('class'),
             allItems = $('.product-item'),
@@ -301,77 +296,86 @@ $(document).ready(function () {
             ajaxData = getAjaxData(url);
 
 
-        // первый раз нажали на кнопку
-        if(!classBtn.includes('active')) {
+        if(windowWidth > 1199) {
+            // первый раз нажали на кнопку
+            if(!classBtn.includes('active')) {
 
-            // display extra data for item block
-            $(this).addClass('active');
-            $(this).next().css({'display':'block'});
-            $(this).parent().parent().find('.product-item--old-price').css({'display':'block'});
-            $(this).parent().parent().find('.product-item--price').css({'margin-top':'0px'});
-            $(this).parent().parent().find('.product-item--stars').css({'display':'flex'});
+                // display extra data for item block
+                $(this).addClass('active');
+                $(this).next().css({'display':'block'});
+                $(this).parent().parent().find('.product-item--old-price').css({'display':'block'});
+                $(this).parent().parent().find('.product-item--price').css({'margin-top':'0px'});
+                $(this).parent().parent().find('.product-item--stars').css({'display':'flex'});
 
-            mgBtm = windowWidth < 1200 ?  `-${$('.catalog-block_li').first().css('margin-bottom')}` : 'auto'
-            mgBtm = windowWidth < 1200 ?  '-50px' : 'auto'
+//                var parentDiv = $(this).parent().parent().parent().parent()
+//                parentDiv.find('.item_box .item_img').css({
+//                    'border-left': '1px solid #ededed',
+//                    'border-right': '1px solid #ededed',
+//                    'border-top': '1px solid #ededed'
+//                })
+//                parentDiv.css({
+//                    'overflow': 'visible!important',
+//                    'margin-bottom': '150px'
+//                })
 
+                var positionOfItem = getPositionOfItemBlock();
 
-            var parentDiv = $(this).parent().parent().parent().parent()
-
-            var positionOfItem = getPositionOfItemBlock();
-
-            function getPositionOfItemBlock() {
-                $.each(allItems, function(dt, value) {
-                    var innerBtnClass = jQuery(value).find('.full-desc').attr('class');
-                    innerBtnClass.includes('active')
-                        ? correctItem = dt+1
-                        : jQuery(value).css({'opacity':'1'})
-                })
-                return correctItem
-            }
-
-            var getDivAfterInsert = Math.ceil(correctItem / getPosition) * getPosition;
-
-            position = parseInt(getDivAfterInsert) > parseInt(amountOfItems) ? amountOfItems : getDivAfterInsert
-
-            var currDiv = allItems[position];
-
-            if(typeof currDiv === 'undefined') {
-                currDiv = allItems.last()
-                arr = [...Array(getDivAfterInsert - amountOfItems).keys()]
-
-                // когда у нас количество елементов полное в ряд, то последний ряд не отображается (arr.length = 0)
-                if (arr.length !== 0) {
-                    arr.forEach(function(value){
-                        jQuery(currDiv).after(addSecondDataForBorrom( $('.product-item').height() ))
+                function getPositionOfItemBlock() {
+                    $.each(allItems, function(dt, value) {
+                        var innerBtnClass = jQuery(value).find('.full-desc').attr('class');
+                        innerBtnClass.includes('active')
+                            ? correctItem = dt+1
+                            : jQuery(value).css({'opacity':'1'})
                     })
+                    return correctItem
+                }
 
-                    last = jQuery($('.delete-empty').last())
-                    last.after(addDataDiv(JSON.parse(ajaxData), mgBtm))
-                    changeSizeOfImg()
-                    scrollDownToDecsBlock()
+                var getDivAfterInsert = Math.ceil(correctItem / getPosition) * getPosition;
+
+                position = parseInt(getDivAfterInsert) > parseInt(amountOfItems) ? amountOfItems : getDivAfterInsert
+
+                var currDiv = allItems[position];
+
+                if(typeof currDiv === 'undefined') {
+                    currDiv = allItems.last()
+                    arr = [...Array(getDivAfterInsert - amountOfItems).keys()]
+
+                    // когда у нас количество елементов полное в ряд, то последний ряд не отображается (arr.length = 0)
+                    if (arr.length !== 0) {
+                        arr.forEach(function(value){
+                            jQuery(currDiv).after(addSecondDataForBorrom( $('.product-item').height() ))
+                        })
+
+                        last = jQuery($('.delete-empty').last())
+                        last.after(addDataDiv(JSON.parse(ajaxData)))
+                        changeSizeOfImg()
+                        scrollDownToDecsBlock()
+                    } else {
+                        jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData)))
+                        changeSizeOfImg()
+                        scrollDownToDecsBlock()
+                    }
                 } else {
-                    jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm))
+                    jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData)))
                     changeSizeOfImg()
                     scrollDownToDecsBlock()
+
+                    // когда добаляет блок, то сносится маргин у последнего блока каждо строки
+                    // ({'margin-right':'0', 'margin-left':'2rem'})
+                    var allDataAfter = $(".testtest").nextAll();
+                    $.each(allDataAfter, function(index, value) {
+                        if((index+1) % getPosition == 0) {
+                            jQuery(value).css({'margin-right':'0', 'margin-left':'2rem'})
+                        }
+                    });
                 }
             } else {
-                jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm))
-                changeSizeOfImg()
-                scrollDownToDecsBlock()
-
-                // когда добаляет блок, то сносится маргин у последнего блока каждо строки
-                // ({'margin-right':'0', 'margin-left':'2rem'})
-                var allDataAfter = $(".testtest").nextAll();
-                $.each(allDataAfter, function(index, value) {
-                    if((index+1) % getPosition == 0) {
-                        jQuery(value).css({'margin-right':'0', 'margin-left':'2rem'})
-                    }
-                });
+                //  убираем active из кнопки
+                scrollTopToTheBtn(550, 900)
+                deleteExtraData();
             }
         } else {
-            //  убираем active из кнопки
-            scrollTopToTheBtn(550, 900)
-            deleteExtraData();
+            displayModal('descModal', JSON.parse(ajaxData))
         }
     });
 

@@ -184,7 +184,7 @@ class BaseFindResponse(object):
         """
             Convert [u'1', u'2'] to ['men', 'women']
         """
-        print self.gender
+        print (self.gender)
         gender_list = [Item.GENDER.get_title(item) for item in self.gender if item != 0]
         return gender_list
 
@@ -218,6 +218,39 @@ class BaseFindResponse(object):
             'condition') else False
         context['clean_filter'] = '%s?q=%s' % (reverse('search'), self.search_value.get('query'))
         context['entries'] = self.sphinx_res
+
+
+
+
+
+        print('--------------------------------')
+        search = self.search_value['query']
+
+        print(search)
+        # res = Item.objects.filter(vendor__name=search)
+        # res = Item.objects.filter(name__icontains=search, price__gt= 0)
+        # for i in res:
+        #     print(i.point.name)
+        #
+        # asd = res[1]
+        # print(asd.point.all())
+        # res = Item.objects.get(name__icontains=search)
+        # for nmb, i in enumerate(res):
+        #     print(nmb, i, i.point.all)
+        #     for asd in i.point.all():
+        #         print(asd)
+
+        res = Item.objects.filter(name__icontains=search, price__gt=0).order_by('point').values_list('point__name', flat=True).distinct('point')
+        print(res)
+
+
+        # point = models.ManyToManyField('website.Point', verbose_name=u'Магазин', blank=True)
+        # site = models.ForeignKey('website.Website', verbose_name=u'Сайт', blank=True, null=True)
+
+        # name = models.CharField(verbose_name=u'Наименование')
+        print('--------------------------------')
+
+
         return context
         # context['filter_mode'] = filter_mode
         # context['country_dict'] = country_dict
