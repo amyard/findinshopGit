@@ -61,9 +61,9 @@ $(document).ready(function () {
         
         
         // remove active from block effect
-        if ($(window).width() >= 1201) {
-            console.log('LALALAALALALAL')
-            parDiv = $('.full-desc.active').parent().parent().parent().parent().parent()      
+        parDiv = $('.full-desc.active').parent().parent().parent().parent().parent()
+        
+        if ($(window).width() >= 1201) {                 
             parDiv.find('.item_img').css({
                 'border': 'none',
                 'border-bottom': '1px solid #ededed'
@@ -79,6 +79,18 @@ $(document).ready(function () {
             setTimeout(function(){
                 parDiv.find('.item_box').css({ 'border': '1px solid #ededed' })
             }, 250)
+
+        } else {
+            parDiv.find('.item_img').css({
+                'border-top': '1px solid #ededed',
+                'border-left': '1px solid #ededed',
+                'border-right': '1px solid #ededed',
+            })
+            parDiv.find('.item_footer').css({
+                'border-bottom': '1px solid #ededed',
+                'border-left': '1px solid #ededed',
+                'border-right': '1px solid #ededed',
+            })
         }
         
         
@@ -274,11 +286,9 @@ $(document).ready(function () {
             $(this).parent().parent().find('.product-item--price').css({'margin-top':'0px'});
             $(this).parent().parent().find('.product-item--stars').css({'display':'flex'});
 
-
+            parDiv = $(this).parent().parent().parent().parent().parent()
             // add active to block effect
             if ($(window).width() >= 1201) {
-                console.log('LSLSLSLSLSLSSL')
-                parDiv = $(this).parent().parent().parent().parent().parent()
                 parDiv.find('.item_img').css({
                     'border-top': '1px solid #FF4B00',
                     'border-left': '1px solid #FF4B00',
@@ -293,6 +303,18 @@ $(document).ready(function () {
                     'background':'#fff'
                 })
                 parDiv.css({ 'overflow':'visible' })
+
+            } else {
+                parDiv.find('.item_img').css({
+                    'border-top': '1px solid #FF4B00',
+                    'border-left': '1px solid #FF4B00',
+                    'border-right': '1px solid #FF4B00',
+                })
+                parDiv.find('.item_footer').css({
+                    'border-bottom': '1px solid #FF4B00',
+                    'border-left': '1px solid #FF4B00',
+                    'border-right': '1px solid #FF4B00',
+                })
             }
             
 
