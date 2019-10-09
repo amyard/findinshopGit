@@ -62,17 +62,29 @@ def prepare_value(request):
     # if search_value['selected_cities']:
     #     cities_list = Point.objects.filter(city__in=search_value['selected_cities']).values('pk')
     #     filters.append(('city_id', [x['pk'] for x in cities_list]))
-    store_list = request.GET.get('store').split(',') if request.GET.get(
-        'store') else []
+
+
+    #    нужно id получить для фильтра
+    store_list = request.GET.get('store').split(',') if request.GET.get('store') else []
+    stores_id = []    
     if store_list:
-        #TODO change get storage
-        market_id_list = []
-        for market_name in store_list:
-            market = Website.objects.filter(name=market_name)
-            if market:
-                market_id_list.append(market[0].id)
-        if market_id_list:
-            filters.append(('site_id', market_id_list))
+        stores_id = Point.objects.filter(name__in = store_list).values_list('id', flat=True)
+        field_filters.append(('point_ids', stores_id))    
+
+
+    # я закоментировал эти строки
+    # if store_list:
+    #     #TODO change get storage
+    #     market_id_list = []
+    #     for market_name in store_list:
+    #         market = Website.objects.filter(name=market_name)
+    #         if market:
+    #             market_id_list.append(market[0].id)
+    #     if market_id_list:
+    #         filters.append(('site_id', market_id_list))
+
+
+    
     if request.GET.get('express'):
         search_value['selected_express'] = request.GET.get('express')
         market_type_list = []
@@ -98,6 +110,7 @@ def prepare_value(request):
             for item in request.GET.get('gender').split(',')]
         field_filters.append(('gender', gender_list))
     search_dict['field_filters'] = field_filters
+
     search_dict['price_filters'] = price_filters
     search_dict['filters'] = filters
     search_dict['sort_attr'] = [('price', 'DESC'), ('click_cost', 'DESC')]

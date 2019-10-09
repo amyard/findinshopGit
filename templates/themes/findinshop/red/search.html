@@ -101,54 +101,54 @@
 
 
 
-<!--            $('.show_popup').click(function(){-->
-<!--                var redirect_url = $(this).data('url');-->
+// <!--            $('.show_popup').click(function(){-->
+// <!--                var redirect_url = $(this).data('url');-->
 
-<!--                var url = '/w/gti/?item='+$(this).data('id');-->
+// <!--                var url = '/w/gti/?item='+$(this).data('id');-->
 
-<!--                $.ajax({-->
-<!--                    url: url,-->
-<!--                    dataType: 'json',-->
-<!--                    success: function(data) {-->
-<!--                        var template = $( '#product-detail-template' ).tmpl( data ).show();-->
-<!--                      $('#overlay').show().css({'filter' : 'alpha(opacity=80)'});-->
-<!--                      $('#product-detail-container').show();-->
-<!--                      $('#product-detail-container-data').show();-->
-<!--                      $('#social-container').show();-->
-<!--                      $('#product-detail-container-data').html(template);-->
-<!--                      $('.yashare-auto-init').attr('data-yashareTitle', data['name'])-->
-<!--                                                .attr('data-yashareImage', data['image_url']);-->
+// <!--                $.ajax({-->
+// <!--                    url: url,-->
+// <!--                    dataType: 'json',-->
+// <!--                    success: function(data) {-->
+// <!--                        var template = $( '#product-detail-template' ).tmpl( data ).show();-->
+// <!--                      $('#overlay').show().css({'filter' : 'alpha(opacity=80)'});-->
+// <!--                      $('#product-detail-container').show();-->
+// <!--                      $('#product-detail-container-data').show();-->
+// <!--                      $('#social-container').show();-->
+// <!--                      $('#product-detail-container-data').html(template);-->
+// <!--                      $('.yashare-auto-init').attr('data-yashareTitle', data['name'])-->
+// <!--                                                .attr('data-yashareImage', data['image_url']);-->
 
 
-<!--                      $('body').css({'overflow':'hidden'})-->
-<!--                      $('body').on('click', '.close', function(){-->
-<!--                          $('body').css({'overflow':'auto'})-->
-<!--                      })-->
+// <!--                      $('body').css({'overflow':'hidden'})-->
+// <!--                      $('body').on('click', '.close', function(){-->
+// <!--                          $('body').css({'overflow':'auto'})-->
+// <!--                      })-->
 
-<!--                      setTimeout(function()-->
-<!--                          {-->
-<!--                            var windowHeight = $(window).height(),-->
-<!--                                windowWidth = $(window).width(),-->
-<!--                                modalHeight = $('.modal .modal-content').height(),-->
-<!--                                modalWidth = $('.modal .modal-content').width(),-->
-<!--                                newSize = windowHeight + 1;-->
+// <!--                      setTimeout(function()-->
+// <!--                          {-->
+// <!--                            var windowHeight = $(window).height(),-->
+// <!--                                windowWidth = $(window).width(),-->
+// <!--                                modalHeight = $('.modal .modal-content').height(),-->
+// <!--                                modalWidth = $('.modal .modal-content').width(),-->
+// <!--                                newSize = windowHeight + 1;-->
 
-<!--                            if(windowHeight < modalHeight) {-->
-<!--                                $('.modal .modal-content').css({'height':`${newSize}px`, 'overflow-y':'scroll'})-->
-<!--                            }-->
-<!--                            if(windowWidth < modalWidth) {-->
-<!--                                $('.modal .modal-content').css({'width':`${windowWidth}px`})-->
-<!--                            }-->
-<!--                      }, 100);-->
+// <!--                            if(windowHeight < modalHeight) {-->
+// <!--                                $('.modal .modal-content').css({'height':`${newSize}px`, 'overflow-y':'scroll'})-->
+// <!--                            }-->
+// <!--                            if(windowWidth < modalWidth) {-->
+// <!--                                $('.modal .modal-content').css({'width':`${windowWidth}px`})-->
+// <!--                            }-->
+// <!--                      }, 100);-->
 
-<!--                    },-->
-<!--                    error: function(data) {-->
-<!--                        console.log(data);-->
-<!--                        // window.location.href = redirect_url;-->
-<!--                    }-->
-<!--                });-->
-<!--              return false;-->
-<!--                        });-->
+// <!--                    },-->
+// <!--                    error: function(data) {-->
+// <!--                        console.log(data);-->
+// <!--                        // window.location.href = redirect_url;-->
+// <!--                    }-->
+// <!--                });-->
+// <!--              return false;-->
+// <!--                        });-->
             //filter links
             //$('.checkbox-action').click(function(){
             //    window.location.href = window.location.href + $(this).data('filter');
@@ -169,8 +169,6 @@
 
             $("#slider").slider({
               range: true,
-              // min: 0,
-              // max: 100000,
 
               min: {{ new_min_price }},
               max: {{ new_max_price }},
@@ -228,6 +226,8 @@
 
             //filters
             $('#price-filter').click(function(){
+
+              console.log('LALALALALALALAALLALALALALALALAL')
                 var base_url = '{{ clean_filter }}',
                     filter_url = '&',
                     vendors = '',
@@ -590,25 +590,25 @@
          {% endif %}
 
 
-<!--          {% if stores %}-->
-<!--          <div class="filter-box">-->
-<!--            <div class="filter-header" name="spoiler" id="spoiler_check_shop">-->
-<!--              <a href="#">Магазин</a>-->
-<!--              </div>-->
-<!--            <div class="filter-body">-->
-<!--              {% for store in stores %}-->
-<!--              <div class="checkbox" id="select_store">-->
-<!--                <label>-->
-<!--                  {% if store in store_list %}-->
-<!--                  <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action checkbox-checked" checked />{{ store }}<br />-->
-<!--                  {% else %}-->
-<!--                  <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action" />{{ store }}<br />-->
-<!--                  {% endif %}-->
-<!--                </label>-->
-<!--              </div>-->
-<!--              {% endfor %}-->
-<!--            </div>-->
-<!--          </div>-->
+         {% if stores %}
+         <div class="filter-box">
+           <div class="filter-header" name="spoiler" id="spoiler_check_shop">
+             <a href="#">Магазин</a>
+             </div>
+           <div class="filter-body">
+             {% for store in stores %}
+             <div class="checkbox" id="select_store">
+               <label>
+                 {% if store in store_list %}
+                 <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action checkbox-checked" checked />{% if store == 'None' %}Другие {% else %} {{ store }} {% endif %} <br />
+                 {% else %}
+                 <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action" />{{ store }}<br />
+                 {% endif %}
+               </label>
+             </div>
+             {% endfor %}
+           </div>
+         </div>
 
           {% if express|length >= 1 %}
           <div class="filter-box">
