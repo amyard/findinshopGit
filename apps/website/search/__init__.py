@@ -66,7 +66,7 @@ def prepare_value(request):
 
     #    нужно id получить для фильтра
     store_list = request.GET.get('store').split(',') if request.GET.get('store') else []
-    stores_id = []    
+    stores_id = [] 
     if store_list:
         stores_id = Point.objects.filter(name__in = store_list).values_list('id', flat=True)
         field_filters.append(('point_ids', stores_id))    

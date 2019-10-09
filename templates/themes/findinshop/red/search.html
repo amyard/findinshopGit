@@ -600,9 +600,9 @@
              <div class="checkbox" id="select_store">
                <label>
                  {% if store in store_list %}
-                 <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action checkbox-checked" checked />{% if store == 'None' %}Другие {% else %} {{ store }} {% endif %} <br />
+                 <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action checkbox-checked" checked />{% if store == None %}Другие {% else %} {{ store }} {% endif %} <br />
                  {% else %}
-                 <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action" />{{ store }}<br />
+                 <input type="checkbox" data-filter="{{ store }}" class="stores checkbox-action" />{% if store == None %}Другие{% else %} {{ store }} {% endif %}<br />
                  {% endif %}
                </label>
              </div>
