@@ -169,8 +169,11 @@
 
             $("#slider").slider({
               range: true,
-              min: {{ min_price }},
-              max: {{ max_price }},
+              // min: 0,
+              // max: 100000,
+
+              min: {{ new_min_price }},
+              max: {{ new_max_price }},
               values: [ {% if price_list %}{{ price_list.0 }}{% else %}{{ min_price }}{% endif %}, {% if price_list %}{{ price_list.1 }}{% else %}{{ max_price }}{% endif %} ],
               slide: function( event, ui ) {
                 $( "#amount1" ).val(ui.values[ 0 ]);

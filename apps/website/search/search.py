@@ -218,14 +218,15 @@ class BaseFindResponse(object):
             'condition') else False
         context['clean_filter'] = '%s?q=%s' % (reverse('search'), self.search_value.get('query'))
         context['entries'] = self.sphinx_res
+        
+        #  new min and max value
+        search = self.search_value['query']
+        res = Item.objects.filter(name__icontains=search, price__gt= 0).values_list('price', flat=True)
+        context['new_max_price'] = int(max(res)) if res else 0
+        context['new_min_price'] = int(min(res)) if res else 0
+        
 
-
-        #
-        #
-        #
         # print('--------------------------------')
-        # search = self.search_value['query']
-        #
         # print(search)
         # res = Item.objects.filter(vendor__name=search)
         # res = Item.objects.filter(name__icontains=search, price__gt= 0)
@@ -248,7 +249,7 @@ class BaseFindResponse(object):
         # site = models.ForeignKey('website.Website', verbose_name=u'Сайт', blank=True, null=True)
 
         # name = models.CharField(verbose_name=u'Наименование')
-        print('--------------------------------')
+        # print('--------------------------------')
 
 
         return context
