@@ -35,15 +35,17 @@ $(document).ready(function () {
             $(this).css({'overflow':'visible'});
         }
     }).mouseleave(function() {
-        var actBtnClass = $(this).find('.full-desc').attr('class')
-        if (actBtnClass.includes('active')){
-            $(this).find('.item_box').css({'border':'1px solid #FF4B00'});
-            $(this).css({'overflow':'hidden'});
-        } else {
-            $(this).find('.item_box').css({'border':'1px solid #ededed'});
-            $(this).css({'overflow':'hidden'});
+        if ($(window).width() >= 1201) {
+            var actBtnClass = $(this).find('.full-desc').attr('class')
+            if (actBtnClass.includes('active')){
+                $(this).find('.item_box').css({'border':'1px solid #FF4B00'});
+                $(this).css({'overflow':'hidden'});
+            } else {
+                $(this).find('.item_box').css({'border':'1px solid #ededed'});
+                $(this).css({'overflow':'hidden'});
+            }
         }
-    })
+    });
 
     //////////////////////////////////////////////////////////////////////////////////////
     //                   display description
@@ -66,42 +68,43 @@ $(document).ready(function () {
         
         // remove active from block effect
         parDiv = $('.full-desc.active').parent().parent().parent().parent().parent()
+        $('.item_box').css({'border':'none'});
         
-        // if ($(window).width() >= 1201) {                 
-        //     parDiv.find('.item_img').css({
-        //         'border': 'none',
-        //         'border-bottom': '1px solid #ededed'
-        //     })       
-        //     parDiv.find('.item_footer').css({
-        //         'border-top': 'none',
-        //         'border-left': 'none',
-        //         'border-right': 'none',
-        //         'border-bottom': 'none',
-        //         'background':'none'
-        //     })
-        //     parDiv.css({ 'overflow':'hidden'})
-        //     setTimeout(function(){
-        //         parDiv.find('.item_box').css({ 'border': '1px solid #ededed' })
-        //     }, 250)
+        if ($(window).width() >= 1201) {     
+            $('.item_box').css({'border':'1px solid #ededed'});            
+            // parDiv.find('.item_img').css({
+            //     'border': 'none',
+            //     'border-bottom': '1px solid #ededed'
+            // })       
+            // parDiv.find('.item_footer').css({
+            //     'border-top': 'none',
+            //     'border-left': 'none',
+            //     'border-right': 'none',
+            //     'border-bottom': 'none',
+            //     'background':'none'
+            // })
+            // parDiv.css({ 'overflow':'hidden'})
+            // setTimeout(function(){
+            //     parDiv.find('.item_box').css({ 'border': '1px solid #ededed' })
+            // }, 250)
 
-        // } else {
-        //     parDiv.find('.item_img').css({
-        //         'border-top': '1px solid #ededed',
-        //         'border-left': '1px solid #ededed',
-        //         'border-right': '1px solid #ededed',
-        //     })
-        //     parDiv.find('.item_footer').css({
-        //         'border-bottom': '1px solid #ededed',
-        //         'border-left': '1px solid #ededed',
-        //         'border-right': '1px solid #ededed',
-        //     })
-        // }
+        } else {
+            parDiv.find('.item_img').css({
+                'border-top': '1px solid #ededed',
+                'border-left': '1px solid #ededed',
+                'border-right': '1px solid #ededed',
+            })
+            parDiv.find('.item_footer').css({
+                'border-bottom': '1px solid #ededed',
+                'border-left': '1px solid #ededed',
+                'border-right': '1px solid #ededed',
+            })
+        }
         
         
 
 
-
-        $('.item_box').css({'border':'1px solid #ededed'});
+        
         $('.full-desc').removeClass('active');
         $('.product-item').css({'opacity': '1'});
         $('.testtest').remove();
@@ -309,16 +312,16 @@ $(document).ready(function () {
                 // parDiv.css({ 'overflow':'visible' })
 
             } else {
-                // parDiv.find('.item_img').css({
-                //     'border-top': '1px solid #FF4B00',
-                //     'border-left': '1px solid #FF4B00',
-                //     'border-right': '1px solid #FF4B00',
-                // })
-                // parDiv.find('.item_footer').css({
-                //     'border-bottom': '1px solid #FF4B00',
-                //     'border-left': '1px solid #FF4B00',
-                //     'border-right': '1px solid #FF4B00',
-                // })
+                parDiv.find('.item_img').css({
+                    'border-top': '1px solid #FF4B00',
+                    'border-left': '1px solid #FF4B00',
+                    'border-right': '1px solid #FF4B00',
+                })
+                parDiv.find('.item_footer').css({
+                    'border-bottom': '1px solid #FF4B00',
+                    'border-left': '1px solid #FF4B00',
+                    'border-right': '1px solid #FF4B00',
+                })
             }
             
 
@@ -378,13 +381,14 @@ $(document).ready(function () {
             }
         } else {
             //  убираем active из кнопки
-            scrollTopToTheBtn(550, 900)
+            scrollTopToTheBtn(650, 1000)
             deleteExtraData();
         }
     });
 
     $(document).on('click', '.full-desc.active', function(event){
         event.preventDefault();
+        scrollTopToTheBtn(650, 1000)
         deleteExtraData();
     });
 
