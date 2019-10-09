@@ -29,18 +29,6 @@ $(document).ready(function () {
     })
 
 
-    $('.catalog-block_li').mouseenter(function(){
-        $(this).css({'overflow':'visible'})
-    }).mouseleave(function() {
-
-        var actBtnClass = $(this).find('.full-desc').attr('class')
-        if (actBtnClass.includes('active')){
-            $(this).css({'overflow':'visible'})
-        } else {
-            $(this).css({'overflow':'hidden'})
-        }
-    })
-
     //////////////////////////////////////////////////////////////////////////////////////
     //                   display description
     //////////////////////////////////////////////////////////////////////////////////////
@@ -50,41 +38,13 @@ $(document).ready(function () {
     function deleteExtraData() {
         var allDataAfter = $(".testtest").nextAll(),
             windowWidth = $(window).width(),
-            getPosition = getCurrentPosition(windowWidth),
-            actBtn = $('.full-desc.active').parent().parent().parent().parent().parent();
+            getPosition = getCurrentPosition(windowWidth);
 
         $.each(allDataAfter, function(index, value) {
             if((index+1) % getPosition == 0) {
                 jQuery(value).css({'margin-left':'0'})
             }
         });
-        
-        
-        // remove active from block effect
-        if ($(window).width() >= 1201) {
-            console.log('LALALAALALALAL')
-            parDiv = $('.full-desc.active').parent().parent().parent().parent().parent()      
-            parDiv.find('.item_img').css({
-                'border': 'none',
-                'border-bottom': '1px solid #ededed'
-            })       
-            parDiv.find('.item_footer').css({
-                'border-top': 'none',
-                'border-left': 'none',
-                'border-right': 'none',
-                'border-bottom': 'none',
-                'background':'none'
-            })
-            parDiv.css({ 'overflow':'hidden'})
-            setTimeout(function(){
-                parDiv.find('.item_box').css({ 'border': '1px solid #ededed' })
-            }, 250)
-        }
-        
-        
-
-
-
 
         $('.full-desc').removeClass('active');
         $('.product-item').css({'opacity': '1'});
@@ -201,6 +161,97 @@ $(document).ready(function () {
         `
     }
 
+//    function addModalDataDiv(data) {
+//        return `\
+//            <div class="modal-body">\
+//                <div class="full-description">\
+//                    <div class="full-description__close">\
+//                        <span class='full-description__close--btn close'>&times;</span>\
+//                    </div>\
+//
+//                    <div class="full-description__content">\
+//
+//                        <div class="full-description__content--img">\
+//                            <img alt='' src='${data.image_url}'>\
+//                        </div>\
+//
+//                        <div class="full-description__content--info">\
+//                            <div>\
+//
+//                                <ul class="nav nav-tabs" role="tablist">\
+//                                    <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Продукт</a></li>\
+//                                    <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Магазин</a></li>\
+//                                    <li class='discount-btn d-none'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
+//                                </ul>\
+//
+//                                <div class="tab-content">\
+//                                    <div role="tabpanel" class="tab-pane active" id="home">\
+//                                        <h3>${data.name}</h3>\
+//                                        <p>${data.description}</p>\
+//                                        <div class='product-item--stars d-flex marg-y-24 d-none'>\
+//                                            <img src="img/star.png" alt="">\
+//                                            <img src="img/star.png" alt="">\
+//                                            <img src="img/star.png" alt="">\
+//                                            <img src="img/star.png" alt="">\
+//                                            <img src="img/star.png" alt="">\
+//                                        </div>\
+//                                        <span class='product-item--old-price d-block'>1999 грв</span>\
+//                                        <h2 class="no-pad-top">${data.price}</h2>\
+//                                    </div>\
+//                                    <div role="tabpanel" class="tab-pane" id="profile">\
+//                                        <table>\
+//                                            <tr>\
+//                                                <td class='table-grey'>Название магазина</td>\
+//                                                <td class='table-black'><a href="${data.map_stores_url}" target="_blank">Магазины и пункты выдачи</a> | <a href="/bid/transition/${data.id}/" class="popup-store" rel="nofollow" target="_blank" >${data.store_name}</a></td>\
+//                                            </tr>\
+//                                            <tr>\
+//                                                <td class='table-grey'>Доставка</td>\
+//                                                <td class='table-black'>${data.delivery}</td>\
+//                                            </tr>\
+//                                            <tr>\
+//                                                <td class='table-grey'>Способ оплаты</td>\
+//                                                <td class='table-black'>${data.payment_methods}</td>\
+//                                            </tr>\
+//                                            <tr>\
+//                                                <td class='table-grey'>Контактный телефон</td>\
+//                                                <td class='table-black'>${data.phone}</td>\
+//                                            </tr>\
+//                                        </table>\
+//                                        <span class='product-item--old-price d-block'>1999 грв</span>\
+//                                        <h2 class="no-pad-top">${data.price}</h2>\
+//                                    </div>\
+//                                    <div role="tabpanel" class="tab-pane d-none" id="discount">\
+//                                        <div class='discount'>\
+//                                            <p class='orange-color'>-50%</p>\
+//                                            <p>Действителен до 26.09.2020 07:19</p>\
+//                                        </div>\
+//
+//                                        <form class="header__search-form modal-input-form" action="" method="get">\
+//                                            <div class="input-group">\
+//                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Ваше имя" autocomplete="on" name="" required="">\
+//                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Вашу почту" autocomplete="on" name="" required="">\
+//                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Ваш телефон" autocomplete="on" name="" required="">\
+//                                            </div>\
+//                                        </form>\
+//                                        <span class='product-item--old-price d-block'>1999 грв</span>\
+//                                        <h2 class="no-pad-top">${data.price}</h2>\
+//                                    </div>\
+//                                </div>\
+//                            </div>\
+//                        </div>\
+//
+//                    </div>\
+//
+//                    <div class="full-description__footer">\
+//                        <img src="../img/like.png" alt="" class="svg-icon" onclick="wishlist( ${data.id} )" id="wish" target="_blank">\
+//                        <img src="img/mdi-scale-balance.png" alt="">\
+//                        <a class='orange-btn-cs orange-btn-padding-cs' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В магазин</a>\
+//                    </div>\
+//                </div>\
+//            </div>\
+//        `
+//    }
+
     function addSecondDataForBorrom(height) {
         return `<li class='catalog-block_li col-1-of-4 product-item delete-empty' style='opacity: 0; height: ${height}px; margin-bottom: 96px;'></li>`
     }
@@ -214,12 +265,134 @@ $(document).ready(function () {
     }
 
 
+    function changeSizeOfImg() {
+        // change img height / для нокиа - height: 100%  для других hieght: auto
+        var imgHeight = $('.full-description__content--img img').height(),
+            divImgHeight = $('.full-description__content').height();
+
+        $('.full-description__content--img img').css({'max-height': '100%'})
+        imgHeight > divImgHeight
+            ? $('.full-description__content--img img').css({'height': '100%'})
+            : $('.full-description__content--img img').css({'height': 'auto'})
+    }
+
     function scrollUpToTheParentDiv(parentDiv, speed){
         $('html, body').animate({ scrollTop: parentDiv.offset().top-130  }, speed);
     }
 
+
+//    function scrollDownToDecsBlock() {
+//        wind = $(window).width();
+//        console.log('333333')
+//        if(wind >=1400) {
+//            $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 350 }, 'slow');
+//        } else if (wind >= 1200) {
+//            $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 400 }, 'slow');
+//        } else if (wind >= 992) {
+//            $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 230 }, 'slow');
+//        } else if (wind >= 768) {
+//            $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 230 }, 'slow');
+//        } else {
+//            $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 200  }, 'slow');
+//        }
+//
+//    }
+
+
+// function scrollDownToDecsBlock(getPosition) {
+
+//     var head = $('.header').height(),
+//         bread = $('.breadcrumbs').height(),
+//         test = $('.testtest').height(),
+//         desc = $('.full-description').height(),
+//         windowWidth = $(window).height(),
+//         res = Math.round(test / windowWidth) * windowWidth + (windowWidth % desc);
+//         // res = test - (desc + desc * 0.5);
+    
+
+    
+//     console.log(test)
+//     console.log(desc)
+//     console.log( res = Math.round(test / windowWidth) * windowWidth )
+//     console.log(res)
+//     // $("html, body").animate({ scrollTop: res }, 1000);
+//     setTimeout(function(){
+//         $("html, body").animate({ scrollTop: res }, 1000);
+//     }, 200)
+    
+// }
+
+
+
+//  GGGGGOOOOOOOOOOOOOOOOOOOOODDDDDDDDDDDDD
+//     function scrollDownToDecsBlock(getPosition) {
+//         var allItems = $('.product-item').slice(1, getPosition),
+//             wind = $(window).height(),
+//             testDiv = $('.testtest').next(),
+//             windWdt = $(window).width(),
+//             descWdt = $('.full-description').width();
+
+// //        allItems.find('.full-desc.active').length == 1
+// //            ? $(".orange-btn-cs").get(0).scrollIntoView({block: "nearest", behavior: "smooth"});
+// //            : $(".testtest").get(0).scrollIntoView({block: "end", behavior: "smooth"})
+
+
+//         if (allItems.find('.full-desc.active').length == 1) {
+
+//             // if(windWdt >=1399) {
+//             //     pixel = $('.full-description').height() + $('.item_box').height() + 5;
+//             // } else if (windWdt >= 1201 && windWdt <= 1398) {
+//             //     pixel = $('.full-description').height() + $('.item_box').height() - 12;
+//             // } else if (windWdt >= 993 && windWdt <= 1200) {
+//             //     pixel = $('.full-description').height() + $('.item_box').height() - 210;
+//             // }
+
+//             console.log('-----------windWdt', windWdt)
+//             // $('html, body').animate({ scrollTop: testDiv.offset().top - pixel}, 800);
+//             // $(".orange-btn-cs").get(0).scrollIntoView({block: "nearest", behavior: "smooth"});
+//             $('html, body').animate({ scrollTop: $('.full-desc').offset().top  }, 300);
+//             $(".testtest").get(0).scrollIntoView({block: "end", behavior: "smooth"})
+            
+
+//         } else {
+//             console.log('---------222222222')
+// //            $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 350 }, 1000);
+//            $(".testtest").get(0).scrollIntoView({block: "end", behavior: "smooth"})
+//             // newt = descWdt + (wind - descWdt) - 67
+//             // $('html, body').animate({ scrollTop:  $('.orange-btn-cs').offset().top - newt }, 800);
+
+//         }
+
+//     }
+
+//    function scrollDownToDecsBlock(getPosition, speed) {
+//
+//        var allItems = $('.product-item').slice(1, getPosition),
+//            test = $('.full-description').width(),
+//            wind = $(window).height();
+//
+//        if (allItems.find('.full-desc.active').length == 1) {
+//
+//            console.log(wind)
+//            if (wind >= 992 && wind < 1083) {
+//                newt = test + (wind - test) - 0
+//            } else if(wind >= 768 && wind < 992) {
+//                newt = test + (wind - test) + 30
+//            } else {
+//                newt = test + (wind - test) + 450
+//            }
+//
+//        } else {
+//            newt = test + (wind - test) - 80
+//        }
+//
+//        $('html, body').animate({ scrollTop:  $('.orange-btn-cs').offset().top - newt }, speed);
+//    }
+
+
     function scrollDownToDecsBlock() {
         wind = $(window).width();
+        console.log('333333')
         if(wind >=1400) {
             $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 350 }, 'slow');
         } else if (wind >= 1200) {
@@ -241,9 +414,20 @@ $(document).ready(function () {
             newHeight = wind-width,
             newnew = width;
 
+//        console.log(width, wind)
         $('html, body').animate({ scrollTop:  $('.full-description__content').offset().top - newnew }, speed);
     }
 
+    function imgContainerDesc (windowWidth) {
+        if (windowWidth > 1200) {
+            setTimeout(function() {
+                var imgDescBlockWidth = $('.full-description__content--img').width(),
+                containerDescBlockWidth = $('.full-description').width()
+                newWidth = parseInt(containerDescBlockWidth) - parseInt(imgDescBlockWidth) - 74 - 64;
+                $('.full-description__content--info').css({'width': `${newWidth}px`})
+            }, 310)
+        }
+    }
 
     $(document).on('click', '.full-desc', function(event){
         event.preventDefault();
@@ -273,28 +457,6 @@ $(document).ready(function () {
             $(this).parent().parent().find('.product-item--old-price').css({'display':'block'});
             $(this).parent().parent().find('.product-item--price').css({'margin-top':'0px'});
             $(this).parent().parent().find('.product-item--stars').css({'display':'flex'});
-
-
-            // add active to block effect
-            if ($(window).width() >= 1201) {
-                console.log('LSLSLSLSLSLSSL')
-                parDiv = $(this).parent().parent().parent().parent().parent()
-                parDiv.find('.item_img').css({
-                    'border-top': '1px solid #FF4B00',
-                    'border-left': '1px solid #FF4B00',
-                    'border-right': '1px solid #FF4B00',
-                    'border-bottom': 'none'
-                })
-                parDiv.find('.item_footer').css({
-                    'border-top': 'none',
-                    'border-left': '1px solid #FF4B00',
-                    'border-right': '1px solid #FF4B00',
-                    'border-bottom': '1px solid #FF4B00',
-                    'background':'#fff'
-                })
-                parDiv.css({ 'overflow':'visible' })
-            }
-            
 
             // делаю меньше растояние между блоком с коннетном и самим итемом
             if (windowWidth >= 1200) {
@@ -342,13 +504,42 @@ $(document).ready(function () {
                     last = jQuery($('.delete-empty').last())
                     last.after(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     scrollDownToDecsBlock()
+                    // changeSizeOfImg()
+                    // imgContainerDesc(windowWidth)
+
+                    // setTimeout(scrollDownToDecsBlock(getPosition), 150);
                 } else {
                     jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     scrollDownToDecsBlock()
+                    // changeSizeOfImg()
+                    // imgContainerDesc(windowWidth)
+
+                    // setTimeout(scrollDownToDecsBlock(getPosition), 150);
                 }
             } else {
                 jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm))
                 scrollDownToDecsBlock()
+
+
+                // $(".orange-btn-cs").get(0).scrollIntoView({block: "nearest", behavior: "smooth"});
+                // $(".testtest").get(0).scrollIntoView({block: "end", behavior: "smooth"})
+                // $('html, body').animate({ scrollTop:  $('.full-description').offset().top - 300}, 800);
+                
+                
+                
+                // changeSizeOfImg()
+                // imgContainerDesc(windowWidth)
+
+                // setTimeout(scrollDownToDecsBlock(getPosition), 310);
+
+                // когда добаляет блок, то сносится маргин у последнего блока каждо строки
+                // ({'margin-right':'0', 'margin-left':'2rem'})
+//                var allDataAfter = $(".testtest").nextAll();
+//                $.each(allDataAfter, function(index, value) {
+//                    if((index+1) % getPosition == 0) {
+//                        jQuery(value).css({'margin-right':'0', 'margin-left':'2rem'})
+//                    }
+//                });
             }
         } else {
             //  убираем active из кнопки
@@ -360,6 +551,8 @@ $(document).ready(function () {
     $(document).on('click', '.full-desc.active', function(event){
         event.preventDefault();
         deleteExtraData();
+//        document.getElementsByClassName("item_box").classList.remove("hasactive");
+//        $('.full-description__close--btn').click()
     });
 
     $(document).on('click', '.full-description__close--btn', function() {
@@ -418,6 +611,11 @@ $(document).ready(function () {
     /////////////////////////////////////////////////////////////////////////////////
     ////           MODAL
     /////////////////////////////////////////////////////////////////////////////////
+//    $(document).on('click', '.discount-btn', function(){
+//        $('.modal-footer .orange-btn').html('Получить купон');
+//    });
+
+
     $(document).on('click', '.tab-pane.active', function(event){
         event.preventDefault();
     });
