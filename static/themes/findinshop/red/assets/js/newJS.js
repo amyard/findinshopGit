@@ -28,16 +28,20 @@ $(document).ready(function () {
         event.preventDefault();
     })
 
-
+    
     $('.catalog-block_li').mouseenter(function(){
-        $(this).css({'overflow':'visible'})
+        var actBtnClass = $(this).find('.full-desc').attr('class')
+        if ($(window).width() >= 1201) {
+            $(this).css({'overflow':'visible'});
+        }
     }).mouseleave(function() {
-
         var actBtnClass = $(this).find('.full-desc').attr('class')
         if (actBtnClass.includes('active')){
-            $(this).css({'overflow':'visible'})
+            $(this).find('.item_box').css({'border':'1px solid #FF4B00'});
+            $(this).css({'overflow':'hidden'});
         } else {
-            $(this).css({'overflow':'hidden'})
+            $(this).find('.item_box').css({'border':'1px solid #ededed'});
+            $(this).css({'overflow':'hidden'});
         }
     })
 
@@ -63,41 +67,41 @@ $(document).ready(function () {
         // remove active from block effect
         parDiv = $('.full-desc.active').parent().parent().parent().parent().parent()
         
-        if ($(window).width() >= 1201) {                 
-            parDiv.find('.item_img').css({
-                'border': 'none',
-                'border-bottom': '1px solid #ededed'
-            })       
-            parDiv.find('.item_footer').css({
-                'border-top': 'none',
-                'border-left': 'none',
-                'border-right': 'none',
-                'border-bottom': 'none',
-                'background':'none'
-            })
-            parDiv.css({ 'overflow':'hidden'})
-            setTimeout(function(){
-                parDiv.find('.item_box').css({ 'border': '1px solid #ededed' })
-            }, 250)
+        // if ($(window).width() >= 1201) {                 
+        //     parDiv.find('.item_img').css({
+        //         'border': 'none',
+        //         'border-bottom': '1px solid #ededed'
+        //     })       
+        //     parDiv.find('.item_footer').css({
+        //         'border-top': 'none',
+        //         'border-left': 'none',
+        //         'border-right': 'none',
+        //         'border-bottom': 'none',
+        //         'background':'none'
+        //     })
+        //     parDiv.css({ 'overflow':'hidden'})
+        //     setTimeout(function(){
+        //         parDiv.find('.item_box').css({ 'border': '1px solid #ededed' })
+        //     }, 250)
 
-        } else {
-            parDiv.find('.item_img').css({
-                'border-top': '1px solid #ededed',
-                'border-left': '1px solid #ededed',
-                'border-right': '1px solid #ededed',
-            })
-            parDiv.find('.item_footer').css({
-                'border-bottom': '1px solid #ededed',
-                'border-left': '1px solid #ededed',
-                'border-right': '1px solid #ededed',
-            })
-        }
+        // } else {
+        //     parDiv.find('.item_img').css({
+        //         'border-top': '1px solid #ededed',
+        //         'border-left': '1px solid #ededed',
+        //         'border-right': '1px solid #ededed',
+        //     })
+        //     parDiv.find('.item_footer').css({
+        //         'border-bottom': '1px solid #ededed',
+        //         'border-left': '1px solid #ededed',
+        //         'border-right': '1px solid #ededed',
+        //     })
+        // }
         
         
 
 
 
-
+        $('.item_box').css({'border':'1px solid #ededed'});
         $('.full-desc').removeClass('active');
         $('.product-item').css({'opacity': '1'});
         $('.testtest').remove();
@@ -289,32 +293,32 @@ $(document).ready(function () {
             parDiv = $(this).parent().parent().parent().parent().parent()
             // add active to block effect
             if ($(window).width() >= 1201) {
-                parDiv.find('.item_img').css({
-                    'border-top': '1px solid #FF4B00',
-                    'border-left': '1px solid #FF4B00',
-                    'border-right': '1px solid #FF4B00',
-                    'border-bottom': 'none'
-                })
-                parDiv.find('.item_footer').css({
-                    'border-top': 'none',
-                    'border-left': '1px solid #FF4B00',
-                    'border-right': '1px solid #FF4B00',
-                    'border-bottom': '1px solid #FF4B00',
-                    'background':'#fff'
-                })
-                parDiv.css({ 'overflow':'visible' })
+                // parDiv.find('.item_img').css({
+                //     'border-top': '1px solid #FF4B00',
+                //     'border-left': '1px solid #FF4B00',
+                //     'border-right': '1px solid #FF4B00',
+                //     'border-bottom': 'none'
+                // })
+                // parDiv.find('.item_footer').css({
+                //     'border-top': 'none',
+                //     'border-left': '1px solid #FF4B00',
+                //     'border-right': '1px solid #FF4B00',
+                //     'border-bottom': '1px solid #FF4B00',
+                //     'background':'#fff'
+                // })
+                // parDiv.css({ 'overflow':'visible' })
 
             } else {
-                parDiv.find('.item_img').css({
-                    'border-top': '1px solid #FF4B00',
-                    'border-left': '1px solid #FF4B00',
-                    'border-right': '1px solid #FF4B00',
-                })
-                parDiv.find('.item_footer').css({
-                    'border-bottom': '1px solid #FF4B00',
-                    'border-left': '1px solid #FF4B00',
-                    'border-right': '1px solid #FF4B00',
-                })
+                // parDiv.find('.item_img').css({
+                //     'border-top': '1px solid #FF4B00',
+                //     'border-left': '1px solid #FF4B00',
+                //     'border-right': '1px solid #FF4B00',
+                // })
+                // parDiv.find('.item_footer').css({
+                //     'border-bottom': '1px solid #FF4B00',
+                //     'border-left': '1px solid #FF4B00',
+                //     'border-right': '1px solid #FF4B00',
+                // })
             }
             
 
