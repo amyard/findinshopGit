@@ -122,8 +122,10 @@ $(document).ready(function () {
             return 4
         } else if (windowWidth >= 768 && windowWidth < 1200) {
             return 3
-        } else {
+        } else if (windowWidth >= 480 && windowWidth < 768) {
             return 2
+        } else {
+            return 1
         }
     }
 
@@ -220,6 +222,97 @@ $(document).ready(function () {
         `
     }
 
+    function addModalDataDiv(data) {
+       return `\
+           <div class="modal-body">\
+               <div class="full-description">\
+                   <div class="full-description__close">\
+                       <span class='full-description__close--btn close'>&times;</span>\
+                   </div>\
+
+                   <div class="full-description__content">\
+
+                       <div class="full-description__content--img">\
+                           <img alt='' src='${data.image_url}'>\
+                       </div>\
+
+                       <div class="full-description__content--info">\
+                           <div>\
+
+                               <ul class="nav nav-tabs" role="tablist">\
+                                   <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Продукт</a></li>\
+                                   <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Магазин</a></li>\
+                                   <li class='discount-btn d-none'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
+                               </ul>\
+
+                               <div class="tab-content">\
+                                   <div role="tabpanel" class="tab-pane active" id="home">\
+                                       <h3>${data.name}</h3>\
+                                       <p>${data.description}</p>\
+                                       <div class='product-item--stars d-flex marg-y-24 d-none'>\
+                                           <img src="img/star.png" alt="">\
+                                           <img src="img/star.png" alt="">\
+                                           <img src="img/star.png" alt="">\
+                                           <img src="img/star.png" alt="">\
+                                           <img src="img/star.png" alt="">\
+                                       </div>\
+                                       <span class='product-item--old-price d-block'>1999 грв</span>\
+                                       <h2 class="no-pad-top">${data.price}</h2>\
+                                   </div>\
+                                   <div role="tabpanel" class="tab-pane" id="profile">\
+                                       <table>\
+                                           <tr>\
+                                               <td class='table-grey'>Название магазина</td>\
+                                               <td class='table-black'><a href="${data.map_stores_url}" target="_blank">Магазины и пункты выдачи</a> | <a href="/bid/transition/${data.id}/" class="popup-store" rel="nofollow" target="_blank" >${data.store_name}</a></td>\
+                                           </tr>\
+                                           <tr>\
+                                               <td class='table-grey'>Доставка</td>\
+                                               <td class='table-black'>${data.delivery}</td>\
+                                           </tr>\
+                                           <tr>\
+                                               <td class='table-grey'>Способ оплаты</td>\
+                                               <td class='table-black'>${data.payment_methods}</td>\
+                                           </tr>\
+                                           <tr>\
+                                               <td class='table-grey'>Контактный телефон</td>\
+                                               <td class='table-black'>${data.phone}</td>\
+                                           </tr>\
+                                       </table>\
+                                       <span class='product-item--old-price d-block'>1999 грв</span>\
+                                       <h2 class="no-pad-top">${data.price}</h2>\
+                                   </div>\
+                                   <div role="tabpanel" class="tab-pane d-none" id="discount">\
+                                       <div class='discount'>\
+                                           <p class='orange-color'>-50%</p>\
+                                           <p>Действителен до 26.09.2020 07:19</p>\
+                                       </div>\
+
+                                       <form class="header__search-form modal-input-form" action="" method="get">\
+                                           <div class="input-group">\
+                                               <input class="header__search-input modal-input" type="search" placeholder="Введите Ваше имя" autocomplete="on" name="" required="">\
+                                               <input class="header__search-input modal-input" type="search" placeholder="Введите Вашу почту" autocomplete="on" name="" required="">\
+                                               <input class="header__search-input modal-input" type="search" placeholder="Введите Ваш телефон" autocomplete="on" name="" required="">\
+                                           </div>\
+                                       </form>\
+                                       <span class='product-item--old-price d-block'>1999 грв</span>\
+                                       <h2 class="no-pad-top">${data.price}</h2>\
+                                   </div>\
+                               </div>\
+                           </div>\
+                       </div>\
+
+                   </div>\
+
+                   <div class="full-description__footer">\
+                       <img src="../img/like.png" alt="" class="svg-icon d-none" onclick="wishlist( ${data.id} )" id="wish" target="_blank">\
+                       <img src="img/mdi-scale-balance.png" alt="" class="d-none">\
+                       <a class='orange-btn-cs orange-btn-padding-cs' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В магазин</a>\
+                   </div>\
+               </div>\
+           </div>\
+       `
+   }
+
     function addSecondDataForBorrom(height) {
         return `<li class='catalog-block_li col-1-of-4 product-item delete-empty' style='opacity: 0; height: ${height}px; margin-bottom: 96px;'></li>`
     }
@@ -260,7 +353,7 @@ $(document).ready(function () {
             newHeight = wind-width,
             newnew = width;
 
-        $('html, body').animate({ scrollTop:  $('.full-description__content').offset().top - newnew }, speed);
+        $('html, body').animate({ scrollTop:  $('.full-description__content').offset().top - pixel }, speed);
     }
 
 
@@ -283,112 +376,103 @@ $(document).ready(function () {
             filterOrangeBtnHeight = $('#price-filter').height();
 
 
-        // первый раз нажали на кнопку
-        if(!classBtn.includes('active')) {
+        if(windowWidth > 480) {
+            // первый раз нажали на кнопку
+            if(!classBtn.includes('active')) {
 
-            // display extra data for item block
-            $(this).addClass('active');
-            $(this).next().css({'display':'block'});
-            $(this).parent().parent().find('.product-item--old-price').css({'display':'block'});
-            $(this).parent().parent().find('.product-item--price').css({'margin-top':'0px'});
-            $(this).parent().parent().find('.product-item--stars').css({'display':'flex'});
+                // display extra data for item block
+                $(this).addClass('active');
+                $(this).next().css({'display':'block'});
+                $(this).parent().parent().find('.product-item--old-price').css({'display':'block'});
+                $(this).parent().parent().find('.product-item--price').css({'margin-top':'0px'});
+                $(this).parent().parent().find('.product-item--stars').css({'display':'flex'});
 
-            parDiv = $(this).parent().parent().parent().parent().parent()
-            // add active to block effect
-            if ($(window).width() >= 1201) {
-                // parDiv.find('.item_img').css({
-                //     'border-top': '1px solid #FF4B00',
-                //     'border-left': '1px solid #FF4B00',
-                //     'border-right': '1px solid #FF4B00',
-                //     'border-bottom': 'none'
-                // })
-                // parDiv.find('.item_footer').css({
-                //     'border-top': 'none',
-                //     'border-left': '1px solid #FF4B00',
-                //     'border-right': '1px solid #FF4B00',
-                //     'border-bottom': '1px solid #FF4B00',
-                //     'background':'#fff'
-                // })
-                // parDiv.css({ 'overflow':'visible' })
+                parDiv = $(this).parent().parent().parent().parent().parent()
+                // add active to block effect
+                if ($(window).width() >= 1201) {
 
-            } else {
-                parDiv.find('.item_img').css({
-                    'border-top': '1px solid #FF4B00',
-                    'border-left': '1px solid #FF4B00',
-                    'border-right': '1px solid #FF4B00',
-                })
-                parDiv.find('.item_footer').css({
-                    'border-bottom': '1px solid #FF4B00',
-                    'border-left': '1px solid #FF4B00',
-                    'border-right': '1px solid #FF4B00',
-                })
-            }
-            
-
-            // делаю меньше растояние между блоком с коннетном и самим итемом
-            if (windowWidth >= 1200) {
-                mgBtm = '-40px'
-            } else if (windowWidth >= 768 && windowWidth < 1200) {
-                mgBtm = '-50px'
-            } else if (windowWidth < 768) {
-                mgBtm = '-75px'
-            } else {
-                mgBtm = 'auto'
-            }
-
-
-            var parentDiv = $(this).parent().parent().parent().parent()
-
-            var positionOfItem = getPositionOfItemBlock();
-
-            function getPositionOfItemBlock() {
-                $.each(allItems, function(dt, value) {
-                    var innerBtnClass = jQuery(value).find('.full-desc').attr('class');
-                    innerBtnClass.includes('active')
-                        ? correctItem = dt+1
-                        : jQuery(value).css({'opacity':'1'})
-                })
-                return correctItem
-            }
-
-            var getDivAfterInsert = Math.ceil(correctItem / getPosition) * getPosition;
-
-
-            position = parseInt(getDivAfterInsert) > parseInt(amountOfItems) ? amountOfItems : getDivAfterInsert
-
-            var currDiv = allItems[position];
-
-            if(typeof currDiv === 'undefined') {
-                currDiv = allItems.last()
-                arr = [...Array(getDivAfterInsert - amountOfItems).keys()]
-
-                // когда у нас количество елементов полное в ряд, то последний ряд не отображается (arr.length = 0)
-                if (arr.length !== 0) {
-                    arr.forEach(function(value){
-                        jQuery(currDiv).after(addSecondDataForBorrom( $('.product-item').height() ))
-                    })
-
-                    last = jQuery($('.delete-empty').last())
-                    last.after(addDataDiv(JSON.parse(ajaxData), mgBtm))
-                    scrollDownToDecsBlock()
                 } else {
-                    jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm))
+                    parDiv.find('.item_img').css({
+                        'border-top': '1px solid #FF4B00',
+                        'border-left': '1px solid #FF4B00',
+                        'border-right': '1px solid #FF4B00',
+                    })
+                    parDiv.find('.item_footer').css({
+                        'border-bottom': '1px solid #FF4B00',
+                        'border-left': '1px solid #FF4B00',
+                        'border-right': '1px solid #FF4B00',
+                    })
+                }
+                
+
+                // делаю меньше растояние между блоком с коннетном и самим итемом
+                if (windowWidth >= 1200) {
+                    mgBtm = '-40px'
+                } else if (windowWidth >= 768 && windowWidth < 1200) {
+                    mgBtm = '-50px'
+                } else if (windowWidth < 768) {
+                    mgBtm = '-75px'
+                } else {
+                    mgBtm = 'auto'
+                }
+
+
+                var parentDiv = $(this).parent().parent().parent().parent()
+
+                var positionOfItem = getPositionOfItemBlock();
+
+                function getPositionOfItemBlock() {
+                    $.each(allItems, function(dt, value) {
+                        var innerBtnClass = jQuery(value).find('.full-desc').attr('class');
+                        innerBtnClass.includes('active')
+                            ? correctItem = dt+1
+                            : jQuery(value).css({'opacity':'1'})
+                    })
+                    return correctItem
+                }
+
+                var getDivAfterInsert = Math.ceil(correctItem / getPosition) * getPosition;
+
+
+                position = parseInt(getDivAfterInsert) > parseInt(amountOfItems) ? amountOfItems : getDivAfterInsert
+
+                var currDiv = allItems[position];
+
+                if(typeof currDiv === 'undefined') {
+                    currDiv = allItems.last()
+                    arr = [...Array(getDivAfterInsert - amountOfItems).keys()]
+
+                    // когда у нас количество елементов полное в ряд, то последний ряд не отображается (arr.length = 0)
+                    if (arr.length !== 0) {
+                        arr.forEach(function(value){
+                            jQuery(currDiv).after(addSecondDataForBorrom( $('.product-item').height() ))
+                        })
+
+                        last = jQuery($('.delete-empty').last())
+                        last.after(addDataDiv(JSON.parse(ajaxData), mgBtm))
+                        scrollDownToDecsBlock()
+                    } else {
+                        jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm))
+                        scrollDownToDecsBlock()
+                    }
+                } else {
+                    jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm))
                     scrollDownToDecsBlock()
                 }
             } else {
-                jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm))
-                scrollDownToDecsBlock()
+                //  убираем active из кнопки
+                scrollTopToTheBtn(650, 1000)
+                deleteExtraData();
             }
         } else {
-            //  убираем active из кнопки
-            scrollTopToTheBtn(650, 1000)
-            deleteExtraData();
-        }
+            displayModal('descModal', JSON.parse(ajaxData))
+        }  
+        
     });
 
     $(document).on('click', '.full-desc.active', function(event){
         event.preventDefault();
-        scrollTopToTheBtn(650, 1000)
+        // scrollTopToTheBtn(650, 1000)
         deleteExtraData();
     });
 
@@ -407,6 +491,22 @@ $(document).ready(function () {
         $(`#${id} .modal-footer`).remove();
         $(`#${id} .modal-body`).remove();
         $(`#${id} .modal-content`).prepend(addModalDataDiv(data));
+
+        var windHgt = $(window).height(),
+        modalHgt = $('#descModal .full-description').height() + 24 + 24;
+        if (windHgt > modalHgt) {
+            console.log('Move down')
+            $('#descModal .full-description .orange-btn-cs').css({
+                'position': 'absolute',
+                'bottom': '24px'
+            })
+        } else {
+            console.log('Left as must')
+            $('#descModal .full-description .orange-btn-cs').css({
+                'position': 'relative',
+                'bottom': '0px'
+            })
+        }
 
 
         $('body').css({'overflow':'hidden'})
@@ -429,19 +529,6 @@ $(document).ready(function () {
         span.onclick = function() {
             modal.style.display = "none";
         }
-
-        setTimeout(function() {
-            $(`#${id} .modal-content`).css({'height': '100%'})
-            var windowHeight = $(window).height(),
-                modalHeight = $(`#${id} .modal-content`).height(),
-                newSize = windowHeight + 1;
-
-            if(windowHeight < modalHeight) {
-                $(`#${id} .modal-content`).css({'height':'100%', 'overflow-y':'scroll'})
-            } else {
-                $(`#${id} .modal-content`).css({'height':`${newSize}px`, 'overflow-y':'scroll'})
-            }
-        }, 310);
     }
 
 
