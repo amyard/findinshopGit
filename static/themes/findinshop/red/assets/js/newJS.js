@@ -115,20 +115,6 @@ $(document).ready(function () {
         $('.product-item--stars').css({'display':'none'});
     }
 
-    function getCurrentPosition(windowWidth) {
-        if (windowWidth > 1399) {
-            return 5
-        } else if (windowWidth > 1199 && windowWidth < 1400) {
-            return 4
-        } else if (windowWidth >= 768 && windowWidth < 1200) {
-            return 3
-        } else if (windowWidth >= 480 && windowWidth < 768) {
-            return 2
-        } else {
-            return 1
-        }
-    }
-
     // create block
     function addDataDiv(data, mgBtm) {
         return `\
@@ -357,6 +343,21 @@ $(document).ready(function () {
     }
 
 
+    function getCurrentPosition(windowWidth) {
+        if (windowWidth > 1399) {
+            return 5
+        } else if (windowWidth > 1199 && windowWidth < 1400) {
+            return 4
+        } else if (windowWidth >= 768 && windowWidth < 1200) {
+            return 3
+        } else if (windowWidth > 480 && windowWidth < 768) {
+            return 2
+        } else {
+            return 1
+        }
+    }
+
+
     $(document).on('click', '.full-desc', function(event){
         event.preventDefault();
 
@@ -465,6 +466,7 @@ $(document).ready(function () {
                 deleteExtraData();
             }
         } else {
+            $(this).addClass('active')
             displayModal('descModal', JSON.parse(ajaxData))
         }  
         
@@ -480,6 +482,89 @@ $(document).ready(function () {
         scrollTopToTheBtn(650, 1000)
         deleteExtraData()
     });
+
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ////           resize
+    /////////////////////////////////////////////////////////////////////////////////
+
+    // WORKED
+    // wdRes = $(window).width()
+    // oldPos = getCurrentPosition(wdRes)
+
+    // $(window).on('resize', function(){
+    //     parentDiv = $('.full-desc.active').parent().parent().parent().parent()
+    //     newPos = getCurrentPosition($(window).width())
+    //     if (newPos != oldPos) {
+
+    //         allItems = $('.product-item')
+    //         $.each(allItems, function(dt, value) {
+    //             var innerBtnClass = jQuery(value).find('.full-desc').attr('class');
+
+    //             console.log('WORKED INNER')
+
+
+
+    //             if (innerBtnClass.includes('active')) {
+    //                 clickBtn = jQuery(value).find('.full-desc')
+    //                 setTimeout(function(){
+    //                     console.log('WAS 1')
+    //                     console.log('oldPos', oldPos)
+    //                     if(oldPos == 1) {
+    //                         console.log('oldPos', oldPos)
+    //                         console.log('Clicked MODAL')
+    //                         $('.full-description__close--btn').click()
+    //                     } else {
+    //                         clickBtn.click()
+    //                     }                        
+    //                 }, 1);
+    //                 setTimeout(function(){
+    //                     console.log('WAS 2')
+    //                     clickBtn.click()
+    //                 }, 5);
+    //             }
+    //         })
+    //     }
+    //     setTimeout(function(){
+    //         console.log('CHANGE POSITION')
+    //         oldPos = newPos;
+    //     }, 5)
+    // })
+
+
+
+    wdRes = $(window).width()
+    oldPos = getCurrentPosition(wdRes)
+
+    $(window).on('resize', function(){
+        parentDiv = $('.full-desc.active').parent().parent().parent().parent()
+        newPos = getCurrentPosition($(window).width())
+        if (newPos != oldPos) {
+
+            allItems = $('.product-item')
+            $.each(allItems, function(dt, value) {
+                var innerBtnClass = jQuery(value).find('.full-desc').attr('class');
+                if (innerBtnClass.includes('active')) {
+                    clickBtn = jQuery(value).find('.full-desc')
+                    setTimeout(function(){
+                        if(oldPos == 1) {
+                            $('.full-description__close--btn').click()
+                        } else {
+                            clickBtn.click()
+                        }                        
+                    }, 1);
+                    setTimeout(function(){
+                        clickBtn.click()
+                    }, 5);
+                }
+            })
+            
+        }
+        setTimeout(function(){
+            oldPos = newPos;
+        }, 5)
+    })
+
 
     /////////////////////////////////////////////////////////////////////////////////
     ////           MODAL
