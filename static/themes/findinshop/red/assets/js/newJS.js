@@ -541,10 +541,21 @@ $(document).ready(function () {
         newPos = getCurrentPosition($(window).width())
         if (newPos != oldPos) {
 
+            // $('.catalog-block .catalog-block_ul .catalog-block_li .item_box .item_img').css({'border':'none'})
+            // $('.catalog-block .catalog-block_ul .catalog-block_li .item_footer').css({'border':'none'})
+
+
+
             allItems = $('.product-item')
             $.each(allItems, function(dt, value) {
                 var innerBtnClass = jQuery(value).find('.full-desc').attr('class');
                 if (innerBtnClass.includes('active')) {
+                    jQuery(value).find('.item_img').css({'border':'none'})
+                    jQuery(value).find('.item_footer').css({'border':'none'})
+                    jQuery(value).find('.item_box').css({'border':'none'})
+                    
+                    jQuery(value).find('.item_box').css({'border':'#ff4b00'})
+
                     clickBtn = jQuery(value).find('.full-desc')
                     setTimeout(function(){
                         if(oldPos == 1) {
