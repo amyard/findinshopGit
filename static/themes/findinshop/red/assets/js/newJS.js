@@ -141,7 +141,8 @@ $(document).ready(function () {
                                 </ul>\
 
                                 <div class="tab-content">\
-                                    <div role="tabpanel" class="tab-pane active" id="home">\
+                                    <div role="tabpanel" class="tab-pane tab-pane-new active" id="home">\
+                                        <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
                                         <h3>${data.name}</h3>\
                                         <p>${data.description}</p>\
                                         <div class='product-item--stars d-flex marg-y-24 d-none'>\
@@ -152,9 +153,9 @@ $(document).ready(function () {
                                             <img src="img/star.png" alt="">\
                                         </div>\
                                         <span class='product-item--old-price d-block'>1999 грв</span>\
-                                        <h2 class="price-btn no-pad-top">${data.price}</h2>\
                                     </div>\
-                                    <div role="tabpanel" class="tab-pane" id="profile">\
+                                    <div role="tabpanel" class="tab-pane tab-pane-new" id="profile">\
+                                        <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
                                         <table>\
                                             <tr>\
                                                 <td class='table-grey'>Название магазина</td>\
@@ -174,7 +175,6 @@ $(document).ready(function () {
                                             </tr>\
                                         </table>\
                                         <span class='product-item--old-price d-block'>1999 грв</span>\
-                                        <h2 class="no-pad-top">${data.price}</h2>\
                                     </div>\
                                     <div role="tabpanel" class="tab-pane d-none" id="discount">\
                                         <div class='discount'>\
@@ -183,6 +183,7 @@ $(document).ready(function () {
                                         </div>\
 
                                         <form class="header__search-form modal-input-form" action="" method="get">\
+                                            <span class='product-item--old-price d-block'>1999 грв</span>\
                                             <div class="input-group">\
                                                 <input class="header__search-input modal-input" type="search" placeholder="Введите Ваше имя" autocomplete="on" name="" required="">\
                                                 <input class="header__search-input modal-input" type="search" placeholder="Введите Вашу почту" autocomplete="on" name="" required="">\
@@ -190,7 +191,6 @@ $(document).ready(function () {
                                             </div>\
                                         </form>\
                                         <span class='product-item--old-price d-block'>1999 грв</span>\
-                                        <h2 class="no-pad-top">${data.price}</h2>\
                                     </div>\
                                 </div>\
                             </div>\
@@ -232,7 +232,8 @@ $(document).ready(function () {
                                </ul>\
 
                                <div class="tab-content">\
-                                   <div role="tabpanel" class="tab-pane active" id="home">\
+                                   <div role="tabpanel" class="tab-pane tab-pane-new active" id="home">\
+                                       <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
                                        <h3>${data.name}</h3>\
                                        <p>${data.description}</p>\
                                        <div class='product-item--stars d-flex marg-y-24 d-none'>\
@@ -243,9 +244,9 @@ $(document).ready(function () {
                                            <img src="img/star.png" alt="">\
                                        </div>\
                                        <span class='product-item--old-price d-block'>1999 грв</span>\
-                                       <h2 class="no-pad-top">${data.price}</h2>\
                                    </div>\
-                                   <div role="tabpanel" class="tab-pane" id="profile">\
+                                   <div role="tabpanel" class="tab-pane tab-pane-new" id="profile">\
+                                       <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
                                        <table>\
                                            <tr>\
                                                <td class='table-grey'>Название магазина</td>\
@@ -265,7 +266,6 @@ $(document).ready(function () {
                                            </tr>\
                                        </table>\
                                        <span class='product-item--old-price d-block'>1999 грв</span>\
-                                       <h2 class="no-pad-top">${data.price}</h2>\
                                    </div>\
                                    <div role="tabpanel" class="tab-pane d-none" id="discount">\
                                        <div class='discount'>\
@@ -281,7 +281,6 @@ $(document).ready(function () {
                                            </div>\
                                        </form>\
                                        <span class='product-item--old-price d-block'>1999 грв</span>\
-                                       <h2 class="no-pad-top">${data.price}</h2>\
                                    </div>\
                                </div>\
                            </div>\
@@ -357,11 +356,42 @@ $(document).ready(function () {
         }
     }
 
+    // function getTriangleWidht(positionOfItem, getPosition) {
+    //     console.log(positionOfItem)
+    //     console.log(getPosition)
+
+    //     positionOfItem % getPosition == 0
+    //         ? pos = getPosition
+    //         : pos = positionOfItem % getPosition
+        
+    //     console.log(pos)
+    //     prWdt = $('.product-item').width()
+    //     console.log(prWdt)
+    //     newWdt = (pos - 1) * prWdt + prWdt * 0.5;
+    //     console.log(newWdt)
+    //     asd = `${newWdt} px`
+    //     console.log(asd)
+    //     $('.triangle').css({'left':asd})
+    // }
+
+    function changeHeightContentTab() {
+        setTimeout(function(){
+            var allTabs = $('.tab-pane-new'),
+                maxWidth = [],
+                maxWidthForDiv = '';
+            $.each(allTabs, function(index,value){ maxWidth.push(jQuery(value).height()) });
+            maxWidthForDiv = Math.max.apply(Math, maxWidth)
+            console.log(maxWidthForDiv)
+            $('.tab-pane').css({'height': `${maxWidthForDiv}px`})
+        }, 100)
+    }
+
 
     $(document).on('click', '.full-desc', function(event){
         event.preventDefault();
 
         deleteExtraData()
+        changeHeightContentTab()
 
         var classBtn = $(this).attr('class'),
             allItems = $('.product-item'),
@@ -416,11 +446,14 @@ $(document).ready(function () {
                 } else {
                     mgBtm = 'auto'
                 }
+                
 
+                
 
                 var parentDiv = $(this).parent().parent().parent().parent()
 
                 var positionOfItem = getPositionOfItemBlock();
+                // getTriangleWidht(positionOfItem, getPosition);
 
                 function getPositionOfItemBlock() {
                     $.each(allItems, function(dt, value) {
@@ -479,7 +512,7 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.full-description__close--btn', function() {
-        scrollTopToTheBtn(650, 1000)
+        // scrollTopToTheBtn(650, 1000)
         deleteExtraData()
     });
 
@@ -553,7 +586,7 @@ $(document).ready(function () {
                     jQuery(value).find('.item_img').css({'border':'none'})
                     jQuery(value).find('.item_footer').css({'border':'none'})
                     jQuery(value).find('.item_box').css({'border':'none'})
-                    
+
                     jQuery(value).find('.item_box').css({'border':'#ff4b00'})
 
                     clickBtn = jQuery(value).find('.full-desc')
