@@ -119,7 +119,7 @@ $(document).ready(function () {
 
 
     // create block
-    function addDataDiv(data, mgBtm) {
+    function addDataDiv(data, mgBtm, moreBtnDisplay) {
         return `\
             <div class='testtest'>\
                 <span class='opacity-zero'>dd<br>dd<br>dd<br></span>\
@@ -149,7 +149,7 @@ $(document).ready(function () {
 
                                         <div class='general-content-here'>\
                                             <p>${data.description_short}<span class='lalal hdd' style='display:none'>${data.description_full}</span></p>\
-                                            <span class='more-btn'>Еще</span>
+                                            <span class='more-btn' style="display: ${moreBtnDisplay}">Еще</span>
                                         </div>\
 
                                         <div class='product-item--stars d-flex marg-y-24 d-none'>\
@@ -217,24 +217,8 @@ $(document).ready(function () {
         `
     }
 
-//    $( ".more-btn" ).click(function() {
 
-    $(document).on('click', '.more-btn', function(){
-        cls = $('.general-content-here span').attr('class')
-        if(cls.includes('hdd')) {
-            $('.general-content-here span').removeClass('hdd')
-            $('.general-content-here span').addClass('shwd')
-            $('.general-content-here .more-btn').html('Cвернуть')
-            $('.general-content-here .lalal').css({'display':'inline'})
-        } else {
-            $('.general-content-here span').removeClass('shwd')
-            $('.general-content-here span').addClass('hdd')
-            $('.general-content-here .more-btn').html('Еще')
-            $('.general-content-here .lalal').css({'display':'none'})
-        }
-    })
-
-    function addModalDataDiv(data) {
+    function addModalDataDiv(data, moreBtnDisplay) {
        return `\
            <div class="modal-body">\
                <div class="full-description">\
@@ -263,9 +247,9 @@ $(document).ready(function () {
                                        <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
                                        <h3>${data.name}</h3>\
                                        <div class='general-content-here'>\
-                                            <p>${data.description_short}</p>\
-                                            <span class='more-btn'>Еще</span>
-                                       </div>\
+                                            <p>${data.description_short}<span class='lalal hdd' style='display:none'>${data.description_full}</span></p>\
+                                            <span class='more-btn' style="display: ${moreBtnDisplay}">Еще</span>
+                                        </div>\
 
                                        <div class='product-item--stars d-flex marg-y-24 d-none'>\
                                            <div id='delta'>0</div>
@@ -330,6 +314,22 @@ $(document).ready(function () {
            </div>\
        `
    }
+
+
+   $(document).on('click', '.more-btn', function(){
+        cls = $('.general-content-here span').attr('class')
+        if(cls.includes('hdd')) {
+            $('.general-content-here span').removeClass('hdd')
+            $('.general-content-here span').addClass('shwd')
+            $('.general-content-here .more-btn').html('Cвернуть')
+            $('.general-content-here .lalal').css({'display':'inline'})
+        } else {
+            $('.general-content-here span').removeClass('shwd')
+            $('.general-content-here span').addClass('hdd')
+            $('.general-content-here .more-btn').html('Еще')
+            $('.general-content-here .lalal').css({'display':'none'})
+        }
+    })
 
     function addSecondDataForBorrom(height) {
         return `<li class='catalog-block_li col-1-of-4 product-item delete-empty' style='opacity: 0; height: ${height}px; margin-bottom: 96px;'></li>`
@@ -468,7 +468,8 @@ $(document).ready(function () {
             url = '/w/gti/?item='+$(this).data('id'),
             ajaxData = getAjaxData(url),
             filterOrangeBtnWidth = $('#price-filter').width(),
-            filterOrangeBtnHeight = $('#price-filter').height();
+            filterOrangeBtnHeight = $('#price-filter').height(),
+            moreBtnDisplay = JSON.parse(ajaxData).description_full.length > 0 ? 'block' : 'none';
 
 
         if(windowWidth > 480) {
@@ -536,6 +537,8 @@ $(document).ready(function () {
 
                 var currDiv = allItems[position];
 
+
+
                 if(typeof currDiv === 'undefined') {
                     currDiv = allItems.last()
                     arr = [...Array(getDivAfterInsert - amountOfItems).keys()]
@@ -547,16 +550,16 @@ $(document).ready(function () {
                         })
 
                         last = jQuery($('.delete-empty').last())
-                        last.after(addDataDiv(JSON.parse(ajaxData), mgBtm))
+                        last.after(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay))
                         getNewHeight()
                     } else {
                         // последний ряд
-                        jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm))
+                        jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay))
                         getNewHeight()
                     }
                 } else {
                     // середина ряда и первый ряд
-                    jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm))
+                    jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay))
                     getNewHeight()
                 }
             } else {
@@ -566,7 +569,9 @@ $(document).ready(function () {
             }
         } else {
             $(this).addClass('active')
-            displayModal('descModal', JSON.parse(ajaxData))
+            displayModal('descModal', JSON.parse(ajaxData), moreBtnDisplay)
+            moreBtnDisplay = JSON.parse(ajaxData).description_full.length > 0 ? 'block' : 'none';
+            $('.more-btn').css({'display': moreBtnDisplay})
         }  
         
     });
@@ -587,51 +592,6 @@ $(document).ready(function () {
     ////           resize
     /////////////////////////////////////////////////////////////////////////////////
 
-    // WORKED
-    // wdRes = $(window).width()
-    // oldPos = getCurrentPosition(wdRes)
-
-    // $(window).on('resize', function(){
-    //     parentDiv = $('.full-desc.active').parent().parent().parent().parent()
-    //     newPos = getCurrentPosition($(window).width())
-    //     if (newPos != oldPos) {
-
-    //         allItems = $('.product-item')
-    //         $.each(allItems, function(dt, value) {
-    //             var innerBtnClass = jQuery(value).find('.full-desc').attr('class');
-
-    //             console.log('WORKED INNER')
-
-
-
-    //             if (innerBtnClass.includes('active')) {
-    //                 clickBtn = jQuery(value).find('.full-desc')
-    //                 setTimeout(function(){
-    //                     console.log('WAS 1')
-    //                     console.log('oldPos', oldPos)
-    //                     if(oldPos == 1) {
-    //                         console.log('oldPos', oldPos)
-    //                         console.log('Clicked MODAL')
-    //                         $('.full-description__close--btn').click()
-    //                     } else {
-    //                         clickBtn.click()
-    //                     }                        
-    //                 }, 1);
-    //                 setTimeout(function(){
-    //                     console.log('WAS 2')
-    //                     clickBtn.click()
-    //                 }, 5);
-    //             }
-    //         })
-    //     }
-    //     setTimeout(function(){
-    //         console.log('CHANGE POSITION')
-    //         oldPos = newPos;
-    //     }, 5)
-    // })
-
-
-
     wdRes = $(window).width()
     oldPos = getCurrentPosition(wdRes)
 
@@ -639,12 +599,6 @@ $(document).ready(function () {
         parentDiv = $('.full-desc.active').parent().parent().parent().parent()
         newPos = getCurrentPosition($(window).width())
         if (newPos != oldPos) {
-
-            // $('.catalog-block .catalog-block_ul .catalog-block_li .item_box .item_img').css({'border':'none'})
-            // $('.catalog-block .catalog-block_ul .catalog-block_li .item_footer').css({'border':'none'})
-
-
-
             allItems = $('.product-item')
             $.each(allItems, function(dt, value) {
                 var innerBtnClass = jQuery(value).find('.full-desc').attr('class');
