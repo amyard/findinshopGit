@@ -144,12 +144,14 @@
   line-height: 24px;
   color: #FF4B00; }
 .full-description__close {
-    height: 36px;
+//     height: 36px;
     position: relative; }
 .full-description__close--btn {
   position: absolute;
-  top: 15px;
-  right: 29px;
+//   top: 15px;
+//   right: 29px;
+  top: 0px;
+  right: 0px;
   color: #757575;
   font-size: 26px;
   cursor: pointer; }
@@ -224,6 +226,16 @@
       border-bottom: 1px solid #ff4b00;
       border-left: 1px solid #ff4b00;
       border-right: 1px solid #ff4b00;
+  }
+
+  .full-description__close {
+    margin: auto 29px;
+    position: inherit;
+  }
+
+  .full-description__close--btn {
+    top: 15px;
+    right: 29px;
   }
 
 
@@ -331,6 +343,10 @@
   .catalog-block .catalog-block_ul .catalog-block_li {
       margin-bottom: 50px;
   }
+
+  .full-description__content--img {
+      margin-top: 24px;
+  }
 }
 
 
@@ -347,6 +363,15 @@
 @media screen and (max-width: 480px) {
   .catalog-block .catalog-block_ul .catalog-block_li {
     width: 100%;
+  }
+
+  .full-description__close--btn {
+    right: -4px;
+  }
+  .full-description__close,
+  .full-description__content--info .nav-tabs,
+  .full-description__content--info .tab-content {
+    margin: 0px;
   }
 }
 
@@ -423,42 +448,4 @@
   /* border: 1px solid #FF4B00; */
 }
 
-
-/* .block-right {
-    border-bottom: 1px solid black;
-    float: right;
-    width: 50%;
-}
-
-.arrow-down {
-    border-bottom: 20px solid transparent;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    background: #fff;
-    width: 0;
-    margin: -1px auto;
-    position: relative;
-    z-index: 1;
-}
-
-.arrow-down::before,
-.arrow-down::after {
-    content: "";
-    display: block;
-    width: 1px;
-    height: 28px;
-}
-
-.arrow-down::before {
-    background-color: #c00000;
-    transform: rotate(45deg);
-    margin-top: -23px;
-    margin-left: -10px;
-}
-
-.arrow-down::after {
-    background-color: #000000;
-    transform: rotate(-45deg);
-    margin-top: -28px;
-    margin-left: 9px;
-} */
+.result { margin: 16px auto !important;}

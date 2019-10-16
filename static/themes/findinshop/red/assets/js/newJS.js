@@ -121,9 +121,7 @@ $(document).ready(function () {
             <div class='testtest'>\
                 <span class='opacity-zero'>dd<br>dd<br>dd<br></span>\
                 <div class="full-description" style="margin-top: ${mgBtm}">\
-                    <div class="full-description__close">\
-                        <span class='full-description__close--btn'>&times;</span>\
-                    </div>\
+
 
                     <div class="full-description__content">\
 
@@ -133,17 +131,20 @@ $(document).ready(function () {
 
                         <div class="full-description__content--info">\
                             <div>\
+                                <div class="full-description__close">\
+                                    <h3>${data.name}</h3>\
+                                    <span class='full-description__close--btn'>&times;</span>\
+                                </div>\
 
                                 <ul class="nav nav-tabs" role="tablist">\
                                     <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Продукт</a></li>\
                                     <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Магазин</a></li>\
-                                    <li class='discount-btn d-none'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
+                                    <li class='discount-btn'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
                                 </ul>\
 
                                 <div class="tab-content">\
                                     <div role="tabpanel" class="tab-pane tab-pane-new active" id="home">\
                                         <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
-                                        <h3>${data.name}</h3>\
                                         <p>${data.description}</p>\
                                         <div class='product-item--stars d-flex marg-y-24 d-none'>\
                                             <img src="img/star.png" alt="">\
@@ -176,7 +177,7 @@ $(document).ready(function () {
                                         </table>\
                                         <span class='product-item--old-price d-block'>1999 грв</span>\
                                     </div>\
-                                    <div role="tabpanel" class="tab-pane d-none" id="discount">\
+                                    <div role="tabpanel" class="tab-pane tab-pane-new" id="discount">\
                                         <div class='discount'>\
                                             <p class='orange-color'>-50%</p>\
                                             <p>Действителен до 26.09.2020 07:19</p>\
@@ -212,10 +213,6 @@ $(document).ready(function () {
        return `\
            <div class="modal-body">\
                <div class="full-description">\
-                   <div class="full-description__close">\
-                       <span class='full-description__close--btn close'>&times;</span>\
-                   </div>\
-
                    <div class="full-description__content">\
 
                        <div class="full-description__content--img">\
@@ -225,10 +222,15 @@ $(document).ready(function () {
                        <div class="full-description__content--info">\
                            <div>\
 
+                               <div class="full-description__close">\
+                                   <h3>${data.name}</h3>\
+                                   <span class='full-description__close--btn'>&times;</span>\
+                               </div>\
+
                                <ul class="nav nav-tabs" role="tablist">\
                                    <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Продукт</a></li>\
                                    <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Магазин</a></li>\
-                                   <li class='discount-btn d-none'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
+                                   <li class='discount-btn'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
                                </ul>\
 
                                <div class="tab-content">\
@@ -267,7 +269,7 @@ $(document).ready(function () {
                                        </table>\
                                        <span class='product-item--old-price d-block'>1999 грв</span>\
                                    </div>\
-                                   <div role="tabpanel" class="tab-pane d-none" id="discount">\
+                                   <div role="tabpanel" class="tab-pane tab-pane-new" id="discount">\
                                        <div class='discount'>\
                                            <p class='orange-color'>-50%</p>\
                                            <p>Действителен до 26.09.2020 07:19</p>\
@@ -356,6 +358,22 @@ $(document).ready(function () {
         }
     }
 
+    function getNewHeight() {
+        var windowWidth = $(window).width(),
+            posPerLine = getCurrentPosition(windowWidth),
+            allDivs = $('.product-item'),
+            allSlicedDiv = $('.product-item').slice(0, posPerLine);
+
+
+        if (allSlicedDiv.find('.full-desc.active').length == 1){
+            $('.content').css({'margin-top':'135px'})
+            $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 475 }, 'slow');
+        } else {
+            $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 475 }, 'slow');
+        }
+    }
+
+
     // function getTriangleWidht(positionOfItem, getPosition) {
     //     console.log(positionOfItem)
     //     console.log(getPosition)
@@ -381,7 +399,6 @@ $(document).ready(function () {
                 maxWidthForDiv = '';
             $.each(allTabs, function(index,value){ maxWidth.push(jQuery(value).height()) });
             maxWidthForDiv = Math.max.apply(Math, maxWidth)
-            console.log(maxWidthForDiv)
             $('.tab-pane').css({'height': `${maxWidthForDiv}px`})
         }, 100)
     }
@@ -389,6 +406,8 @@ $(document).ready(function () {
 
     $(document).on('click', '.full-desc', function(event){
         event.preventDefault();
+
+        $('.content').css({'margin-top':'0px'})
 
         deleteExtraData()
         changeHeightContentTab()
@@ -442,7 +461,7 @@ $(document).ready(function () {
                 } else if (windowWidth >= 768 && windowWidth < 1200) {
                     mgBtm = '-50px'
                 } else if (windowWidth < 768) {
-                    mgBtm = '-75px'
+                    mgBtm = '-70px'
                 } else {
                     mgBtm = 'auto'
                 }
@@ -484,14 +503,16 @@ $(document).ready(function () {
 
                         last = jQuery($('.delete-empty').last())
                         last.after(addDataDiv(JSON.parse(ajaxData), mgBtm))
-                        scrollDownToDecsBlock()
+                        getNewHeight()
                     } else {
+                        // последний ряд
                         jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm))
-                        scrollDownToDecsBlock()
+                        getNewHeight()
                     }
                 } else {
+                    // середина ряда и первый ряд
                     jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm))
-                    scrollDownToDecsBlock()
+                    getNewHeight()
                 }
             } else {
                 //  убираем active из кнопки
@@ -507,12 +528,12 @@ $(document).ready(function () {
 
     $(document).on('click', '.full-desc.active', function(event){
         event.preventDefault();
-        // scrollTopToTheBtn(650, 1000)
+        getNewHeight()
         deleteExtraData();
     });
 
     $(document).on('click', '.full-description__close--btn', function() {
-        // scrollTopToTheBtn(650, 1000)
+        getNewHeight()
         deleteExtraData()
     });
 
