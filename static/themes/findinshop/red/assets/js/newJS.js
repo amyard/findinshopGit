@@ -115,6 +115,9 @@ $(document).ready(function () {
         $('.product-item--stars').css({'display':'none'});
     }
 
+
+
+
     // create block
     function addDataDiv(data, mgBtm) {
         return `\
@@ -143,7 +146,12 @@ $(document).ready(function () {
                                 <div class="tab-content">\
                                     <div role="tabpanel" class="tab-pane tab-pane-new active" id="home">\
                                         <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
-                                        <p>${data.description}</p>\
+
+                                        <div class='general-content-here'>\
+                                            <p>${data.description_short}<span class='lalal hdd' style='display:none'>${data.description_full}</span></p>\
+                                            <span class='more-btn'>Еще</span>
+                                        </div>\
+
                                         <div class='product-item--stars d-flex marg-y-24 d-none'>\
                                             <div id='delta'>0</div>
                                             <img src="img/star.png" alt="">\
@@ -209,6 +217,23 @@ $(document).ready(function () {
         `
     }
 
+//    $( ".more-btn" ).click(function() {
+
+    $(document).on('click', '.more-btn', function(){
+        cls = $('.general-content-here span').attr('class')
+        if(cls.includes('hdd')) {
+            $('.general-content-here span').removeClass('hdd')
+            $('.general-content-here span').addClass('shwd')
+            $('.general-content-here .more-btn').html('Cвернуть')
+            $('.general-content-here .lalal').css({'display':'inline'})
+        } else {
+            $('.general-content-here span').removeClass('shwd')
+            $('.general-content-here span').addClass('hdd')
+            $('.general-content-here .more-btn').html('Еще')
+            $('.general-content-here .lalal').css({'display':'none'})
+        }
+    })
+
     function addModalDataDiv(data) {
        return `\
            <div class="modal-body">\
@@ -237,7 +262,11 @@ $(document).ready(function () {
                                    <div role="tabpanel" class="tab-pane tab-pane-new active" id="home">\
                                        <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
                                        <h3>${data.name}</h3>\
-                                       <p>${data.description}</p>\
+                                       <div class='general-content-here'>\
+                                            <p>${data.description_short}</p>\
+                                            <span class='more-btn'>Еще</span>
+                                       </div>\
+
                                        <div class='product-item--stars d-flex marg-y-24 d-none'>\
                                            <div id='delta'>0</div>
                                            <img src="img/star.png" alt="">\
@@ -404,6 +433,8 @@ $(document).ready(function () {
             $('.content').css({'margin-top':'0px'})
         }
     });
+
+
 
 
     function changeHeightContentTab() {

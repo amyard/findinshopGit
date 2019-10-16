@@ -475,3 +475,12 @@
     -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
     transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
+
+.more-btn {
+    float: right;
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #FF4B00;
+}

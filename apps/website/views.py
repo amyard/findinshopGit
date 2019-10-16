@@ -300,7 +300,8 @@ def get_item_info(request):
             history.item = item
             history.user = request.user
             history.save()
-        info['description'] = strip_tags(item.description[:400])
+        info['description_short'] = strip_tags(item.description[:200])
+        info['description_full'] = strip_tags(item.description[200:])
         info['name'] = item.name
         info['id'] = item.id
         info['store_name'] = item.site.name if item.site.name else "Нет"
