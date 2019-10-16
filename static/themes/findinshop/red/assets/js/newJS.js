@@ -121,8 +121,6 @@ $(document).ready(function () {
             <div class='testtest'>\
                 <span class='opacity-zero'>dd<br>dd<br>dd<br></span>\
                 <div class="full-description" style="margin-top: ${mgBtm}">\
-
-
                     <div class="full-description__content">\
 
                         <div class="full-description__content--img">\
@@ -133,7 +131,7 @@ $(document).ready(function () {
                             <div>\
                                 <div class="full-description__close">\
                                     <h3>${data.name}</h3>\
-                                    <span class='full-description__close--btn'>&times;</span>\
+                                    <span class='full-description__close--btn close'>&times;</span>\
                                 </div>\
 
                                 <ul class="nav nav-tabs" role="tablist">\
@@ -147,6 +145,7 @@ $(document).ready(function () {
                                         <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
                                         <p>${data.description}</p>\
                                         <div class='product-item--stars d-flex marg-y-24 d-none'>\
+                                            <div id='delta'>0</div>
                                             <img src="img/star.png" alt="">\
                                             <img src="img/star.png" alt="">\
                                             <img src="img/star.png" alt="">\
@@ -178,12 +177,13 @@ $(document).ready(function () {
                                         <span class='product-item--old-price d-block'>1999 грв</span>\
                                     </div>\
                                     <div role="tabpanel" class="tab-pane tab-pane-new" id="discount">\
+                                        <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
                                         <div class='discount'>\
-                                            <p class='orange-color'>-50%</p>\
-                                            <p>Действителен до 26.09.2020 07:19</p>\
+                                            <p class='orange-color'>${data.coupon_size}</p>\
+                                            <p>Действителен до ${data.coupon_expire}</p>\
                                         </div>\
 
-                                        <form class="header__search-form modal-input-form" action="" method="get">\
+                                        <form class="header__search-form modal-input-form" action="" method="get" id='check_coupon_form'>\
                                             <span class='product-item--old-price d-block'>1999 грв</span>\
                                             <div class="input-group">\
                                                 <input class="header__search-input modal-input" type="search" placeholder="Введите Ваше имя" autocomplete="on" name="" required="">\
@@ -224,7 +224,7 @@ $(document).ready(function () {
 
                                <div class="full-description__close">\
                                    <h3>${data.name}</h3>\
-                                   <span class='full-description__close--btn'>&times;</span>\
+                                   <span class='full-description__close--btn close'>&times;</span>\
                                </div>\
 
                                <ul class="nav nav-tabs" role="tablist">\
@@ -239,6 +239,7 @@ $(document).ready(function () {
                                        <h3>${data.name}</h3>\
                                        <p>${data.description}</p>\
                                        <div class='product-item--stars d-flex marg-y-24 d-none'>\
+                                           <div id='delta'>0</div>
                                            <img src="img/star.png" alt="">\
                                            <img src="img/star.png" alt="">\
                                            <img src="img/star.png" alt="">\
@@ -270,6 +271,7 @@ $(document).ready(function () {
                                        <span class='product-item--old-price d-block'>1999 грв</span>\
                                    </div>\
                                    <div role="tabpanel" class="tab-pane tab-pane-new" id="discount">\
+                                        <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
                                        <div class='discount'>\
                                            <p class='orange-color'>-50%</p>\
                                            <p>Действителен до 26.09.2020 07:19</p>\
@@ -366,31 +368,43 @@ $(document).ready(function () {
 
 
         if (allSlicedDiv.find('.full-desc.active').length == 1){
-            $('.content').css({'margin-top':'135px'})
-            $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 475 }, 'slow');
+
+            // if header position == relative - shit - быстрый скачок туда и назад
+            // if header postion == fixed - need margin
+            if ($('.header').css('position') == 'fixed') {
+                $('.content').css({'margin-top':'135px'})
+                $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 475 }, 'slow');
+            } else {
+
+                $('.header').css({
+                    'display':'fixed',
+                    'box-shadow': 'rgba(42, 48, 60, 0.19) 0px 1px 3px 0px',
+                    'z-index':'99',
+                    'left':'0',
+                    'top':'0',
+                    'right':'0'
+                })
+                console.log('HEADER')
+                $('.content').css({'margin-top':'135px'})
+                console.log('CONTENT')
+                $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 455 }, 'slow');
+                console.log('SCROLL')
+            }
+
         } else {
             $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 475 }, 'slow');
         }
     }
 
+    $(document).on('mousewheel', function(event) {
+        var info = $('#delta'),
+            oldData = info.html();
+        info.html(parseInt(oldData) + event.deltaY)
+        if(info.html() == 1) {
+            $('.content').css({'margin-top':'0px'})
+        }
+    });
 
-    // function getTriangleWidht(positionOfItem, getPosition) {
-    //     console.log(positionOfItem)
-    //     console.log(getPosition)
-
-    //     positionOfItem % getPosition == 0
-    //         ? pos = getPosition
-    //         : pos = positionOfItem % getPosition
-        
-    //     console.log(pos)
-    //     prWdt = $('.product-item').width()
-    //     console.log(prWdt)
-    //     newWdt = (pos - 1) * prWdt + prWdt * 0.5;
-    //     console.log(newWdt)
-    //     asd = `${newWdt} px`
-    //     console.log(asd)
-    //     $('.triangle').css({'left':asd})
-    // }
 
     function changeHeightContentTab() {
         setTimeout(function(){
@@ -611,8 +625,11 @@ $(document).ready(function () {
                     jQuery(value).find('.item_box').css({'border':'#ff4b00'})
 
                     clickBtn = jQuery(value).find('.full-desc')
+
                     setTimeout(function(){
                         if(oldPos == 1) {
+                            console.log('------------------')
+
                             $('.full-description__close--btn').click()
                         } else {
                             clickBtn.click()
@@ -627,7 +644,7 @@ $(document).ready(function () {
         }
         setTimeout(function(){
             oldPos = newPos;
-        }, 5)
+        }, 100)
     })
 
 
