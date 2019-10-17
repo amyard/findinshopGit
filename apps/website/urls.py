@@ -6,6 +6,9 @@ urlpatterns = patterns('',
                        url(r'^s/$', views.site_settings, name='site_settings'),
                        url(r'^t/$', views.spaces, name='spaces'),
                        url(r'^validate_coupon_form/$', views.validate_coupon_form, name='validate_coupon_form'),
+
+                       # url(r'^validate_coupon_form/', views.ValidateCouponForm.as_view(), name='validate_coupon_form'),
+
                        url(r'^t/e/(?P<space_id>\d+)/$', views.spaces_edit, name='spaces_edit'),
                        url(r'^cookie.js$', views.create_cookie_js, name='create_cookie'),
                        url(r'^gti/$', views.get_item_info, name='get_item_info'),

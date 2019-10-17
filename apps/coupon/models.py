@@ -45,6 +45,11 @@ class Coupon(models.Model):
             except Item.DoesNotExist:
                 return "Unknown"
 
+    def save(self, *args, **kwargs):
+        if 'id' in self.filters:
+            self.items = Item.objects.filter(id=self.filters.split('=')[1])
+        return super(Coupon, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name = u'Купон'
         verbose_name_plural = u'Купоны'

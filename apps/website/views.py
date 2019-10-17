@@ -402,27 +402,37 @@ def get_item_info(request):
     return HttpResponse(json.dumps(info))
 
 
+from django.views.generic import View
+from django.http import JsonResponse
+import re
+
 def validate_coupon_form(request):
-    answer = {'status': 'error'}
-    if request.is_ajax():
-        coupon = request.POST.get('coupon', '9')
-        item_id = request.POST.get('item', '1')
-        form = GetCoupon(request.POST)
-        if form.is_valid() and coupon:
-            #save user
-            subscriber, subscriber_created = Subscriber.objects.get_or_create(
-                email=form.cleaned_data.get('email')
-            )
+        answer = {'status': 'error'}
+        data = request.GET.get('post_data')
+
+        name = re.findall(r'(?<=name=)[^&$]+', data)[0]
+        email = re.findall(r'(?<=email=)[^&$]+', data)[0].replace('%40', '@')
+        phone = re.findall(r'(?<=phone=)[^&$]+', data)[0]
+        coupon = re.findall(r'(?<=coupon=)[^&$]+', data)[0]
+        item_id = re.findall(r'(?<=item=)[^$]+', data)[0]
+
+        if coupon:
+            # coupon = self.request.GET.get('coupon', '9')
+            # item_id = self.request.GET.get('item', '1')
+            # form = GetCoupon(self.request.GET)
+            # if form.is_valid() and coupon:
+            # save user
+            subscriber, subscriber_created = Subscriber.objects.get_or_create(email=email)
             if subscriber_created:
-                subscriber.first_name = form.cleaned_data.get('name')
-                subscriber.phone = form.cleaned_data.get('phone')
+                subscriber.first_name = name
+                subscriber.phone = phone
                 subscriber.status = 1
                 subscriber.save()
-            #count user for coupon + 1
+            # count user for coupon + 1
             coupon = Coupon.objects.get(id=coupon)
             coupon.count += 1
             coupon.save()
-            #save cupon
+            # save cupon
             item = Item.objects.get(id=item_id)
             obj, created = CouponSubscriber.objects.get_or_create(
                 subscriber=subscriber,
@@ -435,8 +445,8 @@ def validate_coupon_form(request):
             if not created:
                 obj.count += 1
                 obj.save()
-            #send sms
-            #send email
+            # send sms
+            # send email
             email_context = {
                 'coupon': coupon.code,
                 'name': subscriber.first_name,
@@ -446,18 +456,99 @@ def validate_coupon_form(request):
                 'store_phone': item.site.phone_call_center
                 if item.site.phone_call_center else ''
             }
-            send_coupon_user(subscriber.email, context=email_context)
 
-            #send email to store
-            send_coupon_store(coupon, subscriber.first_name)
+
+            send_coupon_user(subscriber.email, context=email_context)
+            # send email to store
+            # send_coupon_store(coupon, subscriber.first_name)
 
             answer = {
                 'status': 'ok',
                 'code': coupon.code,
-                'store': u'%s' % coupon.user.website,
-                'store_name': coupon.user.website.name,
-                'redirect': u'<a href="http://%s/?coupon=%s">Использовать купон</a>' % (coupon.user.website, coupon.code)
+                'store': u'%s' % item.site,
+                'store_name': item.site.name,
+                'redirect': u'<a href="http://%s/?coupon=%s">Использовать купон</a>' % (
+                item.site, coupon.code)
 
             }
-    return HttpResponse(json.dumps(answer), content_type="application/json")
+            print(answer)
+            return JsonResponse(answer, safe=False)
+        else:
+            return HttpResponse(json.dumps(answer), content_type="application/json")
+
+
+
+            
+# class ValidateCouponForm(View):
+#
+#     def post(self, request, *args, **kwargs):
+#         answer = {'status': 'error'}
+#         data = self.request.POST.get('post_data')
+#
+#         name = re.findall(r'(?<=name=)[^&$]+', data)[0]
+#         email = re.findall(r'(?<=email=)[^&$]+', data)[0].replace('%40', '@')
+#         phone = re.findall(r'(?<=phone=)[^&$]+', data)[0]
+#         coupon = re.findall(r'(?<=coupon=)[^&$]+', data)[0]
+#         item_id = re.findall(r'(?<=item=)[^$]+', data)[0]
+#
+#         if coupon:
+#             # coupon = self.request.GET.get('coupon', '9')
+#             # item_id = self.request.GET.get('item', '1')
+#             # form = GetCoupon(self.request.GET)
+#             # if form.is_valid() and coupon:
+#             #save user
+#             subscriber, subscriber_created = Subscriber.objects.get_or_create( email=email )
+#             if subscriber_created:
+#                 subscriber.first_name = name
+#                 subscriber.phone = phone
+#                 subscriber.status = 1
+#                 subscriber.save()
+#             #count user for coupon + 1
+#             coupon = Coupon.objects.get(id=coupon)
+#             coupon.count += 1
+#             coupon.save()
+#             #save cupon
+#             item = Item.objects.get(id=item_id)
+#             obj, created = CouponSubscriber.objects.get_or_create(
+#                 subscriber=subscriber,
+#                 price=item.price,
+#                 coupon=coupon,
+#                 product_name=item.name,
+#                 product_group=item.category.name,
+#                 market_name=item.site.name
+#             )
+#             if not created:
+#                 obj.count += 1
+#                 obj.save()
+#             #send sms
+#             #send email
+#             email_context = {
+#                 'coupon': coupon.code,
+#                 'name': subscriber.first_name,
+#                 'store_name': item.site.name,
+#                 'item_name': item.name,
+#                 'item_link': item.url,
+#                 'store_phone': item.site.phone_call_center
+#                 if item.site.phone_call_center else ''
+#             }
+#
+#             print('email_context')
+#             #  TODO - тут жопа
+#             # send_coupon_user(subscriber.email, context=email_context)
+#             print('send_coupon_user')
+#             #send email to store
+#             # send_coupon_store(coupon, subscriber.first_name)
+#
+#             answer = {
+#                 'status': 'ok',
+#                 'code': coupon.code,
+#                 'store': u'%s' % coupon.user.website,
+#                 'store_name': coupon.user.website.name,
+#                 'redirect': u'<a href="http://%s/?coupon=%s">Использовать купон</a>' % (coupon.user.website, coupon.code)
+#
+#             }
+#             print(answer)
+#             return JsonResponse(answer, safe = False)
+#         else:
+#             return HttpResponse(json.dumps(answer), content_type="application/json")
 

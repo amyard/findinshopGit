@@ -16,6 +16,13 @@ $(document).ready(function () {
         $('.full-description table td').css({'width': trWidth})
     });
 
+    $(document).on('click','.discount-btn', function(){
+        if($('#discount .orange-color').html() == 'undefined') {
+            $('#discount .discount').html('Скидка по данному  товару отсутствует.')
+            $('#discount .modal-input-form').css({'display':'none'})
+        }
+    });
+
     setTimeout(function () {
         if (location.hash) {
             window.scrollTo(0, 0);
@@ -71,23 +78,7 @@ $(document).ready(function () {
         $('.item_box').css({'border':'none'});
         
         if ($(window).width() >= 1201) {     
-            $('.item_box').css({'border':'1px solid #ededed'});            
-            // parDiv.find('.item_img').css({
-            //     'border': 'none',
-            //     'border-bottom': '1px solid #ededed'
-            // })       
-            // parDiv.find('.item_footer').css({
-            //     'border-top': 'none',
-            //     'border-left': 'none',
-            //     'border-right': 'none',
-            //     'border-bottom': 'none',
-            //     'background':'none'
-            // })
-            // parDiv.css({ 'overflow':'hidden'})
-            // setTimeout(function(){
-            //     parDiv.find('.item_box').css({ 'border': '1px solid #ededed' })
-            // }, 250)
-
+            $('.item_box').css({'border':'1px solid #ededed'});
         } else {
             parDiv.find('.item_img').css({
                 'border-top': '1px solid #ededed',
@@ -191,15 +182,17 @@ $(document).ready(function () {
                                             <p>Действителен до ${data.coupon_expire}</p>\
                                         </div>\
 
-                                        <form class="header__search-form modal-input-form" action="" method="get" id='check_coupon_form'>\
-                                            <span class='product-item--old-price d-block'>1999 грв</span>\
+                                        <form class="header__search-form modal-input-form" method="GET" id="id_form_get_coupon">\
                                             <div class="input-group">\
-                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Ваше имя" autocomplete="on" name="" required="">\
-                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Вашу почту" autocomplete="on" name="" required="">\
-                                                <input class="header__search-input modal-input" type="search" placeholder="Введите Ваш телефон" autocomplete="on" name="" required="">\
+                                                <input id='id_name' class="header__search-input modal-input" type="text" placeholder="Введите Ваше имя"  name='name'>\
+                                                <input id='id_email' class="header__search-input modal-input" type="email" placeholder="Введите Вашу почту"  name='email'>\
+                                                <input id='id_phone' class="header__search-input modal-input" type="text" placeholder="Введите Ваш телефон"  name='phone'>\
+
+                                                <input type="hidden" name="coupon" value="${data.coupon}" id="coupon_id" />
+                                                <input type="hidden" name="item" value="${data.id}" id="product_id"/>
                                             </div>\
+                                            <input type="submit" id="check_coupon_form" value="ОТПРАВИТЬ" />
                                         </form>\
-                                        <span class='product-item--old-price d-block'>1999 грв</span>\
                                     </div>\
                                 </div>\
                             </div>\
@@ -285,20 +278,23 @@ $(document).ready(function () {
                                    </div>\
                                    <div role="tabpanel" class="tab-pane tab-pane-new" id="discount">\
                                         <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
-                                       <div class='discount'>\
-                                           <p class='orange-color'>-50%</p>\
-                                           <p>Действителен до 26.09.2020 07:19</p>\
-                                       </div>\
+                                        <div class='discount'>\
+                                            <p class='orange-color'>${data.coupon_size}</p>\
+                                            <p>Действителен до ${data.coupon_expire}</p>\
+                                        </div>\
 
-                                       <form class="header__search-form modal-input-form" action="" method="get">\
-                                           <div class="input-group">\
-                                               <input class="header__search-input modal-input" type="search" placeholder="Введите Ваше имя" autocomplete="on" name="" required="">\
-                                               <input class="header__search-input modal-input" type="search" placeholder="Введите Вашу почту" autocomplete="on" name="" required="">\
-                                               <input class="header__search-input modal-input" type="search" placeholder="Введите Ваш телефон" autocomplete="on" name="" required="">\
-                                           </div>\
-                                       </form>\
-                                       <span class='product-item--old-price d-block'>1999 грв</span>\
-                                   </div>\
+                                        <form class="header__search-form modal-input-form" method="GET" id="id_form_get_coupon">\
+                                            <div class="input-group">\
+                                                <input id='id_name' class="header__search-input modal-input" type="text" placeholder="Введите Ваше имя"  name='name'>\
+                                                <input id='id_email' class="header__search-input modal-input" type="email" placeholder="Введите Вашу почту"  name='email'>\
+                                                <input id='id_phone' class="header__search-input modal-input" type="text" placeholder="Введите Ваш телефон"  name='phone'>\
+
+                                                <input type="hidden" name="coupon" value="${data.coupon}" id="coupon_id" />
+                                                <input type="hidden" name="item" value="${data.id}" id="product_id"/>
+                                            </div>\
+                                            <input type="submit" id="check_coupon_form" value="ОТПРАВИТЬ" />
+                                        </form>\
+                                    </div>\
                                </div>\
                            </div>\
                        </div>\
@@ -331,22 +327,22 @@ $(document).ready(function () {
         }
     })
 
-    function addSecondDataForBorrom(height) {
-        return `<li class='catalog-block_li col-1-of-4 product-item delete-empty' style='opacity: 0; height: ${height}px; margin-bottom: 96px;'></li>`
-    }
+   function addSecondDataForBorrom(height) {
+       return `<li class='catalog-block_li col-1-of-4 product-item delete-empty' style='opacity: 0; height: ${height}px; margin-bottom: 96px;'></li>`
+   }
 
-    function getAjaxData(url) {
-        var result="";
-        $.ajax({
-            url:url, async: false, success:function(data) {  result = data;  }
-        });
-        return result;
-    }
+   function getAjaxData(url) {
+       var result="";
+       $.ajax({
+           url:url, async: false, success:function(data) {  result = data;  }
+       });
+       return result;
+   }
 
 
-    function scrollUpToTheParentDiv(parentDiv, speed){
-        $('html, body').animate({ scrollTop: parentDiv.offset().top-130  }, speed);
-    }
+   function scrollUpToTheParentDiv(parentDiv, speed){
+       $('html, body').animate({ scrollTop: parentDiv.offset().top-130  }, speed);
+   }
 
     function scrollDownToDecsBlock() {
         wind = $(window).width();

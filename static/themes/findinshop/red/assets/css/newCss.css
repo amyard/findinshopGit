@@ -146,6 +146,8 @@
 .full-description__close {
 //     height: 36px;
     position: relative; }
+.full-description__close h3 {
+    width: 90%;}
 .full-description__close--btn {
   position: absolute;
 //   top: 15px;
@@ -196,10 +198,10 @@
     box-shadow: none;
     moz-box-shadow: none;
     webkit-box-shadow: none;
-} 
+}
 
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1199px) {
   .catalog-block .catalog-block_ul .catalog-block_li:hover .item_box,
   .catalog-block .catalog-block_ul .catalog-block_li:focus .item_box,
   .catalog-block .catalog-block_ul .catalog-block_li:active .item_box
@@ -210,7 +212,7 @@
 
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1199px) {
   .catalog-block .catalog-block_ul .catalog-block_li:hover .item_box .item_img,
   .catalog-block .catalog-block_ul .catalog-block_li:focus .item_box .item_img,
   .catalog-block .catalog-block_ul .catalog-block_li:active .item_box .item_img
@@ -259,7 +261,7 @@
   .full-description__footer .orange-btn {
     margin-right: 64px; } }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1199px) {
   #descModal .modal-dialog {
     width: 100%!important;
     margin: 0px!important;
@@ -458,22 +460,22 @@
 }
 
 .full-description .modal-input {
-    display: block;
-    width: calc(1/3*100% - (1 - 1/3)*10px);
-    height: 46px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: rgba(255, 255, 255, 0.9);
-    background-image: none;
-    border: 1px solid #ff4b00;
-    border-radius: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
-    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    display: block!important;
+    width: calc(1/3*100% - (1 - 1/3)*10px)!important;
+    height: 46px!important;
+    padding: 6px 12px!important;
+    font-size: 14px!important;
+    line-height: 1.42857143!important;
+    color: #555!important;
+    background-color: rgba(255, 255, 255, 0.9)!important;
+    background-image: none!important;
+    border: 1px solid #ff4b00!important;
+    border-radius: 0!important;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)!important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)!important;
+    -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s!important;
+    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s!important;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s!important;
 }
 
 .more-btn {
@@ -483,4 +485,58 @@
     font-weight: 600;
     cursor: pointer;
     color: #FF4B00;
+}
+
+#check_coupon_form {
+    padding: 7.5px 36px;
+    background-color: #FF4B00;
+    color: #fff !important;
+    cursor: pointer;
+    float: right;
+    margin-top: 12px;
+    border: 1px;
+}
+
+@media screen and (max-width: 1335px) {
+    #id_form_get_coupon .input-group {
+        display: contents!important;}
+    #id_form_get_coupon .input-group input {
+        width: 49%!important;}
+    #id_name, #id_phone {
+        float: left;}
+    #id_email {
+        float: right;}
+    #id_name, #id_email {
+        margin-bottom: 12px;}
+}
+
+@media screen and (max-width: 1199px) {
+    .full-description__close h3 {
+        width: 100%;}
+    .orange-btn-cs {
+        margin-right: 29px;}
+    #id_form_get_coupon .input-group {
+        display: flex!important;
+        flex-direction: row;
+        justify-content: space-between;}
+    #id_form_get_coupon .input-group input {
+        width: calc(1/3*100% - (1 - 1/3)*10px)!important;}
+}
+
+@media screen and (max-width: 634px) {
+    #id_form_get_coupon .input-group {
+        display: contents!important;}
+    #id_form_get_coupon .input-group input {
+        width: 49%!important;}
+    #id_name, #id_phone {
+        float: left;}
+    #id_email {
+        float: right;}
+    #id_name, #id_email {
+        margin-bottom: 12px;}
+}
+
+@media screen and (max-width: 480px) {
+    #id_form_get_coupon .input-group input {
+        width: 100%!important;}
 }

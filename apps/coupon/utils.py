@@ -31,8 +31,7 @@ def send_coupon_user(user_email, name='coupon', context={}):
     subject = u'Ваш купон - FINDINSHOP.COM'
     send_mail(
         subject, message, 'no-reply@findinshop.com',
-        [user_email], fail_silently=False)
-
+        (user_email,), fail_silently=False)
 
 def send_coupon_store(coupon, user_name):
     send_mail(u'Купон от FINDINSHOP', u'Купоном для %s воспользовался %s' % (coupon, user_name), 'no-reply@findinshop.com',
