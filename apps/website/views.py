@@ -460,7 +460,7 @@ def validate_coupon_form(request):
 
             send_coupon_user(subscriber.email, context=email_context)
             # send email to store
-            # send_coupon_store(coupon, subscriber.first_name)
+            send_coupon_store(coupon, subscriber.first_name)
 
             answer = {
                 'status': 'ok',
