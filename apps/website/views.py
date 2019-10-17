@@ -460,7 +460,7 @@ def validate_coupon_form(request):
 
             send_coupon_user(subscriber.email, context=email_context)
             # send email to store
-            send_coupon_store(coupon, subscriber.first_name)
+            send_coupon_store(coupon, subscriber.first_name, subscriber.email)
 
             answer = {
                 'status': 'ok',
@@ -471,7 +471,6 @@ def validate_coupon_form(request):
                 item.site, coupon.code)
 
             }
-            print(answer)
             return JsonResponse(answer, safe=False)
         else:
             return HttpResponse(json.dumps(answer), content_type="application/json")

@@ -17,6 +17,8 @@ $(document).ready(function () {
     });
 
     $(document).on('click','.discount-btn', function(){
+
+        $("#id_phone").mask("+(999)99-999-99?99");
         if($('#discount .orange-color').html() == 'undefined') {
             $('#discount .discount').html('Скидка по данному  товару отсутствует.')
             $('#discount .modal-input-form').css({'display':'none'})
@@ -186,7 +188,7 @@ $(document).ready(function () {
                                             <div class="input-group">\
                                                 <input id='id_name' class="header__search-input modal-input" type="text" placeholder="Введите Ваше имя"  name='name'>\
                                                 <input id='id_email' class="header__search-input modal-input" type="email" placeholder="Введите Вашу почту"  name='email'>\
-                                                <input id='id_phone' class="header__search-input modal-input" type="text" placeholder="Введите Ваш телефон"  name='phone'>\
+                                                <div class="controls"><input class="form-control input-lg header__search-input modal-input" id="id_phone" name="phone" type="text"><span class="help-inline"></span><p class="help-block"></p></div>\
 
                                                 <input type="hidden" name="coupon" value="${data.coupon}" id="coupon_id" />
                                                 <input type="hidden" name="item" value="${data.id}" id="product_id"/>
@@ -548,15 +550,18 @@ $(document).ready(function () {
                         last = jQuery($('.delete-empty').last())
                         last.after(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay))
                         getNewHeight()
+                        $("#id_phone").mask("+(999)99-999-99?99");
                     } else {
                         // последний ряд
                         jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay))
                         getNewHeight()
+                        $("#id_phone").mask("+(999)99-999-99?99");
                     }
                 } else {
                     // середина ряда и первый ряд
                     jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay))
                     getNewHeight()
+                    $("#id_phone").mask("+(999)99-999-99?99");
                 }
             } else {
                 //  убираем active из кнопки
@@ -686,4 +691,7 @@ $(document).ready(function () {
     $(document).on('click', '.tab-pane.active', function(event){
         event.preventDefault();
     });
+
+    $("#id_phone").mask("+(999)99-999-99?99");
+
 });

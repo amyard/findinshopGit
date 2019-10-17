@@ -405,12 +405,12 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAdminUser',)
 }
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'mail.searchservice.com.ua'#'govmail.wishhost.net'
-EMAIL_HOST_USER = 'tls@1c-bitrix.support' #'test@artel7.com'
-EMAIL_HOST_PASSWORD ='IJTmoBO1TDT@' #'5X5b2B9l'
-EMAIL_PORT = 465#587
-SERVER_EMAIL = 'tls@1c-bitrix.support'#'test@artel7.com'
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'mail.searchservice.com.ua'#'govmail.wishhost.net'
+# EMAIL_HOST_USER = 'tls@1c-bitrix.support' #'test@artel7.com'
+# EMAIL_HOST_PASSWORD ='IJTmoBO1TDT@' #'5X5b2B9l'
+# EMAIL_PORT = 465#587
+# SERVER_EMAIL = 'tls@1c-bitrix.support'#'test@artel7.com'
 
 search_backend = 'sphinx'
 PROXY_FILE_PATH = 'proxy.txt'
@@ -435,3 +435,13 @@ try:
     from source.settings_registration import *
 except ImportError:
     pass
+
+
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'delmetest2019@gmail.com'
+EMAIL_HOST_PASSWORD = 'za12za34'
+EMAIL_PORT = 587
+

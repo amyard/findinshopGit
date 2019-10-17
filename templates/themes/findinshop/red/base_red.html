@@ -48,6 +48,14 @@
   <script src="{{ STATIC_URL }}themes/findinshop/red/js/plugins.js"></script>
   <script src="{{ STATIC_URL }}themes/findinshop/red/js/scripts.js"></script>
 
+
+    <script type="text/javascript" src="/static/js/jquery.maskedinput-1.2.2.js"></script>
+    <script>
+    $(document).ready(function () {
+        $("#id_phone").mask("+(999)99-999-99?99");
+    })
+    </script>
+
   
         {% block top_js %}{% endblock %}
         {% block style %}{% endblock %}

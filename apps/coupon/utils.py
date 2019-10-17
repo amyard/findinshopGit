@@ -25,17 +25,19 @@ def send_coupon_message(coupon):
     send_mail(u'Создание купона на FINDINSHOP', message, 'no-reply@findinshop.com',
         [coupon.user.email], fail_silently=False)
 
+from django.utils.html import strip_tags
 
 def send_coupon_user(user_email, name='coupon', context={}):
-    message = render_to_string('mail/{}.html'.format(name), context)
+    message = strip_tags(render_to_string('mail/{}.html'.format(name), context))
     subject = u'Ваш купон - FINDINSHOP.COM'
     send_mail(
         subject, message, 'no-reply@findinshop.com',
         (user_email,), fail_silently=False)
 
-def send_coupon_store(coupon, user_name):
+def send_coupon_store(coupon, user_name, email):
     send_mail(u'Купон от FINDINSHOP', u'Купоном для %s воспользовался %s' % (coupon, user_name), 'no-reply@findinshop.com',
-    [coupon.user.email], fail_silently=False)
+    [email], fail_silently=False)
+
 
 
 def send_coupon_report(coupon):
