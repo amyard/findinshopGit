@@ -112,7 +112,7 @@ $(document).ready(function () {
 
 
     // create block
-    function addDataDiv(data, mgBtm, moreBtnDisplay) {
+    function addDataDiv(data, mgBtm, moreBtnDisplay, couponExists) {
         return `\
             <div class='testtest'>\
                 <span class='opacity-zero'>dd<br>dd<br>dd<br></span>\
@@ -133,7 +133,7 @@ $(document).ready(function () {
                                 <ul class="nav nav-tabs" role="tablist">\
                                     <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Продукт</a></li>\
                                     <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Магазин</a></li>\
-                                    <li class='discount-btn'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
+                                    <li class='discount-btn' style='display: ${couponExists}'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
                                 </ul>\
 
                                 <div class="tab-content">\
@@ -467,7 +467,8 @@ $(document).ready(function () {
             ajaxData = getAjaxData(url),
             filterOrangeBtnWidth = $('#price-filter').width(),
             filterOrangeBtnHeight = $('#price-filter').height(),
-            moreBtnDisplay = JSON.parse(ajaxData).description_full.length > 0 ? 'block' : 'none';
+            moreBtnDisplay = JSON.parse(ajaxData).description_full.length > 0 ? 'block' : 'none',
+            couponExists = typeof JSON.parse(ajaxData).coupon_size == 'undefined' ? 'none' : 'block';
 
 
         if(windowWidth > 480) {
@@ -548,18 +549,18 @@ $(document).ready(function () {
                         })
 
                         last = jQuery($('.delete-empty').last())
-                        last.after(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay))
+                        last.after(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay, couponExists))
                         getNewHeight()
                         $("#id_phone").mask("+(999)99-999-99?99");
                     } else {
                         // последний ряд
-                        jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay))
+                        jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay, couponExists))
                         getNewHeight()
                         $("#id_phone").mask("+(999)99-999-99?99");
                     }
                 } else {
                     // середина ряда и первый ряд
-                    jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay))
+                    jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay, couponExists))
                     getNewHeight()
                     $("#id_phone").mask("+(999)99-999-99?99");
                 }
@@ -572,7 +573,9 @@ $(document).ready(function () {
             $(this).addClass('active')
             displayModal('descModal', JSON.parse(ajaxData), moreBtnDisplay)
             moreBtnDisplay = JSON.parse(ajaxData).description_full.length > 0 ? 'block' : 'none';
+            couponExists = typeof JSON.parse(ajaxData).coupon_size == 'undefined' ? 'none' : 'block'
             $('.more-btn').css({'display': moreBtnDisplay})
+            $('.discount-btn').css({'display': couponExists})
         }  
         
     });
@@ -648,13 +651,11 @@ $(document).ready(function () {
         var windHgt = $(window).height(),
         modalHgt = $('#descModal .full-description').height() + 24 + 24;
         if (windHgt > modalHgt) {
-            console.log('Move down')
             $('#descModal .full-description .orange-btn-cs').css({
                 'position': 'absolute',
                 'bottom': '24px'
             })
         } else {
-            console.log('Left as must')
             $('#descModal .full-description .orange-btn-cs').css({
                 'position': 'relative',
                 'bottom': '0px'
