@@ -2,10 +2,20 @@
 
 {% block title %}Регистрация{% endblock %}
 {% block top_js %}
-        <script type="text/javascript" src="/static/js/jquery.maskedinput-1.2.2.js"></script>
 <script>
 $(document).ready(function () {
-    $("#id_phone").mask("+(999)99-999-99?9999");
+    $('#id_phone').mask('+(___)__-__-__?__', {
+      reverse: true,
+      translation: {
+        '_': {
+          pattern: /-|\d/,
+          recursive: true
+        }
+      },
+      onChange: function(value, e) {
+        e.target.value = value.replace(/(?!^)-/g, '').replace(/^,/, '').replace(/^-,/, '-');
+      }
+    });
 })
 </script>
 {% endblock %}

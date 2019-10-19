@@ -306,8 +306,6 @@
 <!--            });-->
 
             $(document).on('click', '#check_coupon_form', function() {
-
-                console.log('1111111111111111111111')
                 event.preventDefault()
                 var post_data = $('#id_form_get_coupon').serialize();
 
@@ -319,7 +317,6 @@
                     newEmail = id_phone.replace('+','').replace('(','').replace(')','-') + '@gmail.com'
                     $('#id_email').val(newEmail)
                     $('#check_coupon_form').click();
-                    console.log('222222222222222222222222222')
                 } else {
                     // Email Validation
                     function isEmail(email) {

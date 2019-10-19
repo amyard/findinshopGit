@@ -37,7 +37,19 @@ $(document).ready(function () {
 
 
     $(document).on('click','.discount-btn', function(){
-        $("#id_phone").mask("+(999)99-999-99?99");
+        $('#id_phone').mask('+(999)99-99-99?99')
+//        $('#id_phone').mask('+(___)__-__-__?__', {
+//          reverse: true,
+//          translation: {
+//            '_': {
+//              pattern: /-|\d/,
+//              recursive: true
+//            }
+//          },
+//          onChange: function(value, e) {
+//            e.target.value = value.replace(/(?!^)-/g, '').replace(/^,/, '').replace(/^-,/, '-');
+//          }
+//        });
         if($('#discount .orange-color').html() == 'undefined') {
             $('#discount .discount').html('Скидка по данному  товару отсутствует.')
             $('#discount .modal-input-form').css({'display':'none'})
@@ -577,18 +589,15 @@ $(document).ready(function () {
                         last = jQuery($('.delete-empty').last())
                         last.after(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay, couponExists))
                         getNewHeight()
-                        $("#id_phone").mask("+(999)99-999-99?99");
                     } else {
                         // последний ряд
                         jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay, couponExists))
                         getNewHeight()
-                        $("#id_phone").mask("+(999)99-999-99?99");
                     }
                 } else {
                     // середина ряда и первый ряд
                     jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay, couponExists))
                     getNewHeight()
-                    $("#id_phone").mask("+(999)99-999-99?99");
                 }
             } else {
                 //  убираем active из кнопки
@@ -717,7 +726,5 @@ $(document).ready(function () {
     $(document).on('click', '.tab-pane.active', function(event){
         event.preventDefault();
     });
-
-    $("#id_phone").mask("+(999)99-999-99?99");
 
 });
