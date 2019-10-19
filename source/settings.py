@@ -445,3 +445,6 @@ EMAIL_HOST_USER = 'delmetest2019@gmail.com'
 EMAIL_HOST_PASSWORD = 'za12za34'
 EMAIL_PORT = 587
 
+# if false - we use email address
+# if true - we use phone number
+COUPON_FORMAT_SETTING = True

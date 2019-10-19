@@ -21,7 +21,7 @@ class Subscriber(models.Model):
     first_name = models.CharField(verbose_name=u'Имя', max_length=64, blank=True, null=True)
     last_name = models.CharField(verbose_name=u'Фамилия', max_length=64, blank=True, null=True)
     phone = models.CharField(verbose_name=u'Телефон', max_length=50, null=True, blank=True)
-    email = models.EmailField(verbose_name=u'Email', unique=True)
+    email = models.EmailField(verbose_name=u'Email', unique=False, null=True, blank=True)
     status = models.IntegerField(verbose_name=u'Статус', choices=STATUSES, default=1)
 
     def __unicode__(self):

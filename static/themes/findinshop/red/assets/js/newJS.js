@@ -5,6 +5,11 @@ $(document).ready(function () {
     //////////////////////////////////////////////////////////////////////////////////////
     $(document).on('click', '.nav-tabs li', function (event){
         event.preventDefault();
+
+        var couponSettUrl = $('.catalog-block').attr('data-id'),
+            couponSettings = getAjaxData(couponSettUrl).res;
+        choosePhoneEmailFieldForCouponSystem(couponSettings)
+
         $('.nav-tabs li').removeClass('active');
         $('.tab-pane').removeClass('active');
         var newId = $(this).find('a').attr('aria-controls')
@@ -14,10 +19,24 @@ $(document).ready(function () {
 
         var trWidth = $('.tab-content').width() / 2;
         $('.full-description table td').css({'width': trWidth})
+
+        if ($(this).find('a').attr('aria-controls') == 'discount') {
+            $('.coupon-btn').css({'display':'block'});
+            $('.shop-btn').css({'display':'none'});
+        } else {
+            $('.coupon-btn').css({'display':'none'});
+            $('.shop-btn').css({'display':'block'});
+        }
     });
 
-    $(document).on('click','.discount-btn', function(){
+    $(document).on('click', '.coupon-btn', function(event){
+        event.preventDefault();
+        $('#check_coupon_form').click();
 
+    });
+
+
+    $(document).on('click','.discount-btn', function(){
         $("#id_phone").mask("+(999)99-999-99?99");
         if($('#discount .orange-color').html() == 'undefined') {
             $('#discount .discount').html('Скидка по данному  товару отсутствует.')
@@ -131,13 +150,13 @@ $(document).ready(function () {
                                 </div>\
 
                                 <ul class="nav nav-tabs" role="tablist">\
-                                    <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Продукт</a></li>\
-                                    <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Магазин</a></li>\
+                                    <li class="active"><a href="#product" aria-controls="product" role="tab" data-toggle="tab">Продукт</a></li>\
+                                    <li><a href="#shop" aria-controls="shop" role="tab" data-toggle="tab">Магазин</a></li>\
                                     <li class='discount-btn' style='display: ${couponExists}'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
                                 </ul>\
 
                                 <div class="tab-content">\
-                                    <div role="tabpanel" class="tab-pane tab-pane-new active" id="home">\
+                                    <div role="tabpanel" class="tab-pane tab-pane-new active" id="product">\
                                         <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
 
                                         <div class='general-content-here'>\
@@ -155,7 +174,7 @@ $(document).ready(function () {
                                         </div>\
                                         <span class='product-item--old-price d-block'>1999 грв</span>\
                                     </div>\
-                                    <div role="tabpanel" class="tab-pane tab-pane-new" id="profile">\
+                                    <div role="tabpanel" class="tab-pane tab-pane-new" id="shop">\
                                         <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
                                         <table>\
                                             <tr>\
@@ -205,7 +224,8 @@ $(document).ready(function () {
                     <div class="full-description__footer">\
                         <img src="../img/like.png" alt="" class="svg-icon d-none" onclick="wishlist( ${data.id} )" id="wish" target="_blank">\
                         <img src="img/mdi-scale-balance.png" alt="" class="d-none">\
-                        <a class='orange-btn-cs orange-btn-padding-cs' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В МАГАЗИН</a>\
+                        <a class='orange-btn-cs orange-btn-padding-cs shop-btn' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В МАГАЗИН</a>\
+                        <a class='orange-btn-cs orange-btn-padding-cs coupon-btn' >ОТПРАВИТЬ</a>\
                     </div>\
                 </div>\
             </div>\
@@ -232,13 +252,13 @@ $(document).ready(function () {
                                </div>\
 
                                <ul class="nav nav-tabs" role="tablist">\
-                                   <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Продукт</a></li>\
-                                   <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Магазин</a></li>\
+                                   <li class="active"><a href="#product" aria-controls="product" role="tab" data-toggle="tab">Продукт</a></li>\
+                                   <li><a href="#shop" aria-controls="shop" role="tab" data-toggle="tab">Магазин</a></li>\
                                    <li class='discount-btn'><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
                                </ul>\
 
                                <div class="tab-content">\
-                                   <div role="tabpanel" class="tab-pane tab-pane-new active" id="home">\
+                                   <div role="tabpanel" class="tab-pane tab-pane-new active" id="product">\
                                        <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
                                        <h3>${data.name}</h3>\
                                        <div class='general-content-here'>\
@@ -256,7 +276,7 @@ $(document).ready(function () {
                                        </div>\
                                        <span class='product-item--old-price d-block'>1999 грв</span>\
                                    </div>\
-                                   <div role="tabpanel" class="tab-pane tab-pane-new" id="profile">\
+                                   <div role="tabpanel" class="tab-pane tab-pane-new" id="shop">\
                                        <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
                                        <table>\
                                            <tr>\
@@ -306,7 +326,8 @@ $(document).ready(function () {
                    <div class="full-description__footer">\
                        <img src="../img/like.png" alt="" class="svg-icon d-none" onclick="wishlist( ${data.id} )" id="wish" target="_blank">\
                        <img src="img/mdi-scale-balance.png" alt="" class="d-none">\
-                       <a class='orange-btn-cs orange-btn-padding-cs' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В магазин</a>\
+                       <a class='orange-btn-cs orange-btn-padding-cs shop-btn' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В МАГАЗИН</a>\
+                       <a class='orange-btn-cs orange-btn-padding-cs coupon-btn' >ОТПРАВИТЬ</a>\
                    </div>\
                </div>\
            </div>\
@@ -432,9 +453,6 @@ $(document).ready(function () {
         }
     });
 
-
-
-
     function changeHeightContentTab() {
         setTimeout(function(){
             var allTabs = $('.tab-pane-new'),
@@ -447,9 +465,18 @@ $(document).ready(function () {
     }
 
 
+    function choosePhoneEmailFieldForCouponSystem(couponSettings) {
+        if(couponSettings) {
+            $('.modal-input-form #id_phone').css({'display':'block'})
+            $('.modal-input-form #id_email').css({'display':'none'})
+        } else {
+            $('.modal-input-form #id_phone').css({'display':'none'})
+            $('.modal-input-form #id_email').css({'display':'block'})
+        }
+    }
+
     $(document).on('click', '.full-desc', function(event){
         event.preventDefault();
-
         $('.content').css({'margin-top':'0px'})
 
         deleteExtraData()
@@ -469,7 +496,6 @@ $(document).ready(function () {
             filterOrangeBtnHeight = $('#price-filter').height(),
             moreBtnDisplay = JSON.parse(ajaxData).description_full.length > 0 ? 'block' : 'none',
             couponExists = typeof JSON.parse(ajaxData).coupon_size == 'undefined' ? 'none' : 'block';
-
 
         if(windowWidth > 480) {
             // первый раз нажали на кнопку
@@ -576,8 +602,7 @@ $(document).ready(function () {
             couponExists = typeof JSON.parse(ajaxData).coupon_size == 'undefined' ? 'none' : 'block'
             $('.more-btn').css({'display': moreBtnDisplay})
             $('.discount-btn').css({'display': couponExists})
-        }  
-        
+        }
     });
 
     $(document).on('click', '.full-desc.active', function(event){

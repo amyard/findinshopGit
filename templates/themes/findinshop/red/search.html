@@ -224,8 +224,6 @@
 
             //filters
             $('#price-filter').click(function(){
-
-              console.log('LALALALALALALAALLALALALALALALAL')
                 var base_url = '{{ clean_filter }}',
                     filter_url = '&',
                     vendors = '',
@@ -308,7 +306,8 @@
 <!--            });-->
 
             $(document).on('click', '#check_coupon_form', function() {
-<!--            $('#check_coupon_form').live('click', function(event){-->
+
+                console.log('1111111111111111111111')
                 event.preventDefault()
                 var post_data = $('#id_form_get_coupon').serialize();
 
@@ -316,42 +315,59 @@
                 id_email = $('#id_email').val()
                 id_phone = $('#id_phone').val()
 
-                // Email Validation
-                function isEmail(email) {
-                    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                    return regex.test(email);
-                }
-
-                if (id_name == '' || id_email == '' || id_phone == '') {
-                    alert('Неверно заполнена форма!');
-                } else if (isEmail(id_email)==false) {
-                    alert('Невалидная электронная почта!');
+                if(id_email == '') {
+                    newEmail = id_phone.replace('+','').replace('(','').replace(')','-') + '@gmail.com'
+                    $('#id_email').val(newEmail)
+                    $('#check_coupon_form').click();
+                    console.log('222222222222222222222222222')
                 } else {
-                    $(this).val('Идет отправка...');
-                    data = {
-                        'post_data':post_data
+                    // Email Validation
+                    function isEmail(email) {
+                        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                        return regex.test(email);
                     }
-                    $.ajax({
-                        "type": "GET",
-                        "dataType": "json",
-                        "url": "{% url 'validate_coupon_form' %}",
-                        "data": data,
-                        "success": function(result) {
 
-                            console.log('-----------------------')
-
-                            $('#check_coupon_form').val('Отправить');
-                            if (result['status'] == 'ok'){
-                                $('#id_form_get_coupon').html('<p>Ваш запрос принят! Код купона для покупки товара в магазине «'+result['store_name']+'» был выслан на указанный электронный адрес');
-                            } else {
-                                alert('Неверно заполнена форма!');
-                            }
+                    if (id_name == '' && $('#id_name').css('display') == 'block') {
+                        alert('Неверно заполнена форма!');
+                    } else if (id_email == '' && $('#id_email').css('display') == 'block') {
+                        alert('Неверно заполнена форма!');
+                    } else if (id_phone == '' && $('#id_phone').css('display') == 'block') {
+                        alert('Неверно заполнена форма!');
+                    } else if (isEmail(id_email)==false && $('#id_email').css('display') == 'block') {
+                        alert('Невалидная электронная почта!');
+                    } else {
+                        $('.coupon-btn').html('Идет отправка...');
+                        $(this).val('Идет отправка...');
+                        data = {
+                            'post_data':post_data
                         }
-                    });
-                    return false;
+                        $.ajax({
+                            "type": "GET",
+                            "dataType": "json",
+                            "url": "{% url 'validate_coupon_form' %}",
+                            "data": data,
+                            "success": function(result) {
+
+                                console.log('-----------------------')
+
+                                $('#check_coupon_form').val('Отправить');
+                                if (result['status'] == 'ok' && result['field'] == 'email'){
+                                    $('#id_form_get_coupon').html('<p>Ваш запрос принят! Код купона для покупки товара в магазине «'+result['store_name']+'» был выслан на указанный электронный адрес');
+                                    $('.coupon-btn').css({'display':'none'});
+                                } else if (result['status'] == 'ok' && result['field'] == 'phone'){
+                                    $('.coupon-btn').css({'display':'none'});
+                                    $('#id_form_get_coupon').html('<p>Ваш запрос принят! Код купона для покупки товара в магазине «'+result['store_name']+'» был выслан по смс на указанный телефонный номер');
+                                } else if (result['status'] == 'error') {
+                                    alert('Неверно заполнена форма!');
+                                } else {
+                                    alert('Неверно заполнена форма!');
+                                }
+                            }
+                        });
+                        return false;
+                    }
                 }
             });
-
         });
     </script>
 
@@ -497,7 +513,7 @@
       <div class="container-fluid">
 
         {% if entries %}
-        <div class="catalog-block">
+        <div class="catalog-block" data-id="{% url 'coupon_settings' %}">
           <ul class="catalog-block_ul row">
             {% paginate 25 entries %}
             {% if sphinx_backend %}

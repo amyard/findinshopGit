@@ -1,11 +1,13 @@
 #-*- coding: utf-8 -*-
 from django.conf.urls import patterns, url
 from apps.website import views
+from apps.website.views import CouponSettingsView
 
 urlpatterns = patterns('',
                        url(r'^s/$', views.site_settings, name='site_settings'),
                        url(r'^t/$', views.spaces, name='spaces'),
                        url(r'^validate_coupon_form/$', views.validate_coupon_form, name='validate_coupon_form'),
+                       url(r'^coupon_settings/$', CouponSettingsView.as_view(), name='coupon_settings'),
 
                        # url(r'^validate_coupon_form/', views.ValidateCouponForm.as_view(), name='validate_coupon_form'),
 

@@ -402,26 +402,80 @@ def get_item_info(request):
     return HttpResponse(json.dumps(info))
 
 
+from django.conf import settings
 from django.views.generic import View
 from django.http import JsonResponse
 import re
 
-def validate_coupon_form(request):
-        answer = {'status': 'error'}
-        data = request.GET.get('post_data')
 
-        name = re.findall(r'(?<=name=)[^&$]+', data)[0]
-        email = re.findall(r'(?<=email=)[^&$]+', data)[0].replace('%40', '@')
+class CouponSettingsView(View):
+    def get(self, *args, **kwargs):
+        res = settings.COUPON_FORMAT_SETTING
+        return JsonResponse(data={'res':res})
+
+def validate_coupon_form(request):
+    answer = {'status': 'error'}
+    data = request.GET.get('post_data')
+    print(data)
+    name = re.findall(r'(?<=name=)[^&$]+', data)[0]
+    coupon = re.findall(r'(?<=coupon=)[^&$]+', data)[0]
+    item_id = re.findall(r'(?<=item=)[^$]+', data)[0]
+
+    # try:
+        # if false - phone send.    if true - email
+    if settings.COUPON_FORMAT_SETTING:
         phone = re.findall(r'(?<=phone=)[^&$]+', data)[0]
-        coupon = re.findall(r'(?<=coupon=)[^&$]+', data)[0]
-        item_id = re.findall(r'(?<=item=)[^$]+', data)[0]
+        email = re.findall(r'(?<=email=)[^&$]+', data)[0].replace('%40', '@')
+        # clear_email = phone.replace('%2B','').replace('(','').replace(')','-')
+        # email = clear_email + '@gmail.com'
+        # print(email)
 
         if coupon:
-            # coupon = self.request.GET.get('coupon', '9')
-            # item_id = self.request.GET.get('item', '1')
-            # form = GetCoupon(self.request.GET)
-            # if form.is_valid() and coupon:
-            # save user
+            subscriber, subscriber_created = Subscriber.objects.get_or_create(phone=phone)
+            if subscriber_created:
+                subscriber.first_name = name
+                subscriber.email = email
+                subscriber.status = 1
+                subscriber.save()
+            # count user for coupon + 1
+            coupon = Coupon.objects.get(id=coupon)
+            coupon.count += 1
+            coupon.save()
+            # save cupon
+            item = Item.objects.get(id=item_id)
+            obj, created = CouponSubscriber.objects.get_or_create(
+                subscriber=subscriber,
+                price=item.price,
+                coupon=coupon,
+                product_name=item.name,
+                product_group=item.category.name,
+                market_name=item.site.name
+            )
+            if not created:
+                obj.count += 1
+                obj.save()
+            # send sms
+            # send email
+            # TODO - тут отправка СМС
+            answer = {
+                'field': 'phone',
+                'status': 'ok',
+                'code': coupon.code,
+                'store': u'%s' % item.site,
+                'store_name': item.site.name,
+                'redirect': u'<a href="http://%s/?coupon=%s">Использовать купон</a>' % (
+                    item.site, coupon.code)
+
+            }
+            return JsonResponse(answer, safe=False)
+        else:
+            return HttpResponse(json.dumps(answer), content_type="application/json")
+
+    else:
+        email = re.findall(r'(?<=email=)[^&$]+', data)[0].replace('%40', '@')
+        phone = ''
+
+        if coupon:
             subscriber, subscriber_created = Subscriber.objects.get_or_create(email=email)
             if subscriber_created:
                 subscriber.first_name = name
@@ -463,6 +517,7 @@ def validate_coupon_form(request):
             send_coupon_store(coupon, subscriber.first_name, subscriber.email)
 
             answer = {
+                'field': 'email',
                 'status': 'ok',
                 'code': coupon.code,
                 'store': u'%s' % item.site,
@@ -475,6 +530,11 @@ def validate_coupon_form(request):
         else:
             return HttpResponse(json.dumps(answer), content_type="application/json")
 
+    # duplicate key value violates unique constraint "distribution_subscriber_email_key"
+    # DETAIL:  Key (email)=() already exists.
+    # except:
+    #     answer = {'status':'error'}
+    #     return HttpResponse(json.dumps(answer), content_type="application/json")
 
 
             
@@ -532,7 +592,6 @@ def validate_coupon_form(request):
 #             }
 #
 #             print('email_context')
-#             #  TODO - тут жопа
 #             # send_coupon_user(subscriber.email, context=email_context)
 #             print('send_coupon_user')
 #             #send email to store
