@@ -427,33 +427,34 @@ $(document).ready(function () {
             allSlicedDiv = $('.product-item').slice(0, posPerLine);
 
 
-        if (allSlicedDiv.find('.full-desc.active').length == 1){
-
-            // if header position == relative - shit - быстрый скачок туда и назад
-            // if header postion == fixed - need margin
-            if ($('.header').css('position') == 'fixed') {
-                $('.content').css({'margin-top':'135px'})
-                $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 475 }, 'slow');
-            } else {
-
-                $('.header').css({
-                    'display':'fixed',
-                    'box-shadow': 'rgba(42, 48, 60, 0.19) 0px 1px 3px 0px',
-                    'z-index':'99',
-                    'left':'0',
-                    'top':'0',
-                    'right':'0'
-                })
-                console.log('HEADER')
-                $('.content').css({'margin-top':'135px'})
-                console.log('CONTENT')
-                $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 455 }, 'slow');
-                console.log('SCROLL')
-            }
-
-        } else {
-            $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 475 }, 'slow');
-        }
+//        if (allSlicedDiv.find('.full-desc.active').length == 1){
+//
+//            // if header position == relative - shit - быстрый скачок туда и назад
+//            // if header postion == fixed - need margin
+//            if ($('.header').css('position') == 'fixed') {
+//                $('.content').css({'margin-top':'135px'})
+//                $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 475 }, 'slow');
+//            } else {
+//
+//                $('.header').css({
+//                    'display':'fixed!important',
+//                    'box-shadow': 'rgba(42, 48, 60, 0.19) 0px 1px 3px 0px',
+//                    'z-index':'99',
+//                    'left':'0',
+//                    'top':'0',
+//                    'right':'0'
+//                })
+//                console.log('HEADER')
+//                $('.content').css({'margin-top':'135px'})
+//                console.log('CONTENT')
+//                $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 455 }, 'slow');
+//                console.log('SCROLL')
+//            }
+//
+//        } else {
+//            $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 475 }, 'slow');
+//        }
+        $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 475 }, 'slow');
     }
 
     $(document).on('mousewheel', function(event) {

@@ -20,6 +20,7 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 5621440
 
 SEARCH_BACKEND = 'sphinx'
 
+# BASE_DOMAIN = "findinshop.com.ua"
 BASE_DOMAIN = "localhost:8000"
 
 # CSRF_COOKIE_DOMAIN = 'localhost:8000'
