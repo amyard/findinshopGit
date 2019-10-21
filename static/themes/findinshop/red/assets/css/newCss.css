@@ -208,9 +208,21 @@
     top: 0px;
     right: 0px;}
 
-.breadcrumbs {
-    margin-top: 86px;}
 
+
+.breadcrumbs {
+    margin-top: 86px;
+    padding-bottom: 0px;}
+
+@media screen and (max-width: 991px) {
+    .breadcrumbs {
+        margin-top: 114px;}
+}
+
+@media (max-width: 767px) {
+    .breadcrumbs {
+        margin-top: 156px;}
+}
 
 
 
