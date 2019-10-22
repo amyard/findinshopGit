@@ -14320,3 +14320,14 @@ html {
     margin-right: -15px;
   }
 }
+
+.row::before {
+  content: none;
+}
+
+.full-description {
+  height: auto;
+  margin-left: -4px;
+  width: 101%;
+  margin-bottom: 16px;
+}
