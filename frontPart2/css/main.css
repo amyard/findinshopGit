@@ -10408,7 +10408,7 @@ html {
     width: 230px;
     overflow: hidden;
     background-color: #ffffff;
-    background: #ffffff url(../../assets/images/select/arrow.jpg) no-repeat 100% 50%;
+    background: #ffffff url(../img/arrow.jpg) no-repeat 100% 50%;
     cursor: pointer;
   }
   .select-style select {
@@ -13010,11 +13010,11 @@ html {
     font-weight: 300;
   }
   .filter .filter-box .filter-header a:after {
-    content: url(../../assets/images/filter/arr_down.png);
+    content: url(../img/arr_down.png);
     float: right;
   }
   .filter .filter-box .filter-header.toggled a:after {
-    content: url(../../assets/images/filter/arr_up.png);
+    content: url(../img/arr_up.png);
     float: right;
   }
   .filter .filter-box .filter-body,
@@ -14303,6 +14303,10 @@ html {
   .catalog-block_ul {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .orange-btn-cs {
+    margin-right: 32px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -14330,4 +14334,23 @@ html {
   margin-left: -4px;
   width: 101%;
   margin-bottom: 16px;
+}
+
+#descModal {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  /* #descModal {
+    display: block;
+  } */
+  .full-description {
+    display: none;
+  }
+}
+
+
+.filter .filter-box .filter-header a:after {
+  height: 26px;
+  margin-top: 12px;
 }
