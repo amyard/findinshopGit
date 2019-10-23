@@ -202,12 +202,20 @@ $(document).on('click', '.full-desc', function(event){
 
           jQuery(currDiv).after(addDescBlock())
         } else {
+          $('body').css({'overflow':'hidden'})
           $('#descModal').css({'display':'block'})
         }
         
     }
 });
 
+
+
+$('body').on('click', '#descModal .close', function(){
+  $('body').css({'overflow':'auto'})
+  $('.filter__item').css({'display':'none'})
+  $('#descModal').css({'display':'none'})
+});
 
 
 // TODO - ПЕРЕЛЕДАТЬ. ПОПАТ ДОЛЖНЕ С ВЫСОТЫ 1024px
@@ -242,8 +250,6 @@ $(window).on('resize', function(){
     oldPos = currPos;
   }
 })
-
-
 
 
 
