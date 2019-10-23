@@ -14325,14 +14325,14 @@ html {
   }
 } */
 
-.row::before, #descModal, .container-fluid::before {
+.row::before, .container-fluid::before {
   content: none;
 }
 
 .full-description {
   height: auto;
   margin-left: 10px;
-  width: 98.2%;
+  width: 100%;
   margin-bottom: 16px;
 }
 
@@ -14340,10 +14340,13 @@ html {
   display: none;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1024px) {
   /* #descModal {
     display: block;
   } */
+  #descModal .full-description {
+    display: block;
+  }
   .full-description {
     display: none;
   }

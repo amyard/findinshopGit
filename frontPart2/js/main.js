@@ -40,7 +40,7 @@ $(document).on('click', '.nav-tabs li', function (){
 // ЗАКРЫТЬ ОПИСАНИЕ ТОВАРА
 $(document).on('click', '.full-description__close--btn', function() {
   var windowWidth = $(window).width();
-  if(windowWidth <= 480) {
+  if(windowWidth <= 1024) {
       $('#descModal').css({'display':'none'});
   } else {
       $('.full-description').css({'display':'none'});
@@ -50,20 +50,25 @@ $(document).on('click', '.full-description__close--btn', function() {
 
 
 // TODO - ПЕРЕЛЕДАТЬ. ПОПАТ ДОЛЖНЕ С ВЫСОТЫ 1024px
-$(window).on('resize', function(){
-  wdRes = $(window).width()
-  if (wdRes <= 480) {
-      $('.full-description').css({'display':'none'});
-  }
-})
+// $(window).on('resize', function(){
+//   wdRes = $(window).width()
+//   if (wdRes <= 480) {
+//       $('.full-description').css({'display':'none'});
+//   }
+// })
 
 
 
 // функция возвращает сколько елементов (блоков с продуктами) в строке
 function posInline() {
-  blockWidth = $('.catalog-block').width()
-  itemWidth = $('.product-item').width()
+  blockWidth = $('.catalog-block').width();
+  // работает
+  itemWidth = $('.full-description').length != 0 ? $('.full-description').next().width() : $('.product-item').width()
   res =  Math.ceil( blockWidth / itemWidth ) - 1;
+
+  // itemWidth = $('.full-description').length != 0 ? $('.full-description').next().width() : $('.product-item').width()
+  // floatPart  = (blockWidth / itemWidth) - Math.round( blockWidth / itemWidth );
+  // res = floatPart >=0.5 ? Math.ceil( blockWidth / itemWidth ) - 1 : Math.ceil( blockWidth / itemWidth ) - 2;
   return res
 }
 
@@ -153,12 +158,22 @@ function getPositionOfItemBlock(allItems) {
 }
 
 
+// кнопка активная и екран меньше 1024px то показываем модал
+// function displayModal(){
+//   $('.full-desc .active') && $(window).width()<=1024
+//     ? $('#descModal').css({'display':'block'})
+//     : null
+// }
+
+// displayModal()
+
+
 // ПОДРОБНЕЕ - главная фигня
 $(document).on('click', '.full-desc', function(event){
     event.preventDefault();
 
     $('.full-desc').removeClass('active');
-    $('.full-description').remove();
+    // $('.full-description').remove();
     var windowWidth = $(window).width(),
         allItems = $('.product-item'),
         getPositionInline = posInline();
@@ -166,20 +181,28 @@ $(document).on('click', '.full-desc', function(event){
     if(!$(this).attr('class').includes('active')){
         $(this).addClass('active')
 
-        var parentDiv = $(this).parent().parent().parent().parent()
-        var positionOfItem = getPositionOfItemBlock(allItems);
+        // показываем простой блок или модалку
+        if (windowWidth > 1024) {
+          console.log('NOT           MODALLLLLLL')
+          var parentDiv = $(this).parent().parent().parent().parent()
+          var positionOfItem = getPositionOfItemBlock(allItems);
 
-        // после какого елемента нужно вставить наш див
-        // жопа с посленим рядом. для него надо делать проверку на количество елементов
-        var getDivAfterInsert = Math.ceil(correctItem / getPositionInline) * getPositionInline;
+          // после какого елемента нужно вставить наш див
+          // жопа с посленим рядом. для него надо делать проверку на количество елементов
+          var getDivAfterInsert = Math.ceil(correctItem / getPositionInline) * getPositionInline;
 
-        if(allItems.length < getDivAfterInsert) {
-          currDiv = allItems.last()
+          if(allItems.length < getDivAfterInsert) {
+            currDiv = allItems.last()
+          } else {
+            currDiv = allItems[getDivAfterInsert-1];
+          }
+
+          jQuery(currDiv).after(addDescBlock())
         } else {
-          currDiv = allItems[getDivAfterInsert-1];
+          console.log('MODALLLLLLL')
+          $('#descModal').css({'display':'block'})
         }
-
-        jQuery(currDiv).after(addDescBlock())
+        
     }
 });
 
@@ -192,31 +215,30 @@ $(window).on('resize', function(){
 
   allItems = $('.product-item')
   currPos = posInline()
+  
   if (oldPos != currPos) {
-    
     // мы уменьшаем размер екрана
-    if ($('.full-desc .active') && oldPos > currPos) {
+    if ($('.full-desc .active') && oldPos > currPos && oldPos != Infinity) {
+
+      console.log('Уменьшили')
       prevElementHtml = $('.full-description').prev().html()
       
       jQuery($('.full-description')).after('<div class="catalog-block_li product-item inserted_js"></div>')
       $('.inserted_js').html(prevElementHtml)
       $('.inserted_js').removeClass('inserted_js')
       $('.full-description').prev().remove()
+    } else if ($('.full-desc .active') && oldPos < currPos && oldPos != Infinity) {
+      console.log('Увеличили')
+      beforeElementHtml = $('.full-description').next().html()
+      
+      jQuery($('.full-description')).before('<div class="catalog-block_li product-item inserted_js"></div>')
+      $('.inserted_js').html(beforeElementHtml)
+      $('.inserted_js').removeClass('inserted_js')
+      $('.full-description').next().remove()
     }
-
-
-    console.log('----------------')
-    console.log(oldPos)
     
     oldPos = currPos;
-    
   }
-
-
-
-  // if (wdRes <= 480) {
-  //     $('.full-description').css({'display':'none'});
-  // }
 })
 
 
