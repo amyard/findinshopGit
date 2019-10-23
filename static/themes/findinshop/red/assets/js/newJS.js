@@ -425,35 +425,6 @@ $(document).ready(function () {
             posPerLine = getCurrentPosition(windowWidth),
             allDivs = $('.product-item'),
             allSlicedDiv = $('.product-item').slice(0, posPerLine);
-
-
-//        if (allSlicedDiv.find('.full-desc.active').length == 1){
-//
-//            // if header position == relative - shit - быстрый скачок туда и назад
-//            // if header postion == fixed - need margin
-//            if ($('.header').css('position') == 'fixed') {
-//                $('.content').css({'margin-top':'135px'})
-//                $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 475 }, 'slow');
-//            } else {
-//
-//                $('.header').css({
-//                    'display':'fixed!important',
-//                    'box-shadow': 'rgba(42, 48, 60, 0.19) 0px 1px 3px 0px',
-//                    'z-index':'99',
-//                    'left':'0',
-//                    'top':'0',
-//                    'right':'0'
-//                })
-//                console.log('HEADER')
-//                $('.content').css({'margin-top':'135px'})
-//                console.log('CONTENT')
-//                $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 455 }, 'slow');
-//                console.log('SCROLL')
-//            }
-//
-//        } else {
-//            $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 475 }, 'slow');
-//        }
         $('html, body').animate({ scrollTop:  $('.full-desc.active').offset().top - 475 }, 'slow');
     }
 
@@ -589,20 +560,20 @@ $(document).ready(function () {
 
                         last = jQuery($('.delete-empty').last())
                         last.after(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay, couponExists))
-                        getNewHeight()
+                        // getNewHeight()
                     } else {
                         // последний ряд
                         jQuery(currDiv).after(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay, couponExists))
-                        getNewHeight()
+                        // getNewHeight()
                     }
                 } else {
                     // середина ряда и первый ряд
                     jQuery(currDiv).before(addDataDiv(JSON.parse(ajaxData), mgBtm, moreBtnDisplay, couponExists))
-                    getNewHeight()
+                    // getNewHeight()
                 }
             } else {
                 //  убираем active из кнопки
-                scrollTopToTheBtn(650, 1000)
+                // scrollTopToTheBtn(650, 1000)
                 deleteExtraData();
             }
         } else {
@@ -650,25 +621,23 @@ $(document).ready(function () {
 
                     clickBtn = jQuery(value).find('.full-desc')
 
-                    setTimeout(function(){
-                        if(oldPos == 1) {
-                            console.log('------------------')
-
-                            $('.full-description__close--btn').click()
-                        } else {
-                            clickBtn.click()
-                        }                        
-                    }, 1);
-                    setTimeout(function(){
-                        clickBtn.click()
-                    }, 5);
+                    // setTimeout(function(){
+                    //     if(oldPos == 1) {
+                    //         $('.full-description__close--btn').click()
+                    //     } else {
+                    //         clickBtn.click()
+                    //     }                        
+                    // }, 1);
+                    // setTimeout(function(){
+                    //     clickBtn.click()
+                    // }, 1000);
                 }
             })
             
         }
         setTimeout(function(){
             oldPos = newPos;
-        }, 100)
+        }, 500)
     })
 
 
