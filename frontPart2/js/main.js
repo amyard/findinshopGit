@@ -242,7 +242,43 @@ $(window).on('resize', function(){
 
   // FIRST DESCTOP VERSION.     SECOND - MODAL
   if(windowWidth > 1024){
-    $('#descModal').css({'display':'none'})
+
+    // from modal to desctop
+    if($('#descModal').css('display')=='block'){
+
+      console.log('REMOVE MODAL FROM RESIZE')
+      $('#descModal').css({'display':'none'});
+      // allMagicWithAddingDescBlock();
+
+      $('body').css({'overflow':'auto'})
+      $('.full-description-desctop').css({'display':'block'})
+
+    } else {
+      if (oldPos != currPos) {
+        // мы уменьшаем размер екрана
+        if ($('.full-desc .active') && oldPos > currPos && oldPos != Infinity) {
+    
+          console.log('Уменьшили')
+          prevElementHtml = $('.full-description-desctop').prev().html()
+          jQuery($('.full-description-desctop')).after('<div class="catalog-block_li product-item inserted_js"></div>')
+          $('.inserted_js').html(prevElementHtml)
+          $('.inserted_js').removeClass('inserted_js')
+          $('.full-description-desctop').prev().remove()
+        } else if ($('.full-desc .active') && oldPos < currPos && oldPos != Infinity) {
+
+          console.log('Увеличили')
+          beforeElementHtml = $('.full-description-desctop').next().html()       
+          jQuery($('.full-description-desctop')).before('<div class="catalog-block_li product-item inserted_js"></div>')
+          $('.inserted_js').html(beforeElementHtml)
+          $('.inserted_js').removeClass('inserted_js')
+          $('.full-description-desctop').next().remove()
+        }
+        
+        oldPos = currPos;
+      }
+    }
+
+    
 
     // при переходе из модала в норм состояние
     // if ($('.full-desc .active')) {
@@ -250,38 +286,9 @@ $(window).on('resize', function(){
     //   $('.full-description-desctop').css({'display':'block'})
     //   allMagicWithAddingDescBlock();
     // }
-    
-    if (oldPos != currPos) {
-      // мы уменьшаем размер екрана
-      if ($('.full-desc .active') && oldPos > currPos && oldPos != Infinity) {
-  
-        console.log('Уменьшили')
-        // $('.full-description-desctop').length > 0 ? $('.full-description-desctop').remove() : null
-        // allMagicWithAddingDescBlock()
-        prevElementHtml = $('.full-description-desctop').prev().html()
-        
-        jQuery($('.full-description-desctop')).after('<div class="catalog-block_li product-item inserted_js"></div>')
-        $('.inserted_js').html(prevElementHtml)
-        $('.inserted_js').removeClass('inserted_js')
-        $('.full-description-desctop').prev().remove()
-      } else if ($('.full-desc .active') && oldPos < currPos && oldPos != Infinity) {
-        console.log('Увеличили')
-        beforeElementHtml = $('.full-description-desctop').next().html()
-        
-        jQuery($('.full-description-desctop')).before('<div class="catalog-block_li product-item inserted_js"></div>')
-        $('.inserted_js').html(beforeElementHtml)
-        $('.inserted_js').removeClass('inserted_js')
-        $('.full-description-desctop').next().remove()
-        
-        // $('.full-description-desctop').length > 0 ? $('.full-description-desctop').remove() : null
-        // allMagicWithAddingDescBlock()
-      }
-      
-      oldPos = currPos;
-    }
   } else {
     if ($('.full-desc.active').length == 1) {
-      console.log('------------------------------')
+      console.log('MODAL FROM RESIZE')
       $('.full-description-desctop').css({'display':'none'})
       $('#descModal').css({'display':'block'})
       $('.full-description-modal').css({'display':'block'})
