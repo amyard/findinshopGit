@@ -224,7 +224,7 @@ $(document).on('click', '.full-desc', function(event){
 
 
 
-$('body').on('click', '#descModal .close', function(){
+$('body').on('click', '.close', function(){
   $('body').css({'overflow':'auto'})
   $('.filter__item').css({'display':'none'})
   $('#descModal').css({'display':'none'})
@@ -249,7 +249,9 @@ $(window).on('resize', function(){
 
       console.log('REMOVE MODAL FROM RESIZE')
       $('#descModal').css({'display':'none'});
-      // allMagicWithAddingDescBlock();
+      if($('.full-description-desctop').length == 0) {
+        allMagicWithAddingDescBlock();
+      }
 
       $('body').css({'overflow':'auto'})
       $('.full-description-desctop').css({'display':'block'})
@@ -260,19 +262,23 @@ $(window).on('resize', function(){
         if ($('.full-desc .active') && oldPos > currPos && oldPos != Infinity) {
     
           console.log('Уменьшили')
-          prevElementHtml = $('.full-description-desctop').prev().html()
-          jQuery($('.full-description-desctop')).after('<div class="catalog-block_li product-item inserted_js"></div>')
-          $('.inserted_js').html(prevElementHtml)
-          $('.inserted_js').removeClass('inserted_js')
-          $('.full-description-desctop').prev().remove()
+          // prevElementHtml = $('.full-description-desctop').prev().html()
+          // jQuery($('.full-description-desctop')).after('<div class="catalog-block_li product-item inserted_js"></div>')
+          // $('.inserted_js').html(prevElementHtml)
+          // $('.inserted_js').removeClass('inserted_js')
+          // $('.full-description-desctop').prev().remove()
+          $('.full-description-desctop').remove()
+          allMagicWithAddingDescBlock();
         } else if ($('.full-desc .active') && oldPos < currPos && oldPos != Infinity) {
 
           console.log('Увеличили')
-          beforeElementHtml = $('.full-description-desctop').next().html()       
-          jQuery($('.full-description-desctop')).before('<div class="catalog-block_li product-item inserted_js"></div>')
-          $('.inserted_js').html(beforeElementHtml)
-          $('.inserted_js').removeClass('inserted_js')
-          $('.full-description-desctop').next().remove()
+          $('.full-description-desctop').remove()
+          allMagicWithAddingDescBlock();
+          // beforeElementHtml = $('.full-description-desctop').next().html()       
+          // jQuery($('.full-description-desctop')).before('<div class="catalog-block_li product-item inserted_js"></div>')
+          // $('.inserted_js').html(beforeElementHtml)
+          // $('.inserted_js').removeClass('inserted_js')
+          // $('.full-description-desctop').next().remove()
         }
         
         oldPos = currPos;
@@ -290,7 +296,7 @@ $(window).on('resize', function(){
   } else {
     if ($('.full-desc.active').length == 1) {
       console.log('MODAL FROM RESIZE')
-      $('.full-description-desctop').css({'display':'none'})
+      $('.full-description-desctop').remove()
       $('#descModal').css({'display':'block'})
       $('.full-description-modal').css({'display':'block'})
     }

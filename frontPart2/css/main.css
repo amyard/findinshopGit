@@ -14394,6 +14394,12 @@ html {
 }
 
 
+@media (min-width: 1025px) and (max-width: 1044px) {
+  .product-item {
+    flex-basis: 200px;
+  }
+}
+
 
 
 
