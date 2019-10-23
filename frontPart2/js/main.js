@@ -147,9 +147,12 @@ function addDescBlock(){
 
 
 // номер активного дива в списке всех блоков с продуктами
-function getPositionOfItemBlock(allItems) {
+function getPositionOfItemBlock() {
+  var allItems = $('.catalog-block_li .item_img').parent().parent()
   $.each(allItems, function(dt, value) {
       var innerBtnClass = jQuery(value).find('.full-desc').attr('class');
+      console.log('innerBtnClass    ', innerBtnClass)
+      console.log('value    ', value)
       innerBtnClass.includes('active')
           ? correctItem = dt+1
           : null
@@ -186,7 +189,7 @@ $(document).on('click', '.full-desc', function(event){
         // показываем простой блок или модалку
         if (windowWidth > 1024) {
           var parentDiv = $(this).parent().parent().parent().parent()
-          var positionOfItem = getPositionOfItemBlock(allItems);
+          var positionOfItem = getPositionOfItemBlock();
 
           // после какого елемента нужно вставить наш див
           // жопа с посленим рядом. для него надо делать проверку на количество елементов
