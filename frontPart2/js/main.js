@@ -228,6 +228,7 @@ $('body').on('click', '#descModal .close', function(){
   $('body').css({'overflow':'auto'})
   $('.filter__item').css({'display':'none'})
   $('#descModal').css({'display':'none'})
+  $('.full-desc.active').removeClass('active')
 });
 
 
