@@ -169,6 +169,33 @@ function getPositionOfItemBlock() {
 // displayModal()
 
 
+
+
+
+function allMagicWithAddingDescBlock(){
+  allItems = $('.catalog-block_li')
+  getPositionInline = posInline()
+  var activeBtn = $('.full-desc .active')
+  var parentDiv = activeBtn.parent().parent().parent().parent()
+  var positionOfItem = getPositionOfItemBlock();
+
+  // после какого елемента нужно вставить наш див
+  // жопа с посленим рядом. для него надо делать проверку на количество елементов
+  var getDivAfterInsert = Math.ceil(correctItem / getPositionInline) * getPositionInline;
+
+
+  if(allItems.length < getDivAfterInsert) {
+    currDiv = allItems.last()
+  } else {
+    console.log('getDivAfterInsert', getDivAfterInsert)
+    currDiv = allItems[getDivAfterInsert-1];
+  }
+
+  jQuery(currDiv).after(addDescBlock())
+}
+
+
+
 // ПОДРОБНЕЕ - главная фигня
 $(document).on('click', '.full-desc', function(event){
     event.preventDefault();
@@ -186,22 +213,7 @@ $(document).on('click', '.full-desc', function(event){
 
         // показываем простой блок или модалку
         if (windowWidth > 1024) {
-          var parentDiv = $(this).parent().parent().parent().parent()
-          var positionOfItem = getPositionOfItemBlock();
-
-          // после какого елемента нужно вставить наш див
-          // жопа с посленим рядом. для него надо делать проверку на количество елементов
-          var getDivAfterInsert = Math.ceil(correctItem / getPositionInline) * getPositionInline;
-
-
-          if(allItems.length < getDivAfterInsert) {
-            currDiv = allItems.last()
-          } else {
-            console.log('getDivAfterInsert', getDivAfterInsert)
-            currDiv = allItems[getDivAfterInsert-1];
-          }
-
-          jQuery(currDiv).after(addDescBlock())
+          allMagicWithAddingDescBlock()
         } else {
           $('body').css({'overflow':'hidden'})
           $('#descModal').css({'display':'block'})
@@ -230,11 +242,22 @@ $(window).on('resize', function(){
 
   // FIRST DESCTOP VERSION.     SECOND - MODAL
   if(windowWidth > 1024){
+    $('#descModal').css({'display':'none'})
+
+    // при переходе из модала в норм состояние
+    // if ($('.full-desc .active')) {
+    //   $('body').css({'overflow':'auto'})
+    //   $('.full-description-desctop').css({'display':'block'})
+    //   allMagicWithAddingDescBlock();
+    // }
+    
     if (oldPos != currPos) {
       // мы уменьшаем размер екрана
       if ($('.full-desc .active') && oldPos > currPos && oldPos != Infinity) {
   
         console.log('Уменьшили')
+        // $('.full-description-desctop').length > 0 ? $('.full-description-desctop').remove() : null
+        // allMagicWithAddingDescBlock()
         prevElementHtml = $('.full-description-desctop').prev().html()
         
         jQuery($('.full-description-desctop')).after('<div class="catalog-block_li product-item inserted_js"></div>')
@@ -249,14 +272,23 @@ $(window).on('resize', function(){
         $('.inserted_js').html(beforeElementHtml)
         $('.inserted_js').removeClass('inserted_js')
         $('.full-description-desctop').next().remove()
+        
+        // $('.full-description-desctop').length > 0 ? $('.full-description-desctop').remove() : null
+        // allMagicWithAddingDescBlock()
       }
       
       oldPos = currPos;
-    } else {
-      $('.full-description-modal').css({'display':'block'})
-      oldPos = currPos;
     }
-  }
+  } else {
+    if ($('.full-desc.active').length == 1) {
+      console.log('------------------------------')
+      $('.full-description-desctop').css({'display':'none'})
+      $('#descModal').css({'display':'block'})
+      $('.full-description-modal').css({'display':'block'})
+    }
+    
+    oldPos = currPos;
+  }  
   
 })
 
