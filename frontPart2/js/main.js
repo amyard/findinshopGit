@@ -50,12 +50,12 @@ $(document).on('click', '.full-description__close--btn', function() {
 
 
 // TODO - ПЕРЕЛЕДАТЬ. ПОПАТ ДОЛЖНЕ С ВЫСОТЫ 1024px
-// $(window).on('resize', function(){
-//   wdRes = $(window).width()
-//   if (wdRes <= 480) {
-//       $('.full-description').css({'display':'none'});
-//   }
-// })
+$(window).on('resize', function(){
+  wdRes = $(window).width()
+  if (wdRes <= 480) {
+      $('.full-description').css({'display':'none'});
+  }
+})
 
 
 
@@ -63,7 +63,7 @@ $(document).on('click', '.full-description__close--btn', function() {
 function posInline() {
   blockWidth = $('.catalog-block').width();
   // работает
-  itemWidth = $('.full-description').length != 0 ? $('.full-description').next().width() : $('.product-item').width()
+  itemWidth = $('.full-description').length != 0 && $('.full-description').width() != 100 ? $('.full-description').next().width() : $('.product-item').width()
   res =  Math.ceil( blockWidth / itemWidth ) - 1;
 
   // itemWidth = $('.full-description').length != 0 ? $('.full-description').next().width() : $('.product-item').width()
@@ -172,18 +172,19 @@ function getPositionOfItemBlock(allItems) {
 $(document).on('click', '.full-desc', function(event){
     event.preventDefault();
 
-    $('.full-desc').removeClass('active');
-    // $('.full-description').remove();
     var windowWidth = $(window).width(),
-        allItems = $('.product-item'),
+        allItems = $('.catalog-block_li'),
         getPositionInline = posInline();
+
+    $('.full-desc').removeClass('active');
+    
+    windowWidth > 1024 ? $('.full-description').remove() : null
 
     if(!$(this).attr('class').includes('active')){
         $(this).addClass('active')
 
         // показываем простой блок или модалку
         if (windowWidth > 1024) {
-          console.log('NOT           MODALLLLLLL')
           var parentDiv = $(this).parent().parent().parent().parent()
           var positionOfItem = getPositionOfItemBlock(allItems);
 
@@ -191,15 +192,16 @@ $(document).on('click', '.full-desc', function(event){
           // жопа с посленим рядом. для него надо делать проверку на количество елементов
           var getDivAfterInsert = Math.ceil(correctItem / getPositionInline) * getPositionInline;
 
+
           if(allItems.length < getDivAfterInsert) {
             currDiv = allItems.last()
           } else {
+            console.log('getDivAfterInsert', getDivAfterInsert)
             currDiv = allItems[getDivAfterInsert-1];
           }
 
           jQuery(currDiv).after(addDescBlock())
         } else {
-          console.log('MODALLLLLLL')
           $('#descModal').css({'display':'block'})
         }
         
