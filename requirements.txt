@@ -31,7 +31,7 @@ django-suit==0.2.24
 djangorestframework==3.5.3
 dse==3.3.0
 easy-thumbnails==2.3
-ecdsa==0.13
+ecdsa==0.13.3
 # elasticsearch==5.1.0
 enum34==1.1.6
 et-xmlfile==1.0.1
