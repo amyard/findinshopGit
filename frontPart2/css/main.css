@@ -14380,8 +14380,18 @@ html {
 }
 
 
+@media (min-width: 1200px) {
+  .full-description {
+    margin-top: 70px;
+  }
+}
 
 
+@media (min-width: 1025px) and (max-width: 1199px) {
+  .full-description {
+    margin-top: 0px;
+  }
+}
 
 
 
