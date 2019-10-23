@@ -75,7 +75,7 @@ function posInline() {
 
 function addDescBlock(){
   return `\
-    <div class="full-description">\
+    <div class="full-description full-description-desctop">\
       <div class="full-description__content">\
           <div class="full-description__content--img"> <img alt="" src="https://www.ttt.ua/uploads/shop/products/large/c_09ba42aaf4e9b85a2a25349654b47a21.jpg"> </div>\
           <div class="full-description__content--info">\
@@ -151,8 +151,6 @@ function getPositionOfItemBlock() {
   var allItems = $('.catalog-block_li .item_img').parent().parent()
   $.each(allItems, function(dt, value) {
       var innerBtnClass = jQuery(value).find('.full-desc').attr('class');
-      console.log('innerBtnClass    ', innerBtnClass)
-      console.log('value    ', value)
       innerBtnClass.includes('active')
           ? correctItem = dt+1
           : null
@@ -181,7 +179,7 @@ $(document).on('click', '.full-desc', function(event){
 
     $('.full-desc').removeClass('active');
     
-    windowWidth > 1024 ? $('.full-description').remove() : null
+    windowWidth > 1024 ? $('.full-description-desctop').remove() : null
 
     if(!$(this).attr('class').includes('active')){
         $(this).addClass('active')
@@ -227,31 +225,39 @@ oldPos = posInline()
 $(window).on('resize', function(){
 
   allItems = $('.product-item')
-  currPos = posInline()
-  
-  if (oldPos != currPos) {
-    // мы уменьшаем размер екрана
-    if ($('.full-desc .active') && oldPos > currPos && oldPos != Infinity) {
+  currPos = posInline();
+  var windowWidth = $(window).width();
 
-      console.log('Уменьшили')
-      prevElementHtml = $('.full-description').prev().html()
+  // FIRST DESCTOP VERSION.     SECOND - MODAL
+  if(windowWidth > 1024){
+    if (oldPos != currPos) {
+      // мы уменьшаем размер екрана
+      if ($('.full-desc .active') && oldPos > currPos && oldPos != Infinity) {
+  
+        console.log('Уменьшили')
+        prevElementHtml = $('.full-description-desctop').prev().html()
+        
+        jQuery($('.full-description-desctop')).after('<div class="catalog-block_li product-item inserted_js"></div>')
+        $('.inserted_js').html(prevElementHtml)
+        $('.inserted_js').removeClass('inserted_js')
+        $('.full-description-desctop').prev().remove()
+      } else if ($('.full-desc .active') && oldPos < currPos && oldPos != Infinity) {
+        console.log('Увеличили')
+        beforeElementHtml = $('.full-description-desctop').next().html()
+        
+        jQuery($('.full-description-desctop')).before('<div class="catalog-block_li product-item inserted_js"></div>')
+        $('.inserted_js').html(beforeElementHtml)
+        $('.inserted_js').removeClass('inserted_js')
+        $('.full-description-desctop').next().remove()
+      }
       
-      jQuery($('.full-description')).after('<div class="catalog-block_li product-item inserted_js"></div>')
-      $('.inserted_js').html(prevElementHtml)
-      $('.inserted_js').removeClass('inserted_js')
-      $('.full-description').prev().remove()
-    } else if ($('.full-desc .active') && oldPos < currPos && oldPos != Infinity) {
-      console.log('Увеличили')
-      beforeElementHtml = $('.full-description').next().html()
-      
-      jQuery($('.full-description')).before('<div class="catalog-block_li product-item inserted_js"></div>')
-      $('.inserted_js').html(beforeElementHtml)
-      $('.inserted_js').removeClass('inserted_js')
-      $('.full-description').next().remove()
+      oldPos = currPos;
+    } else {
+      $('.full-description-modal').css({'display':'block'})
+      oldPos = currPos;
     }
-    
-    oldPos = currPos;
   }
+  
 })
 
 
