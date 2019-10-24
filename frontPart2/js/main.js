@@ -183,13 +183,14 @@ function allMagicWithAddingDescBlock(){
   // жопа с посленим рядом. для него надо делать проверку на количество елементов
   var getDivAfterInsert = Math.ceil(correctItem / getPositionInline) * getPositionInline;
 
-
-  if(allItems.length < getDivAfterInsert) {
-    currDiv = allItems.last()
-  } else {
-    console.log('getDivAfterInsert', getDivAfterInsert)
-    currDiv = allItems[getDivAfterInsert-1];
-  }
+  allItems.length < getDivAfterInsert
+    ? currDiv = allItems.last()
+    : currDiv = allItems[getDivAfterInsert-1]
+  // if(allItems.length < getDivAfterInsert) {
+  //   currDiv = allItems.last()
+  // } else {
+  //   currDiv = allItems[getDivAfterInsert-1];
+  // }
 
   jQuery(currDiv).after(addDescBlock())
 }
@@ -232,9 +233,20 @@ $('body').on('click', '.close', function(){
 });
 
 
+// click on img - не будет пригать вверх при нажатии
+$(document).on('click', '.item_img', function (event){
+  event.preventDefault();
+})
+
+
+// закрываем desc после повторного нажатия на Побробнее
+$(document).on('click', '.full-desc.active', function() {
+  $('.full-description__close--btn').click();
+})
+
+
 // TODO - ПЕРЕЛЕДАТЬ. ПОПАТ ДОЛЖНЕ С ВЫСОТЫ 1024px
 oldPos = posInline()
-
 $(window).on('resize', function(){
 
   allItems = $('.product-item')
@@ -284,9 +296,6 @@ $(window).on('resize', function(){
         oldPos = currPos;
       }
     }
-
-    
-
     // при переходе из модала в норм состояние
     // if ($('.full-desc .active')) {
     //   $('body').css({'overflow':'auto'})
