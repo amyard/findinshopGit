@@ -237,7 +237,17 @@ function removeActiveCssStyles(actBtn) {
   if(windowWidth > 1200) {
     parDiv.css({'border':'none'})
     parDiv.css({'border':'1px solid #ededed'})
-  // } else if($(window).width() > 1024 && $(window).width() < 1200) {
+    parDiv.find('.item_img').css({
+      'border-top': 'none',
+      'border-left': 'none',
+      'border-right': 'none',
+    })
+    parDiv.find('.item_footer').css({
+        'border-bottom': 'none',
+        'border-left': 'none',
+        'border-right': 'none',
+    })
+  } else if($(window).width() > 1024 && $(window).width() < 1200) {
     parDiv.find('.item_img').css({
       'border-top': '1px solid #ededed',
       'border-left': '1px solid #ededed',
