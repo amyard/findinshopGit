@@ -173,11 +173,27 @@ function getPositionOfItemBlock() {
 
 
 function allMagicWithAddingDescBlock(){
+
   allItems = $('.catalog-block_li')
   getPositionInline = posInline()
-  var activeBtn = $('.full-desc .active')
+  var activeBtn = $('.full-desc.active')
   var parentDiv = activeBtn.parent().parent().parent().parent()
   var positionOfItem = getPositionOfItemBlock();
+
+  // add custom styles for active statement
+  if($(window).width() > 1024 && $(window).width() < 1200) {
+    parentDiv.find('.item_img').css({
+      'border-top': '1px solid #FF4B00',
+      'border-left': '1px solid #FF4B00',
+      'border-right': '1px solid #FF4B00',
+    })
+    parentDiv.find('.item_footer').css({
+        'border-bottom': '1px solid #FF4B00',
+        'border-left': '1px solid #FF4B00',
+        'border-right': '1px solid #FF4B00',
+    })
+  }
+
 
   // после какого елемента нужно вставить наш див
   // жопа с посленим рядом. для него надо делать проверку на количество елементов
@@ -217,9 +233,21 @@ function removeActiveCssStyles(actBtn) {
   var parDiv = actBtn.parent().parent().parent().parent(),  //  Это типа box, not full element
       windowWidth = $(window).width();
   
+  // add custom styles for active statement
   if(windowWidth > 1200) {
     parDiv.css({'border':'none'})
     parDiv.css({'border':'1px solid #ededed'})
+  // } else if($(window).width() > 1024 && $(window).width() < 1200) {
+    parDiv.find('.item_img').css({
+      'border-top': '1px solid #ededed',
+      'border-left': '1px solid #ededed',
+      'border-right': '1px solid #ededed',
+    })
+    parDiv.find('.item_footer').css({
+        'border-bottom': '1px solid #ededed',
+        'border-left': '1px solid #ededed',
+        'border-right': '1px solid #ededed',
+    })
   }
 }
 
@@ -236,13 +264,11 @@ $(document).on('click', '.full-desc', function(event){
     if($('.full-desc.active').length != 0){
       removeActiveCssStyles($('.full-desc.active'));
     }
-    // $('.full-desc').removeClass('active');
     
 
     windowWidth > 1024 ? $('.full-description-desctop').remove() : null
 
     if(!$(this).attr('class').includes('active')){
-        // addActiveCssStyles($(this));
         $(this).addClass('active')
 
         // показываем простой блок или модалку
