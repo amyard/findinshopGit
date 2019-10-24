@@ -186,13 +186,41 @@ function allMagicWithAddingDescBlock(){
   allItems.length < getDivAfterInsert
     ? currDiv = allItems.last()
     : currDiv = allItems[getDivAfterInsert-1]
-  // if(allItems.length < getDivAfterInsert) {
-  //   currDiv = allItems.last()
-  // } else {
-  //   currDiv = allItems[getDivAfterInsert-1];
-  // }
-
   jQuery(currDiv).after(addDescBlock())
+}
+
+
+
+
+// при наведении мыши делает эффект active
+$('.catalog-block_li').mouseenter(function(){
+  var actBtnClass = $(this).find('.full-desc').attr('class')
+  if ($(window).width() >= 1201) {
+      $(this).css({'overflow':'visible'});
+  }
+}).mouseleave(function() {
+  if ($(window).width() >= 1201) {
+      var actBtnClass = $(this).find('.full-desc').attr('class')
+      if (actBtnClass.includes('active')){
+          $(this).find('.item_box').css({'border':'1px solid #FF4B00'});
+          $(this).css({'overflow':'hidden'});
+      } else {
+          $(this).find('.item_box').css({'border':'1px solid #ededed'});
+          $(this).css({'overflow':'hidden'});
+      }
+  }
+});
+
+
+function removeActiveCssStyles(actBtn) {
+  $('.full-desc').removeClass('active');
+  var parDiv = actBtn.parent().parent().parent().parent(),  //  Это типа box, not full element
+      windowWidth = $(window).width();
+  
+  if(windowWidth > 1200) {
+    parDiv.css({'border':'none'})
+    parDiv.css({'border':'1px solid #ededed'})
+  }
 }
 
 
@@ -205,11 +233,16 @@ $(document).on('click', '.full-desc', function(event){
         allItems = $('.catalog-block_li'),
         getPositionInline = posInline();
 
-    $('.full-desc').removeClass('active');
+    if($('.full-desc.active').length != 0){
+      removeActiveCssStyles($('.full-desc.active'));
+    }
+    // $('.full-desc').removeClass('active');
     
+
     windowWidth > 1024 ? $('.full-description-desctop').remove() : null
 
     if(!$(this).attr('class').includes('active')){
+        // addActiveCssStyles($(this));
         $(this).addClass('active')
 
         // показываем простой блок или модалку
