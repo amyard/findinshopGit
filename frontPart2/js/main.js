@@ -45,17 +45,18 @@ $(document).on('click', '.full-description__close--btn', function() {
   } else {
       $('.full-description').css({'display':'none'});
   }
+  removeActiveCssStyles($('.full-desc.active'));
 });
 
 
 
-// TODO - ПЕРЕЛЕДАТЬ. ПОПАТ ДОЛЖНЕ С ВЫСОТЫ 1024px
-$(window).on('resize', function(){
-  wdRes = $(window).width()
-  if (wdRes <= 480) {
-      $('.full-description').css({'display':'none'});
-  }
-})
+// // TODO - ПЕРЕЛЕДАТЬ. ПОПАТ ДОЛЖНЕ С ВЫСОТЫ 1024px
+// $(window).on('resize', function(){
+//   wdRes = $(window).width()
+//   if (wdRes <= 480) {
+//       $('.full-description').css({'display':'none'});
+//   }
+// })
 
 
 
@@ -159,19 +160,6 @@ function getPositionOfItemBlock() {
 }
 
 
-// кнопка активная и екран меньше 1024px то показываем модал
-// function displayModal(){
-//   $('.full-desc .active') && $(window).width()<=1024
-//     ? $('#descModal').css({'display':'block'})
-//     : null
-// }
-
-// displayModal()
-
-
-
-
-
 function allMagicWithAddingDescBlock(){
 
   allItems = $('.catalog-block_li')
@@ -203,6 +191,10 @@ function allMagicWithAddingDescBlock(){
     ? currDiv = allItems.last()
     : currDiv = allItems[getDivAfterInsert-1]
   jQuery(currDiv).after(addDescBlock())
+
+  
+  // scroll top
+  sctollUpThanOpenDescBlock(600)
 }
 
 
@@ -229,12 +221,16 @@ $('.catalog-block_li').mouseenter(function(){
 
 
 function removeActiveCssStyles(actBtn) {
-  $('.full-desc').removeClass('active');
+   
   var parDiv = actBtn.parent().parent().parent().parent(),  //  Это типа box, not full element
       windowWidth = $(window).width();
   
   // add custom styles for active statement
   if(windowWidth > 1200) {
+
+    // scroll top
+    sctollUpThanOpenDescBlock(600);
+
     parDiv.css({'border':'none'})
     parDiv.css({'border':'1px solid #ededed'})
     parDiv.find('.item_img').css({
@@ -259,8 +255,16 @@ function removeActiveCssStyles(actBtn) {
         'border-right': '1px solid #ededed',
     })
   }
+
+  $('.full-desc').removeClass('active');
 }
 
+
+// скрол наверх, когда нажимает на открыть desc
+function sctollUpThanOpenDescBlock(speed){
+    parentDiv = $('.full-desc.active').parent().parent().parent().parent()
+    $('html, body').animate({ scrollTop: parentDiv.offset().top-100  }, speed)
+}
 
 
 // ПОДРОБНЕЕ - главная фигня
@@ -298,7 +302,8 @@ $('body').on('click', '.close', function(){
   $('body').css({'overflow':'auto'})
   $('.filter__item').css({'display':'none'})
   $('#descModal').css({'display':'none'})
-  $('.full-desc.active').removeClass('active')
+  sctollUpThanOpenDescBlock(600);
+  // $('.full-desc.active').removeClass('active')
 });
 
 
@@ -365,19 +370,13 @@ $(window).on('resize', function(){
         oldPos = currPos;
       }
     }
-    // при переходе из модала в норм состояние
-    // if ($('.full-desc .active')) {
-    //   $('body').css({'overflow':'auto'})
-    //   $('.full-description-desctop').css({'display':'block'})
-    //   allMagicWithAddingDescBlock();
-    // }
   } else {
     if ($('.full-desc.active').length == 1) {
       console.log('MODAL FROM RESIZE')
       $('.full-description-desctop').remove()
       $('#descModal').css({'display':'block'})
-      $('.full-description-modal').css({'display':'block'})
     }
+    $('.full-description-modal').css({'display':'block'})
     
     oldPos = currPos;
   }  
