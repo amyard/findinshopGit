@@ -60,7 +60,7 @@ openpyxl==2.4.2
 ordereddict==1.1
 oursql==0.9.3.2
 packaging==16.8
-paramiko==2.1.1
+paramiko==2.1.6
 path.py==10.1
 pathlib2==2.2.1
 pefile==2016.3.28
