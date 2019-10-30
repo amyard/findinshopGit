@@ -50,16 +50,6 @@ $(document).on('click', '.full-description__close--btn', function() {
 
 
 
-// // TODO - ПЕРЕЛЕДАТЬ. ПОПАТ ДОЛЖНЕ С ВЫСОТЫ 1024px
-// $(window).on('resize', function(){
-//   wdRes = $(window).width()
-//   if (wdRes <= 480) {
-//       $('.full-description').css({'display':'none'});
-//   }
-// })
-
-
-
 // функция возвращает сколько елементов (блоков с продуктами) в строке
 function posInline() {
   blockWidth = $('.catalog-block').width();
@@ -67,10 +57,9 @@ function posInline() {
   itemWidth = $('.full-description').length != 0 && $('.full-description').width() != 100 ? $('.full-description').next().width() : $('.product-item').width()
   res =  Math.ceil( blockWidth / itemWidth ) - 1;
 
-  // itemWidth = $('.full-description').length != 0 ? $('.full-description').next().width() : $('.product-item').width()
-  // floatPart  = (blockWidth / itemWidth) - Math.round( blockWidth / itemWidth );
-  // res = floatPart >=0.5 ? Math.ceil( blockWidth / itemWidth ) - 1 : Math.ceil( blockWidth / itemWidth ) - 2;
-  return res
+  // когда количество елентов в строке 11, то показует результат через функцию 12. убираем на 1
+  corrRes = res > 10 ? res - 1 : res
+  return corrRes
 }
 
 
@@ -190,11 +179,13 @@ function allMagicWithAddingDescBlock(){
   allItems.length < getDivAfterInsert
     ? currDiv = allItems.last()
     : currDiv = allItems[getDivAfterInsert-1]
+
   jQuery(currDiv).after(addDescBlock())
 
-  
-  // scroll top
-  sctollUpThanOpenDescBlock(600)
+  setTimeout(function(){
+    // scroll top
+    sctollUpThanOpenDescBlock(600)
+  }, 200)
 }
 
 
@@ -229,7 +220,7 @@ function removeActiveCssStyles(actBtn) {
   if(windowWidth > 1200) {
 
     // scroll top
-    sctollUpThanOpenDescBlock(600);
+    // sctollUpThanOpenDescBlock(600);
 
     parDiv.css({'border':'none'})
     parDiv.css({'border':'1px solid #ededed'})
@@ -319,13 +310,62 @@ $(document).on('click', '.full-desc.active', function() {
 })
 
 
+
+
+// нижняя строка flexbox-a растягивается на всю ширину
+// function lastLineOfDivsSetWidth(){
+//   // setTimeout(function(){
+//   //   blockWidth = $('.catalog-block_li').first().css('width')
+//   //   console.log(' -------- ', blockWidth)
+//   //   $('.catalog-block_li').css({'max-width': blockWidth})
+//   // }, 1)
+
+//   var posInlineDivs = posInline(), 
+//       allItems = $('.catalog-block_li').length,
+//       insertValue = posInlineDivs - (allItems % posInlineDivs),
+//       arr = Array(insertValue).fill(1);
+
+//   console.log(arr)
+//   console.log(insertValue)
+
+//   arr.forEach(function(value){
+//     $('.catalog-block_li').last().after('<div class="emptyVal"></div>') 
+//   })
+
+//   setTimeout(function(){
+//     blockWidth = $('.catalog-block_li').first().css('width')
+//     $('.emptyVal').css({'width': blockWidth})
+//   }, 1)
+      
+// }
+
+function lastLineOfDivsSetWidth(){
+  var posInlineDivs = posInline(), 
+  allItems = $('.catalog-block_li').length,
+  insertValue = allItems % posInlineDivs, // последний ряд елементов
+  arrSlice = $('.catalog-block_li').slice(allItems - insertValue, allItems);
+
+  setTimeout(function(){
+    $.each(arrSlice, function(index, value) {
+      jQuery(value).css({ 'max-width': $('.catalog-block_li').first().css('width') })
+    })
+  }, .5) 
+}
+
+lastLineOfDivsSetWidth()
+
+
+
 // TODO - ПЕРЕЛЕДАТЬ. ПОПАТ ДОЛЖНЕ С ВЫСОТЫ 1024px
 oldPos = posInline()
 $(window).on('resize', function(){
+  
 
   allItems = $('.product-item')
   currPos = posInline();
   var windowWidth = $(window).width();
+
+  lastLineOfDivsSetWidth()
 
   // FIRST DESCTOP VERSION.     SECOND - MODAL
   if(windowWidth > 1024){
