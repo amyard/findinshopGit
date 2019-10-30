@@ -432,6 +432,9 @@ $(document).on('click', '.icon', function(){
     $('.full-description').remove()
     $('.catalog-block_ul').addClass('catalog-block_ul--inline');
     $('.catalog-block_li').addClass('product-item--inline');
+    $('.item_box').css({'border':'1px solid #ededed'})
+    $('.product-item').css({'overflow':'hidden'})
+    $('.full-desc').removeClass('active')
 
     allData = $('.product-item');
     $.each(allData, function(index, value){
@@ -448,6 +451,7 @@ $(document).on('click', '.icon', function(){
     $('.item_short_desc.general-content-here').remove()
     $('.full-description__footer').remove()
     $('.full-description__close--btn').remove() 
+    $('.product-item').css({'overflow':'hidden'})
   }
 });
 
