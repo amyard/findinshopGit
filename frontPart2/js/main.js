@@ -8,7 +8,8 @@ jQuery(document).ready(function(){
 
 
 // ПОЛНОЕ ОПИСАНИЕ ТОВАРА - НАЖИМАТЬ НА КНОПКУ "ЕЩЕ"
-$(document).on('click', '.more-btn', function(){
+$(document).on('click', '.more-btn', function(event){
+    event.stopPropagation()
     cls = $('.general-content-here span').attr('class')
     if(cls.includes('hdd')) {
         $('.general-content-here span').removeClass('hdd')
@@ -310,35 +311,6 @@ $(document).on('click', '.full-desc.active', function() {
 })
 
 
-
-
-// нижняя строка flexbox-a растягивается на всю ширину
-// function lastLineOfDivsSetWidth(){
-//   // setTimeout(function(){
-//   //   blockWidth = $('.catalog-block_li').first().css('width')
-//   //   console.log(' -------- ', blockWidth)
-//   //   $('.catalog-block_li').css({'max-width': blockWidth})
-//   // }, 1)
-
-//   var posInlineDivs = posInline(), 
-//       allItems = $('.catalog-block_li').length,
-//       insertValue = posInlineDivs - (allItems % posInlineDivs),
-//       arr = Array(insertValue).fill(1);
-
-//   console.log(arr)
-//   console.log(insertValue)
-
-//   arr.forEach(function(value){
-//     $('.catalog-block_li').last().after('<div class="emptyVal"></div>') 
-//   })
-
-//   setTimeout(function(){
-//     blockWidth = $('.catalog-block_li').first().css('width')
-//     $('.emptyVal').css({'width': blockWidth})
-//   }, 1)
-      
-// }
-
 function lastLineOfDivsSetWidth(){
   var posInlineDivs = posInline(), 
   allItems = $('.catalog-block_li').length,
@@ -388,11 +360,6 @@ $(window).on('resize', function(){
         if ($('.full-desc .active') && oldPos > currPos && oldPos != Infinity) {
     
           console.log('Уменьшили')
-          // prevElementHtml = $('.full-description-desctop').prev().html()
-          // jQuery($('.full-description-desctop')).after('<div class="catalog-block_li product-item inserted_js"></div>')
-          // $('.inserted_js').html(prevElementHtml)
-          // $('.inserted_js').removeClass('inserted_js')
-          // $('.full-description-desctop').prev().remove()
           $('.full-description-desctop').remove()
           allMagicWithAddingDescBlock();
         } else if ($('.full-desc .active') && oldPos < currPos && oldPos != Infinity) {
@@ -400,11 +367,6 @@ $(window).on('resize', function(){
           console.log('Увеличили')
           $('.full-description-desctop').remove()
           allMagicWithAddingDescBlock();
-          // beforeElementHtml = $('.full-description-desctop').next().html()       
-          // jQuery($('.full-description-desctop')).before('<div class="catalog-block_li product-item inserted_js"></div>')
-          // $('.inserted_js').html(beforeElementHtml)
-          // $('.inserted_js').removeClass('inserted_js')
-          // $('.full-description-desctop').next().remove()
         }
         
         oldPos = currPos;
@@ -421,8 +383,23 @@ $(window).on('resize', function(){
     oldPos = currPos;
   }  
   
-})
+})  
 
+
+
+//  inline table
+$(document).on('click', '.product-item--inline', function(){
+  clsName = $(this).attr('class')
+  if (clsName.includes('product-item--inline-bigger')) {
+    $(this).removeClass('product-item--inline-bigger')
+    $(this).find('.full-description__close--btn').remove()
+    $(this).find('.full-description__footer').remove()
+  } else {
+    $(this).addClass('product-item--inline-bigger')
+    $(this).find('.product-item--title').before('<span class="full-description__close--btn close">×</span>')
+    $(this).find('.item_detail').after('<div class="full-description__footer"> <img src="" alt="" class="svg-icon d-none" onclick="wishlist( 1141864 )" id="wish" target="_blank"> <img src="" alt="" class="d-none"> <a class="orange-btn-cs orange-btn-padding-cs shop-btn" href="/bid/transition/1141864/" id="redirect-popup-button" target="_blank" style="position: absolute; bottom: 24px;">В МАГАЗИН</a> <a class="orange-btn-cs orange-btn-padding-cs coupon-btn" style="position: absolute; bottom: 24px;">ОТПРАВИТЬ</a> </div>')
+  }
+});
 
 
 
