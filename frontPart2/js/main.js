@@ -390,6 +390,11 @@ $(window).on('resize', function(){
 
 
 
+function sctollUpInlineThanOpenDescBlock(speed){
+  $('html, body').animate({ scrollTop: $('.product-item--inline-bigger').offset().top-100  }, speed)
+}
+
+
 //  inline table
 $(document).on('click', '.product-item--inline', function(){
   $('.full-description__footer').remove()
@@ -410,6 +415,7 @@ $(document).on('click', '.product-item--inline', function(){
     $(this).find('.product-item--title').before('<span class="full-description__close--btn close">×</span>')
     $(this).find('.more-btn').css({'display':'block'})
     $(this).find('.item_detail').after('<div class="full-description__footer"> <img src="" alt="" class="svg-icon d-none" onclick="wishlist( 1141864 )" id="wish" target="_blank"> <img src="" alt="" class="d-none"> <a class="orange-btn-cs orange-btn-padding-cs shop-btn" href="/bid/transition/1141864/" id="redirect-popup-button" target="_blank" style="position: absolute; bottom: 24px;">В МАГАЗИН</a> <a class="orange-btn-cs orange-btn-padding-cs coupon-btn" style="position: absolute; bottom: 24px;">ОТПРАВИТЬ</a> </div>')
+    sctollUpInlineThanOpenDescBlock(600)
   }
 });
 
@@ -423,6 +429,7 @@ $(document).on('click', '.icon', function(){
 
   var clsName = $(this).attr('class')
   if (clsName.includes('inline')) {
+    $('.full-description').remove()
     $('.catalog-block_ul').addClass('catalog-block_ul--inline');
     $('.catalog-block_li').addClass('product-item--inline');
 
@@ -440,8 +447,7 @@ $(document).on('click', '.icon', function(){
     $('.catalog-block_li').removeClass('product-item--inline').removeClass('product-item--inline-bigger');
     $('.item_short_desc.general-content-here').remove()
     $('.full-description__footer').remove()
-    $('.full-description__close--btn').remove()
-    
+    $('.full-description__close--btn').remove() 
   }
 });
 
