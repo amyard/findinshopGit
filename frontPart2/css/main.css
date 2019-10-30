@@ -14031,7 +14031,7 @@ html {
       margin-bottom: 100px;
   }
   .catalog-block .catalog-block_ul .catalog-block_li .item_box {
-      height: 100%!important;
+      height: 100%;
   }
   .catalog-block .catalog-block_ul .catalog-block_li .item_box .item_footer {
       border: 1px solid #ededed;
@@ -14471,7 +14471,7 @@ html {
 .product-item--inline .item_box {
   display: grid;
   grid-template-columns: 20% 80%;
-  height: auto !important;
+  height: auto!important;
 }
 
 .product-item--inline .full-desc {
@@ -14498,6 +14498,55 @@ html {
 
 .product-item--inline .item_detail  {
   padding: 10px 0px!important;
+}
+
+
+@media (max-width: 1024px) {
+  .item_img {
+    border-left: 1px solid red;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .catalog-block .catalog-block_ul .product-item--inline .item_box .item_img {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+  .catalog-block .catalog-block_ul .product-item--inline .item_box .item_footer {
+    border: none;
+  }
+  .catalog-block .catalog-block_ul .product-item--inline {
+    margin-bottom: 50px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .catalog-block .catalog-block_ul .product-item--inline .item_box .item_footer .item_short_desc {
+    display: none;
+  }
+
+  .catalog-block .catalog-block_ul .product-item--inline .item_box {
+    display: block;
+  }
+
+  .catalog-block .catalog-block_ul .product-item--inline .item_box .item_img {
+    border-bottom: 1px solid #ededed;
+  }
+
+  .catalog-block .catalog-block_ul .product-item--inline .item_box .item_footer .item_price {
+    margin-top: 10px;
+    text-align: right!important;
+    float: none;
+  }
+  .catalog-block .catalog-block_ul .product-item--inline .item_box .item_footer .item_t {
+    height: 51px!important;
+  }
+  .catalog-block .catalog-block_ul .product-item--inline .item_box .item_footer .full-desc {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+  }
 }
 
 
@@ -14568,6 +14617,14 @@ html {
 }
 
 
+/* @media (min-width: 320px) {
+  .item_box {
+    height: auto !important;
+  }
+} */
+
+
+
 
 .sort_inline {
   margin: 16px 5px !important;
@@ -14629,3 +14686,4 @@ html {
 .dots {
   display: inline-block;
 }
+
