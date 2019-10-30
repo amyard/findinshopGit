@@ -14626,3 +14626,6 @@ html {
   background-image: url(../img/table_orange.svg);
 }
 
+.dots {
+  display: inline-block;
+}

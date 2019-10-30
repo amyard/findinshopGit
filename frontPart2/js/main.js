@@ -392,7 +392,6 @@ $(window).on('resize', function(){
 
 //  inline table
 $(document).on('click', '.product-item--inline', function(){
-  // $('.product-item--inline').removeClass('product-item--inline-bigger')
   $('.full-description__footer').remove()
   $('.full-description__close--btn').remove()
 
@@ -433,12 +432,16 @@ $(document).on('click', '.icon', function(){
           fullDesc = jQuery(value).find('.item_detail').attr('data-id-full');
 
           jQuery(value).find('.item_detail').first().before('<div class="item_short_desc general-content-here"></div>')
-          jQuery(value).find('.item_short_desc').html(`<p>${shortDesc}...<span class="lalal hdd" style="display:none;">${fullDesc}</span></p><span class="more-btn hdd" style="display: none;">Еще</span>`)
+          jQuery(value).find('.item_short_desc').html(`<p>${shortDesc}<span class="lalal hdd" style="display:none;">${fullDesc}</span></p><span class="more-btn hdd" style="display: none;">Еще</span>`)
     })
 
   } else {
     $('.catalog-block_ul').removeClass('catalog-block_ul--inline');
-    $('.catalog-block_li').removeClass('product-item--inline');
+    $('.catalog-block_li').removeClass('product-item--inline').removeClass('product-item--inline-bigger');
+    $('.item_short_desc.general-content-here').remove()
+    $('.full-description__footer').remove()
+    $('.full-description__close--btn').remove()
+    
   }
 });
 
