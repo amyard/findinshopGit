@@ -264,28 +264,33 @@ function sctollUpThanOpenDescBlock(speed){
 $(document).on('click', '.full-desc', function(event){
     event.preventDefault();
 
-    var windowWidth = $(window).width(),
+    if ($('.sort_filter .active').attr('class').includes('table')) {
+      var windowWidth = $(window).width(),
         allItems = $('.catalog-block_li'),
         getPositionInline = posInline();
 
-    if($('.full-desc.active').length != 0){
-      removeActiveCssStyles($('.full-desc.active'));
-    }
-    
+      if($('.full-desc.active').length != 0){
+        removeActiveCssStyles($('.full-desc.active'));
+      }
+      
 
-    windowWidth > 1024 ? $('.full-description-desctop').remove() : null
+      windowWidth > 1024 ? $('.full-description-desctop').css({'display':'none'}) : null
 
-    if(!$(this).attr('class').includes('active')){
-        $(this).addClass('active')
+      if(!$(this).attr('class').includes('active')){
+          $(this).addClass('active')
 
-        // показываем простой блок или модалку
-        if (windowWidth > 1024) {
-          allMagicWithAddingDescBlock()
-        } else {
-          $('body').css({'overflow':'hidden'})
-          $('#descModal').css({'display':'block'})
-        }
-        
+          // показываем простой блок или модалку
+          if (windowWidth > 1024) {
+            allMagicWithAddingDescBlock()
+          } else {
+            $('body').css({'overflow':'hidden'})
+            $('#descModal').css({'display':'block'})
+            
+            $('#descModal .full-description__footer').css({'display':'block'})
+            $('#descModal .full-description__close--btn').css({'display':'block'})
+            $('#descModal .more-btn').css({'display':'block'})
+          }   
+      }
     }
 });
 
@@ -397,26 +402,38 @@ function sctollUpInlineThanOpenDescBlock(speed){
 
 //  inline table
 $(document).on('click', '.product-item--inline', function(){
-  $('.full-description__footer').remove()
-  $('.full-description__close--btn').remove()
-
-  $('.more-btn').css({'display':'none'})
-  $('.more-btn').removeClass('shwd').removeClass('hhd').addClass('hdd').html('Еще')
-  $('.lalal').css({'display':'none'})
-  $('.lalal').removeClass('shwd').removeClass('hhd').addClass('hdd')
-
+  
   clsName = $(this).attr('class')
-  if (clsName.includes('product-item--inline-bigger')) {
-    $(this).removeClass('product-item--inline-bigger')
-    $(this).find('.more-btn').css({'display':'none'})
+  windowWidth = $(window).width();
+  
+  if(windowWidth >1024) {
+    $('.full-description__footer').css({'display':'none'})
+    $('.full-description__close--btn').css({'display':'none'})
+    $('.more-btn').css({'display':'none'})
+    $('.more-btn').removeClass('shwd').removeClass('hhd').addClass('hdd').html('Еще')
+    $('.lalal').css({'display':'none'})
+    $('.lalal').removeClass('shwd').removeClass('hhd').addClass('hdd')
+
+
+    if (clsName.includes('product-item--inline-bigger')) {
+      $(this).removeClass('product-item--inline-bigger')
+      $(this).find('.more-btn').css({'display':'none'})
+    } else {
+      $('.product-item--inline').removeClass('product-item--inline-bigger')
+      $(this).addClass('product-item--inline-bigger')
+      $(this).find('.product-item--title').before('<span class="full-description__close--btn close">×</span>')
+      $(this).find('.more-btn').css({'display':'block'})
+      $(this).find('.item_detail').after('<div class="full-description__footer"> <img src="" alt="" class="svg-icon d-none" onclick="wishlist( 1141864 )" id="wish" target="_blank"> <img src="" alt="" class="d-none"> <a class="orange-btn-cs orange-btn-padding-cs shop-btn" href="/bid/transition/1141864/" id="redirect-popup-button" target="_blank" style="position: absolute; bottom: 24px;">В МАГАЗИН</a> <a class="orange-btn-cs orange-btn-padding-cs coupon-btn" style="position: absolute; bottom: 24px;">ОТПРАВИТЬ</a> </div>')
+      sctollUpInlineThanOpenDescBlock(600)
+    }
   } else {
-    $('.product-item--inline').removeClass('product-item--inline-bigger')
-    $(this).addClass('product-item--inline-bigger')
-    $(this).find('.product-item--title').before('<span class="full-description__close--btn close">×</span>')
-    $(this).find('.more-btn').css({'display':'block'})
-    $(this).find('.item_detail').after('<div class="full-description__footer"> <img src="" alt="" class="svg-icon d-none" onclick="wishlist( 1141864 )" id="wish" target="_blank"> <img src="" alt="" class="d-none"> <a class="orange-btn-cs orange-btn-padding-cs shop-btn" href="/bid/transition/1141864/" id="redirect-popup-button" target="_blank" style="position: absolute; bottom: 24px;">В МАГАЗИН</a> <a class="orange-btn-cs orange-btn-padding-cs coupon-btn" style="position: absolute; bottom: 24px;">ОТПРАВИТЬ</a> </div>')
-    sctollUpInlineThanOpenDescBlock(600)
+    $('#descModal .full-description__footer').css({'display':'block'})
+    $('#descModal .full-description__close--btn').css({'display':'block'})
+    $('#descModal .more-btn').css({'display':'block'})
+    // $('#descModal .lalal').css({'display':'block'})
+    $('#descModal').css({'display':'block'});
   }
+  
 });
 
 
@@ -429,7 +446,10 @@ $(document).on('click', '.icon', function(){
 
   var clsName = $(this).attr('class')
   if (clsName.includes('inline')) {
-    $('.full-description').remove()
+    if($(window).width() > 1024) {
+      $('.full-description').css({'display':'none'})
+    }
+    
     $('.catalog-block_ul').addClass('catalog-block_ul--inline');
     $('.catalog-block_li').addClass('product-item--inline');
     $('.item_box').css({'border':'1px solid #ededed'})
@@ -449,8 +469,8 @@ $(document).on('click', '.icon', function(){
     $('.catalog-block_ul').removeClass('catalog-block_ul--inline');
     $('.catalog-block_li').removeClass('product-item--inline').removeClass('product-item--inline-bigger');
     $('.item_short_desc.general-content-here').remove()
-    $('.full-description__footer').remove()
-    $('.full-description__close--btn').remove() 
+    $('.full-description__footer').css({'display':'none'})
+    $('.full-description__close--btn').css({'display':'none'})
     $('.product-item').css({'overflow':'hidden'})
   }
 });

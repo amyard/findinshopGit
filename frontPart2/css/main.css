@@ -14687,3 +14687,6 @@ html {
   display: inline-block;
 }
 
+#descModal .orange-btn-cs {
+  right: 30;
+} 
