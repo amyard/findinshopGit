@@ -295,8 +295,10 @@ $('body').on('click', '.close', function(){
   $('body').css({'overflow':'auto'})
   $('.filter__item').css({'display':'none'})
   $('#descModal').css({'display':'none'})
-  sctollUpThanOpenDescBlock(600);
-  // $('.full-desc.active').removeClass('active')
+
+  // если у нас отображение inline
+  !$(this).parent().parent().parent().attr('class').includes('product-item--inline-bigger')
+      ? sctollUpThanOpenDescBlock(600) : null
 });
 
 
@@ -390,7 +392,8 @@ $(window).on('resize', function(){
 
 //  inline table
 $(document).on('click', '.product-item--inline', function(){
-  $('.product-item--inline').removeClass('product-item--inline-bigger')
+  console.log('  11111111111111111111111 ')
+  // $('.product-item--inline').removeClass('product-item--inline-bigger')
   $('.full-description__footer').remove()
   $('.full-description__close--btn').remove()
 
@@ -404,11 +407,11 @@ $(document).on('click', '.product-item--inline', function(){
     $(this).removeClass('product-item--inline-bigger')
     $(this).find('.more-btn').css({'display':'none'})
   } else {
+    $('.product-item--inline').removeClass('product-item--inline-bigger')
     $(this).addClass('product-item--inline-bigger')
     $(this).find('.product-item--title').before('<span class="full-description__close--btn close">×</span>')
-    console.log($(this).find('.more-btn'))
     $(this).find('.more-btn').css({'display':'block'})
-    // $(this).find('.item_detail').after('<div class="full-description__footer"> <img src="" alt="" class="svg-icon d-none" onclick="wishlist( 1141864 )" id="wish" target="_blank"> <img src="" alt="" class="d-none"> <a class="orange-btn-cs orange-btn-padding-cs shop-btn" href="/bid/transition/1141864/" id="redirect-popup-button" target="_blank" style="position: absolute; bottom: 24px;">В МАГАЗИН</a> <a class="orange-btn-cs orange-btn-padding-cs coupon-btn" style="position: absolute; bottom: 24px;">ОТПРАВИТЬ</a> </div>')
+    $(this).find('.item_detail').after('<div class="full-description__footer"> <img src="" alt="" class="svg-icon d-none" onclick="wishlist( 1141864 )" id="wish" target="_blank"> <img src="" alt="" class="d-none"> <a class="orange-btn-cs orange-btn-padding-cs shop-btn" href="/bid/transition/1141864/" id="redirect-popup-button" target="_blank" style="position: absolute; bottom: 24px;">В МАГАЗИН</a> <a class="orange-btn-cs orange-btn-padding-cs coupon-btn" style="position: absolute; bottom: 24px;">ОТПРАВИТЬ</a> </div>')
   }
 });
 
