@@ -389,22 +389,48 @@ $(window).on('resize', function(){
 
 //  inline table
 $(document).on('click', '.product-item--inline', function(){
+  $('.product-item--inline').removeClass('product-item--inline-bigger')
+  $('.full-description__footer').remove()
+  $('.full-description__close--btn').remove()
   clsName = $(this).attr('class')
   if (clsName.includes('product-item--inline-bigger')) {
     $(this).removeClass('product-item--inline-bigger')
-    $(this).find('.full-description__close--btn').remove()
-    $(this).find('.full-description__footer').remove()
+    $(this).find('.more-btn').css({'dislay':'none'})
   } else {
     $(this).addClass('product-item--inline-bigger')
     $(this).find('.product-item--title').before('<span class="full-description__close--btn close">×</span>')
-    $(this).find('.item_detail').after('<div class="full-description__footer"> <img src="" alt="" class="svg-icon d-none" onclick="wishlist( 1141864 )" id="wish" target="_blank"> <img src="" alt="" class="d-none"> <a class="orange-btn-cs orange-btn-padding-cs shop-btn" href="/bid/transition/1141864/" id="redirect-popup-button" target="_blank" style="position: absolute; bottom: 24px;">В МАГАЗИН</a> <a class="orange-btn-cs orange-btn-padding-cs coupon-btn" style="position: absolute; bottom: 24px;">ОТПРАВИТЬ</a> </div>')
+    $(this).find('.more-btn').css({'dislay':'block'})
+    // $(this).find('.item_detail').after('<div class="full-description__footer"> <img src="" alt="" class="svg-icon d-none" onclick="wishlist( 1141864 )" id="wish" target="_blank"> <img src="" alt="" class="d-none"> <a class="orange-btn-cs orange-btn-padding-cs shop-btn" href="/bid/transition/1141864/" id="redirect-popup-button" target="_blank" style="position: absolute; bottom: 24px;">В МАГАЗИН</a> <a class="orange-btn-cs orange-btn-padding-cs coupon-btn" style="position: absolute; bottom: 24px;">ОТПРАВИТЬ</a> </div>')
   }
 });
 
 
 
 
+// иконка для фильтрации
+$(document).on('click', '.icon', function(){
+  $('.icon').removeClass('active');
+  $(this).addClass('active');
 
+  var clsName = $(this).attr('class')
+  if (clsName.includes('inline')) {
+    $('.catalog-block_ul').addClass('catalog-block_ul--inline');
+    $('.catalog-block_li').addClass('product-item--inline');
+
+    allData = $('.product-item');
+    $.each(allData, function(index, value){
+      var shortDesc = jQuery(value).find('.item_detail').attr('data-id-short'),
+          fullDesc = jQuery(value).find('.item_detail').attr('data-id-full');
+
+          jQuery(value).find('.item_detail').first().before('<div class="item_short_desc general-content-here"></div>')
+          jQuery(value).find('.item_short_desc').prepend(`<p>${shortDesc}...<span class="lalal hdd" style="display:none;">${fullDesc}</span></p><span class="more-btn hdd" style="display: none;">Еще</span>`)
+    })
+
+  } else {
+    $('.catalog-block_ul').removeClass('catalog-block_ul--inline');
+    $('.catalog-block_li').removeClass('product-item--inline');
+  }
+});
 
 
 

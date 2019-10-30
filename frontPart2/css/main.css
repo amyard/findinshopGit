@@ -14531,9 +14531,11 @@ html {
   padding: 30px 20px!important;
   display: contents;
   height: auto!important;
-  -webkit-transition: all 1s ease-in-out;
+
+  /* -webkit-transition: all 1s ease-in-out;
   -o-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out; */
+
   /* -webkit-animation-name: animatetop;
   -webkit-animation-duration: 1s;
   animation-name: animatetop;
@@ -14542,7 +14544,7 @@ html {
 
 .product-item--inline-bigger .item_footer {
   margin: 0!important;
-  padding: 30px 10px 30px 30px !important;
+  padding: 30px 10px 30px 10px !important;
   position: relative;
 }
 
@@ -14564,3 +14566,63 @@ html {
   right: 20px;
   cursor: pointer;
 }
+
+
+
+.sort_inline {
+  margin: 16px 5px !important;
+  height: 20px;
+}
+
+.sort_table {
+  margin: 16px 5px !important;
+  height: 20px;
+}
+
+.sort_filter--img {
+  /* background: black;
+  mask-size: cover; */
+  background-size: cover;
+}
+
+
+.sort_filter--img:hover {
+  fill: red;
+}
+
+
+/* .sort_filter--img {
+  margin: 16px 5px !important;
+  height: 20px;
+}
+
+.sort_filter--img.active {
+  color: #FF4B00;
+} */
+
+
+
+.icon {
+  display: inline-block;
+  margin: 16px 5px !important;
+  height: 20px;
+  width: 27px;
+  background-size: cover;
+  cursor: pointer;
+}
+.icon-inline {
+  background-image: url(../img/inline_black.svg);
+}
+
+.icon-table {
+  background-image: url(../img/table_black.svg);
+}
+
+.icon-inline.active {
+  background-image: url(../img/inline_orange.svg);
+}
+
+.icon-table.active {
+  background-image: url(../img/table_orange.svg);
+}
+
