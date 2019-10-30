@@ -10,17 +10,18 @@ jQuery(document).ready(function(){
 // ПОЛНОЕ ОПИСАНИЕ ТОВАРА - НАЖИМАТЬ НА КНОПКУ "ЕЩЕ"
 $(document).on('click', '.more-btn', function(event){
     event.stopPropagation()
-    cls = $('.general-content-here span').attr('class')
+    parentName = $(this).parent().parent().parent();
+    cls = jQuery(parentName).find('.general-content-here span').attr('class')
     if(cls.includes('hdd')) {
-        $('.general-content-here span').removeClass('hdd')
-        $('.general-content-here span').addClass('shwd')
-        $('.general-content-here .more-btn').html('Cвернуть')
-        $('.general-content-here .lalal').css({'display':'inline'})
+        jQuery(parentName).find('.general-content-here span').removeClass('hdd')
+        jQuery(parentName).find('.general-content-here span').addClass('shwd')
+        jQuery(parentName).find('.general-content-here .more-btn').html('Cвернуть')
+        jQuery(parentName).find('.general-content-here .lalal').css({'display':'inline'})
     } else {
-        $('.general-content-here span').removeClass('shwd')
-        $('.general-content-here span').addClass('hdd')
-        $('.general-content-here .more-btn').html('Еще')
-        $('.general-content-here .lalal').css({'display':'none'})
+        jQuery(parentName).find('.general-content-here span').removeClass('shwd')
+        jQuery(parentName).find('.general-content-here span').addClass('hdd')
+        jQuery(parentName).find('.general-content-here .more-btn').html('Еще')
+        jQuery(parentName).find('.general-content-here .lalal').css({'display':'none'})
     }
 })
 
@@ -395,11 +396,12 @@ $(document).on('click', '.product-item--inline', function(){
   clsName = $(this).attr('class')
   if (clsName.includes('product-item--inline-bigger')) {
     $(this).removeClass('product-item--inline-bigger')
-    $(this).find('.more-btn').css({'dislay':'none'})
+    $(this).find('.more-btn').css({'display':'none'})
   } else {
     $(this).addClass('product-item--inline-bigger')
     $(this).find('.product-item--title').before('<span class="full-description__close--btn close">×</span>')
-    $(this).find('.more-btn').css({'dislay':'block'})
+    console.log($(this).find('.more-btn'))
+    $(this).find('.more-btn').css({'display':'block'})
     // $(this).find('.item_detail').after('<div class="full-description__footer"> <img src="" alt="" class="svg-icon d-none" onclick="wishlist( 1141864 )" id="wish" target="_blank"> <img src="" alt="" class="d-none"> <a class="orange-btn-cs orange-btn-padding-cs shop-btn" href="/bid/transition/1141864/" id="redirect-popup-button" target="_blank" style="position: absolute; bottom: 24px;">В МАГАЗИН</a> <a class="orange-btn-cs orange-btn-padding-cs coupon-btn" style="position: absolute; bottom: 24px;">ОТПРАВИТЬ</a> </div>')
   }
 });
@@ -423,7 +425,7 @@ $(document).on('click', '.icon', function(){
           fullDesc = jQuery(value).find('.item_detail').attr('data-id-full');
 
           jQuery(value).find('.item_detail').first().before('<div class="item_short_desc general-content-here"></div>')
-          jQuery(value).find('.item_short_desc').prepend(`<p>${shortDesc}...<span class="lalal hdd" style="display:none;">${fullDesc}</span></p><span class="more-btn hdd" style="display: none;">Еще</span>`)
+          jQuery(value).find('.item_short_desc').html(`<p>${shortDesc}...<span class="lalal hdd" style="display:none;">${fullDesc}</span></p><span class="more-btn hdd" style="display: none;">Еще</span>`)
     })
 
   } else {
@@ -431,6 +433,9 @@ $(document).on('click', '.icon', function(){
     $('.catalog-block_li').removeClass('product-item--inline');
   }
 });
+
+
+
 
 
 
