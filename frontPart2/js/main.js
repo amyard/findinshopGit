@@ -285,10 +285,10 @@ $(document).on('click', '.full-desc', function(event){
           } else {
             $('body').css({'overflow':'hidden'})
             $('#descModal').css({'display':'block'})
-            
+
             $('#descModal .full-description__footer').css({'display':'block'})
             $('#descModal .full-description__close--btn').css({'display':'block'})
-            $('#descModal .more-btn').css({'display':'block'})
+            $('#descModal .more-btn.hdd').css({'display':'block'})
           }   
       }
     }
@@ -346,7 +346,7 @@ $(window).on('resize', function(){
   var windowWidth = $(window).width();
 
   lastLineOfDivsSetWidth()
-
+  
   // FIRST DESCTOP VERSION.     SECOND - MODAL
   if(windowWidth > 1024){
 
@@ -387,6 +387,8 @@ $(window).on('resize', function(){
       $('#descModal').css({'display':'block'})
     }
     $('.full-description-modal').css({'display':'block'})
+    $('#descModal .full-description__footer').css({'display':'block'})
+    $('#descModal .full-description__close--btn').css({'display':'block'})
     
     oldPos = currPos;
   }  
@@ -446,9 +448,10 @@ $(document).on('click', '.icon', function(){
 
   var clsName = $(this).attr('class')
   if (clsName.includes('inline')) {
-    if($(window).width() > 1024) {
-      $('.full-description').css({'display':'none'})
-    }
+    $('.full-description-desctop').remove()
+    // if($(window).width() > 1024) {
+    //   $('.full-description').css({'display':'none'})
+    // }
     
     $('.catalog-block_ul').addClass('catalog-block_ul--inline');
     $('.catalog-block_li').addClass('product-item--inline');
