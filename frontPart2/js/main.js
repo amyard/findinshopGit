@@ -393,6 +393,12 @@ $(document).on('click', '.product-item--inline', function(){
   $('.product-item--inline').removeClass('product-item--inline-bigger')
   $('.full-description__footer').remove()
   $('.full-description__close--btn').remove()
+
+  $('.more-btn').css({'display':'none'})
+  $('.more-btn').removeClass('shwd').removeClass('hhd').addClass('hdd').html('Еще')
+  $('.lalal').css({'display':'none'})
+  $('.lalal').removeClass('shwd').removeClass('hhd').addClass('hdd')
+
   clsName = $(this).attr('class')
   if (clsName.includes('product-item--inline-bigger')) {
     $(this).removeClass('product-item--inline-bigger')
