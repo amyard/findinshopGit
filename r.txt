@@ -28,7 +28,7 @@ django-kombu==0.9.4
 django-mailshelf==0.1
 django-mptt==0.8.7
 django-suit==0.2.24
-djangorestframework==3.5.3
+djangorestframework==3.9.1
 dse==3.3.0
 easy-thumbnails==2.3
 ecdsa==0.13
