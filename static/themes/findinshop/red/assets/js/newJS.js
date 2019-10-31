@@ -514,6 +514,11 @@ $(window).on('resize', function(){
   allItems = $('.product-item')
   currPos = posInline();
   var windowWidth = $(window).width();
+  
+  url = '/w/gti/?item='+$('.full-desc.active').data('id');
+  ajaxData = getAjaxData(url);
+  moreBtnDisplay = JSON.parse(ajaxData).description_full.length > 0 ? 'block' : 'none';
+  couponExists = typeof JSON.parse(ajaxData).coupon_size == 'undefined' ? 'none' : 'block';
 
   lastLineOfDivsSetWidth()
   
@@ -526,7 +531,7 @@ $(window).on('resize', function(){
       console.log('REMOVE MODAL FROM RESIZE')
       $('#descModal').css({'display':'none'});
       if($('.full-description-desctop').length == 0) {
-        allMagicWithAddingDescBlock();
+        allMagicWithAddingDescBlock(JSON.parse(ajaxData), couponExists, moreBtnDisplay);
       }
 
       $('body').css({'overflow':'auto'})
@@ -553,12 +558,12 @@ $(window).on('resize', function(){
     
           console.log('Уменьшили')
           $('.full-description-desctop').remove()
-          allMagicWithAddingDescBlock();
+          allMagicWithAddingDescBlock(JSON.parse(ajaxData), couponExists, moreBtnDisplay);
         } else if ($('.full-desc .active') && oldPos < currPos && oldPos != Infinity) {
 
           console.log('Увеличили')
           $('.full-description-desctop').remove()
-          allMagicWithAddingDescBlock();
+          allMagicWithAddingDescBlock(JSON.parse(ajaxData), couponExists, moreBtnDisplay);
         }
         
         oldPos = currPos;
