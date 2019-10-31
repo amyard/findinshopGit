@@ -524,6 +524,8 @@ $(document).on('click', '.product-item--inline', function(){
     $('.lalal').css({'display':'none'})
     $('.lalal').removeClass('shwd').removeClass('hhd').addClass('hdd')
 
+    $('.product-item--inline .full-description__content--info').remove()
+
 
     if (clsName.includes('product-item--inline-bigger')) {
       $(this).removeClass('product-item--inline-bigger')

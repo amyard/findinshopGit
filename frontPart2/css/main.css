@@ -14666,7 +14666,13 @@ html {
   right: 30;
 } 
 
+.product-item--inline .full-description__content--info {
+  display: none;
+}
 
+.product-item--inline:hover .full-description__content--info {
+  display: block;
+}
 .product-item--inline-bigger:hover .item_footer {
   display: none;
 }
@@ -14747,9 +14753,13 @@ html {
   text-align: end;
 }
 
+.product-item--inline-bigger .item_footer {
+  display: none;
+}
 
-
-
+.product-item--inline-bigger .full-description__content--info {
+  display: block;
+}
 
 
 
