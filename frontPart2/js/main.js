@@ -359,7 +359,7 @@ $(window).on('resize', function(){
   if(windowWidth > 1024){
 
     // from modal to desctop
-    if($('#descModal').css('display')=='block'){
+    if($('#descModal').css('display')=='block' && $('.icon.active').attr('class').includes('table')){
 
       console.log('REMOVE MODAL FROM RESIZE')
       $('#descModal').css({'display':'none'});
@@ -369,6 +369,20 @@ $(window).on('resize', function(){
 
       $('body').css({'overflow':'auto'})
       $('.full-description-desctop').css({'display':'block'})
+    
+    } else if($('#descModal').css('display')=='block' && $('.icon.active').attr('class').includes('inline')){  
+      console.log('REMOVE MODAL FROM RESIZE - INLINE MODE')
+      $('#descModal').css({'display':'none'});
+      
+      // при смене закрывается модалка но нужно оставить активной нужный блок
+      allData = $('.product-item--inline .item_box');
+      $.each(allData, function(index, value){
+        console.log(jQuery(value).css('border-color'))
+        if(jQuery(value).css('border-color') == 'rgb(255, 75, 0)') {
+          jQuery(value).click();
+          return false;
+        }
+      });
 
     } else {
       if (oldPos != currPos) {
