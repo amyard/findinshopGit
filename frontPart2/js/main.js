@@ -48,6 +48,14 @@ $(document).on('click', '.full-description__close--btn', function() {
       $('.full-description').css({'display':'none'});
   }
   removeActiveCssStyles($('.full-desc.active'));
+
+  // псле с большего екрана где есть актив на мелкий, то появляется попут и после закрытия фигня остается на бывшем активном. чистка  
+  if($('.icon.active').attr('class').includes('inline') && $('.product-item--inline-bigger').length != 0) {
+    $('.product-item--inline-bigger').find('.full-description__close--btn').remove();
+    $('.product-item--inline-bigger').find('.more-btn').remove();
+    $('.product-item--inline-bigger').find('.full-description__footer').remove();
+    $('.product-item--inline-bigger').remove();
+  }
 });
 
 
@@ -389,6 +397,12 @@ $(window).on('resize', function(){
     $('.full-description-modal').css({'display':'block'})
     $('#descModal .full-description__footer').css({'display':'block'})
     $('#descModal .full-description__close--btn').css({'display':'block'})
+
+    // than me have inline data
+    if($('.icon.active').attr('class').includes('inline')) {
+      $('#descModal').css({'display':'block'})
+      $('#descModal .more-btn').css({'display':'block'})
+    }
     
     oldPos = currPos;
   }  
