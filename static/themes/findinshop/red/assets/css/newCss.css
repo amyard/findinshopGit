@@ -943,7 +943,9 @@
 }
 
 #descModal .orange-btn-cs {
-  right: 30;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
 } 
 
 
