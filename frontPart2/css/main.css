@@ -14548,9 +14548,16 @@ html {
   }
 }
 
+
 .sort_filter {
   display: flex;
   justify-content: flex-end;
+}
+
+@media (max-width: 580px) {
+  .sort_filter {
+    display: none;
+  }
 }
 
 
@@ -14591,14 +14598,6 @@ html {
   right: 20px;
   cursor: pointer;
 }
-
-
-/* @media (min-width: 320px) {
-  .item_box {
-    height: auto !important;
-  }
-} */
-
 
 
 
