@@ -181,6 +181,7 @@ function allMagicWithAddingDescBlock(){
     })
   }
 
+  $('.full-description-desctop').remove()
 
   // после какого елемента нужно вставить наш див
   // жопа с посленим рядом. для него надо делать проверку на количество елементов
