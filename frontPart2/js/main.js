@@ -429,10 +429,10 @@ $(document).on('click', '.product-item--inline', function(){
       sctollUpInlineThanOpenDescBlock(600)
     }
   } else {
+    $('.product-item--inline').removeClass('product-item--inline-bigger')
     $('#descModal .full-description__footer').css({'display':'block'})
     $('#descModal .full-description__close--btn').css({'display':'block'})
     $('#descModal .more-btn').css({'display':'block'})
-    // $('#descModal .lalal').css({'display':'block'})
     $('#descModal').css({'display':'block'});
   }
   
@@ -463,7 +463,11 @@ $(document).on('click', '.icon', function(){
     $.each(allData, function(index, value){
       var shortDesc = jQuery(value).find('.item_detail').attr('data-id-short'),
           fullDesc = jQuery(value).find('.item_detail').attr('data-id-full');
-
+          
+          // delete dublicate than multiplay click in icon
+          if(jQuery(value).find('.general-content-here').length != 0) {
+            jQuery(value).find('.general-content-here').remove()
+          }
           jQuery(value).find('.item_detail').first().before('<div class="item_short_desc general-content-here"></div>')
           jQuery(value).find('.item_short_desc').html(`<p>${shortDesc}<span class="lalal hdd" style="display:none;">${fullDesc}</span></p><span class="more-btn hdd" style="display: none;">Еще</span>`)
     })
