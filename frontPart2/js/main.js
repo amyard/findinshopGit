@@ -27,7 +27,8 @@ $(document).on('click', '.more-btn', function(event){
 
 
 // ТАБУЛЯЦИЯ
-$(document).on('click', '.nav-tabs li', function (){
+$(document).on('click', '.nav-tabs li', function (event){
+    event.stopPropagation()
     if ($(this).find('a').attr('aria-controls') == 'discount') {
         $('.coupon-btn').css({'display':'block'});
         $('.shop-btn').css({'display':'none'});
@@ -36,6 +37,11 @@ $(document).on('click', '.nav-tabs li', function (){
         $('.shop-btn').css({'display':'block'});
     }
 });
+
+
+$(document).on('click', '.full-description__content--info', function (event){
+  event.stopPropagation();
+})
 
 
 
@@ -142,6 +148,79 @@ function addDescBlock(){
       </div>\
       <div class="full-description__footer"> <img src="" alt="" class="svg-icon d-none" onclick="wishlist( 1141864 )" id="wish" target="_blank"> <img src="" alt="" class="d-none"> <a class="orange-btn-cs orange-btn-padding-cs shop-btn" href="/bid/transition/1141864/" id="redirect-popup-button" target="_blank">В МАГАЗИН</a> <a class="orange-btn-cs orange-btn-padding-cs coupon-btn">ОТПРАВИТЬ</a> </div>\
   </div>\
+  `
+}
+
+
+function insertInfoInline() {
+  return `\
+  <div class="full-description__content--info">\
+    <div>\
+      <div class="full-description__close">\
+          <h3>Рюкзак для ноутбука Dell Alienware Vindicator 2.0 17 Bp (460-BCBT)</h3> <span class="full-description__close--btn close">×</span> </div>\
+      <ul class="nav nav-tabs" role="tablist">\
+          <li class="active"><a href="#product" aria-controls="product" role="tab" data-toggle="tab">Продукт</a></li>\
+          <li><a href="#shop" aria-controls="shop" role="tab" data-toggle="tab">Магазин</a></li>\
+          <li class="discount-btn" style="display: block"><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
+      </ul>\
+      <div class="tab-content">\
+          <div role="tabpanel" class="tab-pane tab-pane-new active" id="product" style="height: 220px;">\
+              <h2 class="price-btn no-pad-top">Цена: <span>3599.00</span></h2>\
+              <div class="general-content-here">\
+                  <p>Рюкзак для ноутбука Dell Alienware Vindicator 2.0 17 Bp (460-BCBT) Рюкзак для ноутбука Dell Alienware Vindicator 2.0 17 Bp (460-BCBT)Рюкзак для ноутбука Dell Alienware Vindicator 2.0 17 Bp (460-BCBT)Р<span class="lalal hdd" style="display:none">юкзак для ноутбука Dell Alienware Vindicator 2.0 17 Bp (460-BCBT)Рюкзак для ноутбука Dell Alienware Vindicator 2.0 17 Bp (460-BCBT)Рюкзак для ноутбука Dell Alienware Vindicator 2.0 17 Bp (460-BCBT)Рюкзак для ноутбука Dell Alienware Vindicator 2.0 17 Bp (460-BCBT)Рюкзак для ноутбука Dell Alienware Vindicator 2.0 17 Bp (460-BCBT)Рюкзак для ноутбука Dell Alienware Vindicator 2.0 17 Bp (460-BCBT)Рюкзак для ноутбука Dell Alienware Vindicator 2.0 17 Bp (460-BCBT)Рюкзак для ноутбука Dell Alienware Vindicator 2.0 17 Bp (460-BCBT)</span></p> <span class="more-btn" style="display: block">Еще</span>\
+              </div>\
+              <div class="product-item--stars d-flex marg-y-24 d-none">\
+                  <div id="delta">0</div>\
+              </div>\
+              <span class="product-item--old-price d-block">1999 грв</span>\
+          </div>\
+          <div role="tabpanel" class="tab-pane tab-pane-new" id="shop" style="height: 220px;">\
+              <h2 class="price-btn no-pad-top">Цена: <span>3599.00</span></h2>\
+              <table>\
+                  <tbody>\
+                      <tr>\
+                          <td class="table-grey">Название магазина</td>\
+                          <td class="table-black"><a href="/c/map/stores/70/" target="_blank">Магазины и пункты выдачи</a> | <a href="/bid/transition/1141864/" class="popup-store" rel="nofollow" target="_blank">delmetest</a></td>\
+                      </tr>\
+                      <tr>\
+                          <td class="table-grey">Доставка</td>\
+                          <td class="table-black">Нет</td>\
+                      </tr>\
+                      <tr>\
+                          <td class="table-grey">Способ оплаты</td>\
+                          <td class="table-black">Нет</td>\
+                      </tr>\
+                      <tr>\
+                          <td class="table-grey">Контактный телефон</td>\
+                          <td class="table-black">343434343</td>\
+                      </tr>\
+                  </tbody>\
+              </table> <span class="product-item--old-price d-block">1999 грв</span> </div>\
+          <div role="tabpanel" class="tab-pane tab-pane-new" id="discount" style="height: 220px;">\
+              <h2 class="price-btn no-pad-top">Цена: <span>3599.00</span></h2>\
+              <div class="discount">\
+                  <p class="orange-color">50%</p>\
+                  <p>Действителен до 31.10.2019 14:59</p>\
+              </div>\
+              <form class="header__search-form modal-input-form" method="GET" id="id_form_get_coupon">
+                  <div class="input-group">\
+                      <input id="id_name" class="header__search-input modal-input" type="text" placeholder="Введите Ваше имя" name="name">\
+                      <input id="id_email" class="header__search-input modal-input" type="email" placeholder="Введите Вашу почту" name="email">\
+                      <input type="hidden" name="coupon" value="7" id="coupon_id">\
+                      <input type="hidden" name="item" value="1141864" id="product_id">\
+                  </div>\
+                  <input type="submit" id="check_coupon_form" value="ОТПРАВИТЬ">\
+              </form>\
+          </div>\
+      </div>\
+    </div>\
+  </div>\
+  `
+}
+
+function insertFooter() {
+  return `\
+  <div class="full-description__footer"> <img src="" alt="" class="svg-icon d-none" onclick="wishlist( 1141864 )" id="wish" target="_blank"> <img src="" alt="" class="d-none"> <a class="orange-btn-cs orange-btn-padding-cs shop-btn" href="/bid/transition/1141864/" id="redirect-popup-button" target="_blank">В МАГАЗИН</a> <a class="orange-btn-cs orange-btn-padding-cs coupon-btn">ОТПРАВИТЬ</a> </div>\
   `
 }
 
@@ -448,13 +527,19 @@ $(document).on('click', '.product-item--inline', function(){
 
     if (clsName.includes('product-item--inline-bigger')) {
       $(this).removeClass('product-item--inline-bigger')
+      $(this).find('.full-description__content--info').remove()
       $(this).find('.more-btn').css({'display':'none'})
     } else {
       $('.product-item--inline').removeClass('product-item--inline-bigger')
       $(this).addClass('product-item--inline-bigger')
-      $(this).find('.product-item--title').before('<span class="full-description__close--btn close">×</span>')
-      $(this).find('.more-btn').css({'display':'block'})
-      $(this).find('.item_detail').after('<div class="full-description__footer"> <img src="" alt="" class="svg-icon d-none" onclick="wishlist( 1141864 )" id="wish" target="_blank"> <img src="" alt="" class="d-none"> <a class="orange-btn-cs orange-btn-padding-cs shop-btn" href="/bid/transition/1141864/" id="redirect-popup-button" target="_blank" style="position: absolute; bottom: 24px;">В МАГАЗИН</a> <a class="orange-btn-cs orange-btn-padding-cs coupon-btn" style="position: absolute; bottom: 24px;">ОТПРАВИТЬ</a> </div>')
+
+      $(this).find('.item_box').append(insertInfoInline())
+      $(this).find('.full-description__content--info').after(insertFooter())
+    
+
+      // $(this).find('.product-item--title').before('<span class="full-description__close--btn close">×</span>')
+      // $(this).find('.more-btn').css({'display':'block'})
+      // $(this).find('.item_detail').after('<div class="full-description__footer"> <img src="" alt="" class="svg-icon d-none" onclick="wishlist( 1141864 )" id="wish" target="_blank"> <img src="" alt="" class="d-none"> <a class="orange-btn-cs orange-btn-padding-cs shop-btn" href="/bid/transition/1141864/" id="redirect-popup-button" target="_blank" style="position: absolute; bottom: 24px;">В МАГАЗИН</a> <a class="orange-btn-cs orange-btn-padding-cs coupon-btn" style="position: absolute; bottom: 24px;">ОТПРАВИТЬ</a> </div>')
       sctollUpInlineThanOpenDescBlock(600)
     }
   } else {
@@ -511,116 +596,3 @@ $(document).on('click', '.icon', function(){
   }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ФУЙНЯ ДЛЯ TOOGLE В ФИЛЬТРАХ - СПИЗДИЛ С САЙТА ПОЛНОСТЬЮ
-// $(function(){
-//     getSize();
-//     toggleFilterHeader();
-//     setHeaderToFixed();
-//     thumbSlider();
-//     // $("#id_phone").mask("+(999)999-99-99");
-//   });
-  
-//   $(window).resize(function(){
-//     getSize();
-//     setHeaderToFixed();
-//   });
-  
-//   function getSize() {
-//     var h = $(window).innerHeight();
-//     $(".main-search").css({
-//       height: (h - $(".header").innerHeight()) + "px"
-//     })
-//   }
-  
-//   function toggleFilterHeader() {
-//     $(document).on("click", ".filter-header", function(ev){
-//       ev.preventDefault();
-//       $(this).addClass("toggled");
-//       $(this).next().slideUp();
-//     });
-  
-//     $(document).on("click", ".toggled", function(ev){
-//       ev.preventDefault();
-//       $(this).removeClass("toggled");
-//       $(this).next().slideDown();
-//     });
-//   }
-  
-//   function setHeaderToFixed() {
-//     $(window).scroll(function() {
-//       var a = $(window).scrollTop();
-//       if(viewport().width > 767) {
-//         if (a > $(".header").innerHeight()) {
-//           $(".header").css({
-//             position: "fixed",
-//             boxShadow: "0 1px 3px 0 rgba(42,48,60,.19)"
-//           },1000);
-  
-//         }
-//         else {
-//           $(".header").css({
-//             position: "relative",
-//             boxShadow: "none"
-//           });
-//         }
-//       }
-  
-//       if(viewport().width < 768) {
-//         if (a > $(".header").innerHeight()) {
-//           $(".header").css({
-//             position: "fixed",
-//             boxShadow: "0 1px 3px 0 rgba(42,48,60,.19)",
-//           },1000);
-//           $(".header_logo").hide();
-  
-//         }
-//         else {
-//           $(".header").css({
-//             position: "relative",
-//             boxShadow: "none"
-//           });
-//           $(".header_logo").show();
-//         }
-//       }
-  
-//     });
-//   }
-  
-//   function thumbSlider() {
-//     $(document).on("click", ".thumbs_ul li a", function(){
-//       $(this).closest(".thumbs_ul").find(".active").removeClass("active");
-//       $(this).addClass("active");
-//       var src = $(this).find("img").attr("src");
-//       $(".compare-original_box .box_img img").attr("src", src);
-//     });
-//   }
-  
-//   function viewport()
-//   {
-//     var e = window, a = 'inner';
-//     if (!('innerWidth' in window))
-//     {
-//       a = 'client';
-//       e = document.documentElement || document.body;
-//     }
-//     return {width: e[ a + 'Width' ], height: e[ a + 'Height' ]}
-//   }
