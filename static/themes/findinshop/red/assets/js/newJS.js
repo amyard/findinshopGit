@@ -240,7 +240,7 @@ function allMagicWithAddingDescBlock(){
 
   $('.full-description-desctop').remove()
 
-  
+
   // после какого елемента нужно вставить наш див
   // жопа с посленим рядом. для него надо делать проверку на количество елементов
   var getDivAfterInsert = Math.ceil(correctItem / getPositionInline) * getPositionInline;
@@ -548,8 +548,8 @@ $(document).on('click', '.icon', function(){
 
     allData = $('.product-item');
     $.each(allData, function(index, value){
-      var shortDesc = jQuery(value).find('.item_detail').attr('data-id-short'),
-          fullDesc = jQuery(value).find('.item_detail').attr('data-id-full');
+      var shortDesc = jQuery(value).find('.item_detail').attr('data-id').slice(0, 200),
+          fullDesc = jQuery(value).find('.item_detail').attr('data-id').slice(200, -1);
           
           // delete dublicate than multiplay click in icon
           if(jQuery(value).find('.general-content-here').length != 0) {

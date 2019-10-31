@@ -521,7 +521,7 @@
             {% for item in entries %}
             <li class="catalog-block_li product-item">
               <div itemscope itemtype="http://schema.org/Product" class="item_box">
-                <div class="item_img">
+                <div class="item_img" data-id-short="{{ item.description_short }}">
                 <a class="show_popup" id="{{ item.id }}" data-id="{{ item.id }}" data-url="{% url 'transition' item.id %}" href="#" rel="nofollow">
                   <img itemprop="image" class="product" src="{{ item.image_url }}" alt="1{{ item.name }}" onError="this.src='/static/img/img404.jpg'" rel="nofollow">
                 </a>
@@ -532,7 +532,7 @@
                   <div itemprop="price" class="item_price product-item--price">{{ item.price|floatformat:'-2' }} грн <!--{{ item.currency|slice:':3' }}--></div>
                   </span>
                   <div class="item_detail" data-id="{{ item.description }}">
-                  <div class="item_detail" data-id="{{ item.description }}">
+                  <div class="item_detail" data-id="{{ item.description }}" data-id-short="{{ item.description_short }}" data-id-full="{{ item.description_full }}">
                     <a class="full-desc btn btn-default btn-block __medium" rel="tabs_info" id="{{ item.id }}" data-id="{{ item.id }}" data-url="{% url 'transition' item.id %}" href="#" rel="nofollow">Подробнее</a>
                   </div>
                 </div>
