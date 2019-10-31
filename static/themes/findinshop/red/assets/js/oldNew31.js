@@ -1,20 +1,19 @@
-
 // ПОЛНОЕ ОПИСАНИЕ ТОВАРА - НАЖИМАТЬ НА КНОПКУ "ЕЩЕ"
 $(document).on('click', '.more-btn', function(event){
-  event.stopPropagation()
-  parentName = $(this).parent().parent().parent();
-  cls = jQuery(parentName).find('.general-content-here span').attr('class')
-  if(cls.includes('hdd')) {
-      jQuery(parentName).find('.general-content-here span').removeClass('hdd')
-      jQuery(parentName).find('.general-content-here span').addClass('shwd')
-      jQuery(parentName).find('.general-content-here .more-btn').html('Cвернуть')
-      jQuery(parentName).find('.general-content-here .lalal').css({'display':'inline'})
-  } else {
-      jQuery(parentName).find('.general-content-here span').removeClass('shwd')
-      jQuery(parentName).find('.general-content-here span').addClass('hdd')
-      jQuery(parentName).find('.general-content-here .more-btn').html('Еще')
-      jQuery(parentName).find('.general-content-here .lalal').css({'display':'none'})
-  }
+    event.stopPropagation()
+    parentName = $(this).parent().parent().parent();
+    cls = jQuery(parentName).find('.general-content-here span').attr('class')
+    if(cls.includes('hdd')) {
+        jQuery(parentName).find('.general-content-here span').removeClass('hdd')
+        jQuery(parentName).find('.general-content-here span').addClass('shwd')
+        jQuery(parentName).find('.general-content-here .more-btn').html('Cвернуть')
+        jQuery(parentName).find('.general-content-here .lalal').css({'display':'inline'})
+    } else {
+        jQuery(parentName).find('.general-content-here span').removeClass('shwd')
+        jQuery(parentName).find('.general-content-here span').addClass('hdd')
+        jQuery(parentName).find('.general-content-here .more-btn').html('Еще')
+        jQuery(parentName).find('.general-content-here .lalal').css({'display':'none'})
+    }
 })
 
 
@@ -62,6 +61,9 @@ function choosePhoneEmailFieldForCouponSystem(couponSettings) {
       $('.modal-input-form #id_email').css({'display':'block'})
   }
 }
+
+
+
 
 
 function getAjaxData(url) {
@@ -197,6 +199,97 @@ function addDescBlock(data, couponExists, moreBtnDisplay){
 }
 
 
+function displayModal(data, couponExists, moreBtnDisplay){
+  return `\
+    <div class="modal-body">\
+      <div class="full-description full-description-modal">\
+        <div class="full-description__content">\
+
+            <div class="full-description__content--img"> \
+              <img alt="" src="${data.image_url}"> \
+            </div>\
+
+            <div class="full-description__content--info">\
+                <div>\
+                    <div class="full-description__close">\
+                        <h3>${data.name}</h3> \
+                        <span class="full-description__close--btn close">×</span>\
+                    </div>\
+                    <ul class="nav nav-tabs" role="tablist">\
+                        <li class="active"><a href="#product" aria-controls="product" role="tab" data-toggle="tab">Продукт</a></li>\
+                        <li><a href="#shop" aria-controls="shop" role="tab" data-toggle="tab">Магазин</a></li>\
+                        <li class="discount-btn" style="display: ${couponExists}"><a href="#discount" aria-controls="discount" role="tab" data-toggle="tab">Купон на скидку</a></li>\
+                    </ul>\
+                    <div class="tab-content">\
+                        <div role="tabpanel" class="tab-pane tab-pane-new active" id="product" style="height: 220px;">\
+                            <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
+                            
+                            <div class="general-content-here">\
+                              <p>${data.description_short}<span class='lalal hdd' style='display:none'>${data.description_full}</span></p>\
+                              <span class='more-btn' style="display: ${moreBtnDisplay}">Еще</span>
+                            </div>\
+                            
+                            <div class="product-item--stars d-flex marg-y-24 d-none">\
+                                <div id="delta">0</div>\
+                            </div>\
+                            <span class="product-item--old-price d-block">1999 грв</span>\
+                        </div>\
+                        <div role="tabpanel" class="tab-pane tab-pane-new" id="shop" style="height: 220px;">\
+                            <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
+                            <table>\
+                                <tbody>\
+                                    <tr>\
+                                        <td class="table-grey">Название магазина</td>\
+                                        <td class="table-black"><a href="${data.map_stores_url}" target="_blank">Магазины и пункты выдачи</a> | <a href="/bid/transition/${data.id}/" class="popup-store" rel="nofollow" target="_blank">${data.store_name}</a></td>\
+                                    </tr>\
+                                    <tr>\
+                                        <td class="table-grey">Доставка</td>\
+                                        <td class="table-black">${data.delivery}</td>\
+                                    </tr>\
+                                    <tr>\
+                                        <td class="table-grey">Способ оплаты</td>\
+                                        <td class="table-black">${data.payment_methods}</td>\
+                                    </tr>\
+                                    <tr>\
+                                        <td class="table-grey">Контактный телефон</td>\
+                                        <td class="table-black">${data.phone}</td>\
+                                    </tr>\
+                                </tbody>\
+                            </table> <span class="product-item--old-price d-block">1999 грв</span> </div>\
+                        <div role="tabpanel" class="tab-pane tab-pane-new" id="discount" style="height: 220px;">\
+                            <h2 class="price-btn no-pad-top">Цена: <span>${data.price}</span></h2>\
+                            <div class="discount">\
+                                <p class="orange-color">${data.coupon_size}</p>\
+                                <p>Действителен до ${data.coupon_expire}</p>\
+                            </div>\
+
+                            <form class="header__search-form modal-input-form" method="GET" id="id_form_get_coupon">\
+                                <div class="input-group">\
+                                    <input id='id_name' class="header__search-input modal-input" type="text" placeholder="Введите Ваше имя"  name='name'>\
+                                    <input id='id_email' class="header__search-input modal-input" type="email" placeholder="Введите Вашу почту"  name='email'>\
+                                    <input class="form-control input-lg header__search-input modal-input" id="id_phone" name="phone" type="text" placeholder="Введите Ваш телефон">\
+
+                                    <input type="hidden" name="coupon" value="${data.coupon}" id="coupon_id" />
+                                    <input type="hidden" name="item" value="${data.id}" id="product_id"/>
+                                </div>\
+                                <input type="submit" id="check_coupon_form" value="ОТПРАВИТЬ" />
+                            </form>\
+                        </div>\
+                    </div>\
+                </div>\
+            </div>\
+        </div>\
+        <div class="full-description__footer">\
+            <img src="" alt="" class="svg-icon d-none" onclick="wishlist( ${data.id} )" id="wish" target="_blank">\
+            <img src="" alt="" class="d-none">\
+            <a class='orange-btn-cs orange-btn-padding-cs shop-btn' href="/bid/transition/${data.id}/" id="redirect-popup-button" target="_blank" >В МАГАЗИН</a>\
+            <a class='orange-btn-cs orange-btn-padding-cs coupon-btn' >ОТПРАВИТЬ</a>\
+        </div>\
+      </div>\
+    </div>\
+  `
+}
+
 // номер активного дива в списке всех блоков с продуктами
 function getPositionOfItemBlock() {
   var allItems = $('.catalog-block_li .item_img').parent().parent()
@@ -210,18 +303,13 @@ function getPositionOfItemBlock() {
 }
 
 
-function allMagicWithAddingDescBlock(){
+function allMagicWithAddingDescBlock(data, couponExists, moreBtnDisplay){
 
-  allItems = $('.catalog-block_li')
-  getPositionInline = posInline()
-  var activeBtn = $('.full-desc.active')
-  var parentDiv = activeBtn.parent().parent().parent().parent()
-  var positionOfItem = getPositionOfItemBlock();
-
-  url = '/w/gti/?item='+$('.full-desc.active').data('id'),
-  ajaxData = getAjaxData(url),
-  moreBtnDisplay = JSON.parse(ajaxData).description_full.length > 0 ? 'block' : 'none',
-  couponExists = typeof JSON.parse(ajaxData).coupon_size == 'undefined' ? 'none' : 'block'
+  var allItems = $('.catalog-block_li'),
+    getPositionInline = posInline(),
+    activeBtn = $('.full-desc.active'),
+    parentDiv = activeBtn.parent().parent().parent().parent(),
+    positionOfItem = getPositionOfItemBlock();
 
   // add custom styles for active statement
   if($(window).width() > 1024 && $(window).width() < 1200) {
@@ -237,10 +325,8 @@ function allMagicWithAddingDescBlock(){
     })
   }
 
-
   $('.full-description-desctop').remove()
 
-  
   // после какого елемента нужно вставить наш див
   // жопа с посленим рядом. для него надо делать проверку на количество елементов
   var getDivAfterInsert = Math.ceil(correctItem / getPositionInline) * getPositionInline;
@@ -249,7 +335,7 @@ function allMagicWithAddingDescBlock(){
     ? currDiv = allItems.last()
     : currDiv = allItems[getDivAfterInsert-1]
 
-  jQuery(currDiv).after(addDescBlock(JSON.parse(ajaxData), couponExists, moreBtnDisplay));
+  jQuery(currDiv).after(addDescBlock(data, couponExists, moreBtnDisplay));
 
   setTimeout(function(){
     // scroll top
@@ -266,7 +352,7 @@ $('.catalog-block_li').mouseenter(function(){
   if ($(window).width() >= 1201) {
       $(this).css({'overflow':'visible'});
   }
-  }).mouseleave(function() {
+}).mouseleave(function() {
   if ($(window).width() >= 1201) {
       var actBtnClass = $(this).find('.full-desc').attr('class')
       if (actBtnClass.includes('active')){
@@ -281,15 +367,12 @@ $('.catalog-block_li').mouseenter(function(){
 
 
 function removeActiveCssStyles(actBtn) {
- 
+   
   var parDiv = actBtn.parent().parent().parent().parent(),  //  Это типа box, not full element
       windowWidth = $(window).width();
-
+  
   // add custom styles for active statement
   if(windowWidth > 1200) {
-
-    // scroll top
-    // sctollUpThanOpenDescBlock(600);
 
     parDiv.css({'border':'none'})
     parDiv.css({'border':'1px solid #ededed'})
@@ -322,43 +405,51 @@ function removeActiveCssStyles(actBtn) {
 
 // скрол наверх, когда нажимает на открыть desc
 function sctollUpThanOpenDescBlock(speed){
-  parentDiv = $('.full-desc.active').parent().parent().parent().parent()
-  $('html, body').animate({ scrollTop: parentDiv.offset().top-100  }, speed)
+    parentDiv = $('.full-desc.active').parent().parent().parent().parent()
+    $('html, body').animate({ scrollTop: parentDiv.offset().top-100  }, speed)
 }
 
 
 // ПОДРОБНЕЕ - главная фигня
 $(document).on('click', '.full-desc', function(event){
-  event.preventDefault();
+    event.preventDefault();
 
-  if ($('.sort_filter .active').attr('class').includes('table')) {
-    var windowWidth = $(window).width(),
-      allItems = $('.catalog-block_li'),
-      getPositionInline = posInline();
+    if ($('.sort_filter .active').attr('class').includes('table')) {
+      var windowWidth = $(window).width(),
+        allItems = $('.catalog-block_li'),
+        getPositionInline = posInline(),
+        url = '/w/gti/?item='+$(this).data('id'),
+        ajaxData = getAjaxData(url),
+        moreBtnDisplay = JSON.parse(ajaxData).description_full.length > 0 ? 'block' : 'none',
+        couponExists = typeof JSON.parse(ajaxData).coupon_size == 'undefined' ? 'none' : 'block';
 
-    if($('.full-desc.active').length != 0){
-      removeActiveCssStyles($('.full-desc.active'));
+      if($('.full-desc.active').length != 0){
+        removeActiveCssStyles($('.full-desc.active'));
+      }
+      
+
+      windowWidth > 1024 ? $('.full-description-desctop').css({'display':'none'}) : null
+
+      if(!$(this).attr('class').includes('active')){
+          $(this).addClass('active')
+
+          // показываем простой блок или модалку
+          if (windowWidth > 1024) {
+            allMagicWithAddingDescBlock(JSON.parse(ajaxData), couponExists, moreBtnDisplay)
+
+          } else {
+            $('body').css({'overflow':'hidden'})
+            
+            $('#descModal .modal-body').remove()
+            $('#descModal .modal-content').prepend(displayModal(JSON.parse(ajaxData), couponExists, moreBtnDisplay))
+            $('#descModal').css({'display':'block'})
+
+            $('#descModal .full-description__footer').css({'display':'block'})
+            $('#descModal .full-description__close--btn').css({'display':'block'})
+            $('#descModal .more-btn.hdd').css({'display':'block'})
+          }   
+      }
     }
-    
-
-    windowWidth > 1024 ? $('.full-description-desctop').css({'display':'none'}) : null
-
-    if(!$(this).attr('class').includes('active')){
-        $(this).addClass('active')
-
-        // показываем простой блок или модалку
-        if (windowWidth > 1024) {
-          allMagicWithAddingDescBlock()
-        } else {
-          $('body').css({'overflow':'hidden'})
-          $('#descModal').css({'display':'block'})
-
-          $('#descModal .full-description__footer').css({'display':'block'})
-          $('#descModal .full-description__close--btn').css({'display':'block'})
-          $('#descModal .more-btn.hdd').css({'display':'block'})
-        }   
-    }
-  }
 });
 
 
@@ -406,14 +497,19 @@ lastLineOfDivsSetWidth()
 // TODO - ПЕРЕЛЕДАТЬ. ПОПАТ ДОЛЖНЕ С ВЫСОТЫ 1024px
 oldPos = posInline()
 $(window).on('resize', function(){
-
+  
 
   allItems = $('.product-item')
   currPos = posInline();
   var windowWidth = $(window).width();
+  
+  url = '/w/gti/?item='+$('.full-desc.active').data('id');
+  ajaxData = getAjaxData(url);
+  moreBtnDisplay = JSON.parse(ajaxData).description_full.length > 0 ? 'block' : 'none';
+  couponExists = typeof JSON.parse(ajaxData).coupon_size == 'undefined' ? 'none' : 'block';
 
   lastLineOfDivsSetWidth()
-
+  
   // FIRST DESCTOP VERSION.     SECOND - MODAL
   if(windowWidth > 1024){
 
@@ -423,7 +519,7 @@ $(window).on('resize', function(){
       console.log('REMOVE MODAL FROM RESIZE')
       $('#descModal').css({'display':'none'});
       if($('.full-description-desctop').length == 0) {
-        allMagicWithAddingDescBlock();
+        allMagicWithAddingDescBlock(JSON.parse(ajaxData), couponExists, moreBtnDisplay);
       }
 
       $('body').css({'overflow':'auto'})
@@ -450,12 +546,12 @@ $(window).on('resize', function(){
     
           console.log('Уменьшили')
           $('.full-description-desctop').remove()
-          allMagicWithAddingDescBlock();
+          allMagicWithAddingDescBlock(JSON.parse(ajaxData), couponExists, moreBtnDisplay);
         } else if ($('.full-desc .active') && oldPos < currPos && oldPos != Infinity) {
 
           console.log('Увеличили')
           $('.full-description-desctop').remove()
-          allMagicWithAddingDescBlock();
+          allMagicWithAddingDescBlock(JSON.parse(ajaxData), couponExists, moreBtnDisplay);
         }
         
         oldPos = currPos;
@@ -465,6 +561,8 @@ $(window).on('resize', function(){
     if ($('.full-desc.active').length == 1) {
       console.log('MODAL FROM RESIZE')
       $('.full-description-desctop').remove()
+      $('#descModal .modal-body').remove()
+      $('#descModal .modal-content').prepend(displayModal(JSON.parse(ajaxData), couponExists, moreBtnDisplay))
       $('#descModal').css({'display':'block'})
     }
     $('.full-description-modal').css({'display':'block'})
@@ -479,7 +577,7 @@ $(window).on('resize', function(){
     
     oldPos = currPos;
   }  
-
+  
 })  
 
 
@@ -491,10 +589,10 @@ function sctollUpInlineThanOpenDescBlock(speed){
 
 //  inline table
 $(document).on('click', '.product-item--inline', function(){
-
+  
   clsName = $(this).attr('class')
   windowWidth = $(window).width();
-
+  
   if(windowWidth >1024) {
     $('.full-description__footer').css({'display':'none'})
     $('.full-description__close--btn').css({'display':'none'})
@@ -522,7 +620,7 @@ $(document).on('click', '.product-item--inline', function(){
     $('#descModal .more-btn').css({'display':'block'})
     $('#descModal').css({'display':'block'});
   }
-
+  
 });
 
 
