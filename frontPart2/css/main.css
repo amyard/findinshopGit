@@ -5904,10 +5904,10 @@ html {
     -ms-transform: translate(0, -25%);
     -o-transform: translate(0, -25%);
     transform: translate(0, -25%);
-    -webkit-transition: -webkit-transform 0.3s ease-out;
-    -moz-transition: -moz-transform 0.3s ease-out;
-    -o-transition: -o-transform 0.3s ease-out;
-    transition: transform 0.3s ease-out;
+    -webkit-transition: -webkit-transform 0.1s ease-out;
+    -moz-transition: -moz-transform 0.1s ease-out;
+    -o-transition: -o-transform 0.1s ease-out;
+    transition: transform 0.1s ease-out;
   }
   .modal.in .modal-dialog {
     -webkit-transform: translate(0, 0);
@@ -14150,9 +14150,9 @@ html {
     padding: 0;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.6s;
+    -webkit-animation-duration: 0.1s;
     animation-name: animatetop;
-    animation-duration: 0.6s;
+    animation-duration: 0.1s;
     border: 0px;
     height: 100%;
     overflow-y: scroll;
@@ -14400,24 +14400,6 @@ html {
   }
 }
 
-
-/* @media (min-width: 1200px) { */
-  /* .item_box! > .active { */
-  /* .item_box:contains-selector(a.active) { */
-  /* .item_box:has(.active) { 
-     border: 1px solid #ff4b00;
-  } */
-
-  /* .active::parent {
-    background: greenyellow;
-  } */
-/* } */
-
-/* .item_box:hover .full-desc {
-  display: block!important;
-} */
-
-
 @media (max-width: 1024px) {
   .catalog-block_ul {
     grid-template-columns: repeat(3, 1fr);
@@ -14560,24 +14542,16 @@ html {
   }
 }
 
+@media screen and (max-width: 768px) {
+  .breadcrumbs .row {
+    margin-top: 10px;
+  }
+}
 
-
-
-
-
-@-webkit-keyframes animatetop {
-  from {
-    height: 250px; }
-  to {
-    height: auto!important} }
-
-@keyframes animatetop {
-  from {
-    height: 250px; }
-  to {
-    height: auto!important} }
-
-
+.sort_filter {
+  display: flex;
+  justify-content: flex-end;
+}
 
 
 
@@ -14591,15 +14565,6 @@ html {
   padding: 30px 20px!important;
   display: contents;
   height: auto!important;
-
-  /* -webkit-transition: all 1s ease-in-out;
-  -o-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out; */
-
-  /* -webkit-animation-name: animatetop;
-  -webkit-animation-duration: 1s;
-  animation-name: animatetop;
-  animation-duration: 1s; */
 }
 
 .product-item--inline-bigger .item_footer {

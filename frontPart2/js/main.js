@@ -399,7 +399,7 @@ $(window).on('resize', function(){
     $('#descModal .full-description__close--btn').css({'display':'block'})
 
     // than me have inline data
-    if($('.icon.active').attr('class').includes('inline')) {
+    if($('.icon.active').attr('class').includes('inline') && $('.product-item--inline-bigger').length != 0) {
       $('#descModal').css({'display':'block'})
       $('#descModal .more-btn').css({'display':'block'})
     }
