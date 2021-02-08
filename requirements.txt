@@ -45,7 +45,7 @@ futures==3.0.5
 greenlet==0.4.12
 gunicorn==19.6.0
 haystack==0.36
-httplib2==0.10.3
+httplib2==0.19.0
 idna==2.2
 ipaddress==1.0.18
 ipython-genutils==0.1.0
