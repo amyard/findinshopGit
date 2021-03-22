@@ -86,7 +86,7 @@ python-ptrace==0.9.1
 python-social-auth==0.2.21
 pytz==2016.10
 redis==2.10.5
-requests==2.13.0
+requests==2.20.0
 requests-oauthlib==0.7.0
 scandir==1.4
 simplegeneric==0.8.1
